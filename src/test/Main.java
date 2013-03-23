@@ -1,5 +1,7 @@
 package test;
 
+//Aleciano esteve aqui.
+
 import java.util.Date;
 
 import dao.Facade;
@@ -22,7 +24,7 @@ public class Main {
 		cliente.setCpf("06755772");
 		cliente.setNome("Jose da Silva");
 		DVD midia = new DVD(101, "filme 1", "bla", (short)1, 120, "bla");
-		
+		System.out.print("1 2 3");
 				
 		Facade.cadastrar(funcionario);
 		Facade.cadastrar(cliente);

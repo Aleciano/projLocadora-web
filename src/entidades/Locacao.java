@@ -1,5 +1,9 @@
 package entidades;
 
+/*
+ * Teste
+ */
+
 import java.util.Date;
 
 public class Locacao {
