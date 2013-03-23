@@ -9,9 +9,7 @@ import entidades.Funcionario;
 import entidades.Locacao;
 import entidades.Midia;
 
-//Classe Principal
-//Novalinha e agora editei
-//hummmmmm
+//Classe principal!!
 public class Main {
 
 	/**
@@ -22,7 +20,7 @@ public class Main {
 		funcionario.setMatricula(133);
 		Cliente cliente = new Cliente();
 		cliente.setCpf("06755772");
-		cliente.setNome("Pedro");
+		cliente.setNome("Jose da Silva");
 		DVD midia = new DVD(101, "filme 1", "bla", (short)1, 120, "bla");
 		
 				
@@ -37,8 +35,8 @@ public class Main {
 		dt.setDate(30);
 		Locacao locacao = new Locacao(1, midia, 2, null, new Date(), dt, funcionario, cliente);
 		
-		Facade.fazerLoca��o(locacao);		
-		Facade.FinalizarLoca��o(locacao);
+		Facade.fazerLocacao(locacao);		
+		Facade.FinalizarLocacao(locacao);
 		
 
 	}

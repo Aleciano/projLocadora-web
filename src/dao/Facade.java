@@ -93,15 +93,15 @@ public class Facade {
 
 	}
 	
-	public static void fazerLocação(Cliente cliente, Funcionario funcionario, double valor, Date data, Midia midia, Promocao promocao){
+	public static void fazerLocacao(Cliente cliente, Funcionario funcionario, double valor, Date data, Midia midia, Promocao promocao){
 		
 	}
 	
-	public static void fazerLocação(Locacao locacao){
+	public static void fazerLocacao(Locacao locacao){
 		
 	}
 	
-	public static void FinalizarLocação(Locacao locacao){
+	public static void FinalizarLocacao(Locacao locacao){
 		
 	}
 }
