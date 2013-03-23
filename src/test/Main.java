@@ -10,6 +10,7 @@ import entidades.Locacao;
 import entidades.Midia;
 
 //Classe Principal
+//Novalinha e agora editei
 public class Main {
 
 	/**
