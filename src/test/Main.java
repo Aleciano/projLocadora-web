@@ -1,5 +1,9 @@
 package test;
 
+
+//tercio
+
+//tercio
 import java.sql.SQLException;
 
 import dao.Facade;
@@ -9,7 +13,7 @@ import entidades.Funcionario;
 public class Main {
 
 	/**
-	 * @param args
+	 * @param args vidal modificou
 	 */
 	public static void main(String[] args) {
 		
@@ -36,8 +40,8 @@ public class Main {
 //			dt.setDate(30);
 //			Locacao locacao = new Locacao(midia, 5, null, new Date(System.currentTimeMillis()), dt, funcionario, cliente);
 //			
-//			Facade.fazerLocação(locacao);		
-//			Facade.FinalizarLocação(locacao);
+//			Facade.fazerLocaï¿½ï¿½o(locacao);		
+//			Facade.FinalizarLocaï¿½ï¿½o(locacao);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
