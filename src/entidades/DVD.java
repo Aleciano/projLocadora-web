@@ -21,6 +21,19 @@ public class DVD extends Midia {
 		super(id, nome, descricao, qt);
 		this.duracaoMinutos = duracaoMinutos;
 		this.sinopse = sinopse;
-	}	
+	}
+	
+	public DVD(String nome, String descricao, short qt,
+			int duracaoMinutos, String sinopse) {
+		super(nome, descricao, qt);
+		this.duracaoMinutos = duracaoMinutos;
+		this.sinopse = sinopse;
+	}
+	public DVD() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	
 }

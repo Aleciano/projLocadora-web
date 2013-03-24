@@ -1,10 +1,6 @@
 package entidades;
 
-/*
- * Teste
- */
-
-import java.util.Date;
+import java.sql.Date;
 
 public class Locacao {
 
@@ -132,6 +128,20 @@ public class Locacao {
 			Funcionario funcionario, Cliente cliente) {
 		super();
 		this.id = id;
+		this.midia = midia;
+		this.valor = valor;
+		this.promocao = promocao;
+		this.dtLocacao = dtLocacao;
+		this.dtDevolucaoAgendada = dtDevolucaoAgendada;
+		this.funcionario = funcionario;
+		this.cliente = cliente;
+	}
+	
+	public Locacao(Midia midia, double valor, 
+			Promocao promocao, Date dtLocacao,
+			Date dtDevolucaoAgendada, 
+			Funcionario funcionario, Cliente cliente) {
+		super();
 		this.midia = midia;
 		this.valor = valor;
 		this.promocao = promocao;

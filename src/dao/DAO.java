@@ -1,14 +1,18 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.Collection;
+
+import entidades.Funcionario;
 
 public interface DAO <T>{
 	
-	void save(T obj);
-	void update(T obj);
-	void remove(T obj);
+	void save(T obj) throws SQLException, ClassNotFoundException;
+	void update(T obj) throws ClassNotFoundException, SQLException;
+	void remove(T obj) throws ClassNotFoundException, SQLException;
 	T get(T id);
-	Collection<T> get();
-	Collection<T> get(String regex);
+	Collection<T> get() throws ClassNotFoundException, SQLException;
+	Collection<T> get(String regex) throws ClassNotFoundException, SQLException;
+	
 
 }

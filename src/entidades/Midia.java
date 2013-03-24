@@ -16,5 +16,15 @@ public abstract class Midia extends Produto {
 		this.qt = qt;
 	}
 	
+	public Midia(String nome, String descricao, short qt) {
+		super(nome, descricao);
+		this.qt = qt;
+	}
+
+	public Midia() {
+		super();
+		// TODO Auto-generated constructor stub
+	}	
+	
 	
 }

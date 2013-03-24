@@ -1,46 +1,55 @@
 package test;
 
-//Aleciano esteve aqui.
-//Sim
-
-//imports
-import java.util.Date;
+import java.sql.SQLException;
 
 import dao.Facade;
 import entidades.Cliente;
-import entidades.DVD;
-import entidades.Funcionario;
-import entidades.Locacao;
-import entidades.Midia;
+import entidades.Funcionario;	
 
-//Classe principal!!
 public class Main {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Funcionario funcionario =  new Funcionario();
-		funcionario.setMatricula(133);
-		Cliente cliente = new Cliente();
-		cliente.setCpf("06755772");
-		cliente.setNome("Jose da Silva");
-		DVD midia = new DVD(101, "filme 1", "bla", (short)1, 120, "bla");
-		System.out.print("1 2 3");
+		
+		
 				
-		Facade.cadastrar(funcionario);
-		Facade.cadastrar(cliente);
-		Facade.cadastrar(midia);
+		try {
+			Funcionario funcionario =  new Funcionario();
+			funcionario.setLogin("ricardo");
+			funcionario.setNome("ricardo");
+			
+			Cliente cliente = new Cliente();
+			cliente.setCpf("06755772");
+			cliente.setNome("Pedro");
+			
+						
+			//Facade.cadastrarFuncionario(funcionario.getNome(), funcionario.getLogin(), funcionario.getSenha());
+			//Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
+			Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
+			
+//			
+//			cliente = Facade.getCliente(1);
+//			
+//			Date dt = new Date(System.currentTimeMillis());
+//			dt.setDate(30);
+//			Locacao locacao = new Locacao(midia, 5, null, new Date(System.currentTimeMillis()), dt, funcionario, cliente);
+//			
+//			Facade.fazerLocação(locacao);		
+//			Facade.FinalizarLocação(locacao);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
-		cliente = Facade.getCliente(1);
 		
-		Date dt = new Date();
-		dt.setDate(30);
-		Locacao locacao = new Locacao(1, midia, 2, null, new Date(), dt, funcionario, cliente);
 		
-		Facade.fazerLocacao(locacao);		
-		Facade.FinalizarLocacao(locacao);
 		
 
 	}

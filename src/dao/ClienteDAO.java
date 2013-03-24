@@ -1,17 +1,26 @@
 package dao;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+
+
+import db.BancoDeDados;
 
 import entidades.Cliente;
 
 public class ClienteDAO implements DAO<Cliente> {
-	private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 	
 	@Override
-	public void save(Cliente obj) {
-		clientes.add(obj);
-		
+	public void save(Cliente obj) throws SQLException, ClassNotFoundException {
+		String sql = "INSERT INTO cliente (cpf, nome) VALUES (?, ?)";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm.setString(1, obj.getCpf());
+		pstm.setString(2, obj.getNome());
+		pstm.execute();
+		BancoDeDados.desconectar();		
 	}
 
 	@Override

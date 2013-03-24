@@ -35,5 +35,18 @@ public abstract class Produto {
 		this.nome = nome;
 		this.descricao = descricao;
 	}
+	
+	public Produto(String nome, String descricao) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
+	}
+
+	public Produto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 
 }
