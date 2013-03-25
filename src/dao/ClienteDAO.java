@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,6 +10,7 @@ import java.util.Collection;
 import db.BancoDeDados;
 
 import entidades.Cliente;
+import entidades.Funcionario;
 
 public class ClienteDAO implements DAO<Cliente> {
 	
@@ -24,31 +26,85 @@ public class ClienteDAO implements DAO<Cliente> {
 	}
 
 	@Override
-	public void update(Cliente obj) {
-		// TODO Auto-generated method stub
+	public void update(Cliente obj) throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE cliente (cpf, nome) SET (?, ?) WHERE cpf = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm.setString(1, obj.getCpf());
+		pstm.setString(2, obj.getNome());
+		pstm.setString(3, obj.getCpf());
+		
+		pstm.execute();
+		BancoDeDados.desconectar();
 		
 	}
 
 	@Override
-	public void remove(Cliente obj) {
-		// TODO Auto-generated method stub
+	public void remove(Cliente obj) throws ClassNotFoundException, SQLException {
+		String sql = "DELETE cliente WHERE cpf = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm.setString(1, obj.getCpf());
 		
+		pstm.execute();
+		BancoDeDados.desconectar();
+		
+	}
+
+	
+	public Cliente getByCpf(String cpf) throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM cliente WHERE matricula = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setString(1, cpf);
+		ResultSet res = pstm.executeQuery();
+		Cliente cliente =  null;
+		while (res.next()){
+			cliente = new Cliente();
+			cliente.setCpf(res.getString("cpf"));
+			cliente.setNome(res.getString("nome"));
+		}
+		BancoDeDados.desconectar();
+		
+		return cliente;
+	}
+
+	@Override
+	public Collection<Cliente> get() throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM cliente";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		ResultSet res = pstm.executeQuery();
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		while (res.next()){
+			Cliente cliente = new Cliente();
+			cliente.setCpf(res.getString("cpf"));
+			cliente.setNome(res.getString("nome"));
+		}
+		BancoDeDados.desconectar();
+		
+		return clientes;
+	}
+
+	@Override
+	public Collection<Cliente> get(String regex) throws ClassNotFoundException, SQLException {
+		String sql = regex;
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		ResultSet res = pstm.executeQuery();
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		while (res.next()){
+			Cliente cliente = new Cliente();
+			cliente.setCpf(res.getString("cpf"));
+			cliente.setNome(res.getString("nome"));
+		}
+		BancoDeDados.desconectar();
+		
+		return clientes;
 	}
 
 	@Override
 	public Cliente get(Cliente id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<Cliente> get() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<Cliente> get(String regex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
