@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import db.BancoDeDados;
@@ -23,9 +24,7 @@ public class DVDDAO implements DAO<DVD> {
 		while(res.next()){
 			id = res.getInt(1);
 		}
-		System.out.println(id);
 		id++;
-		System.out.println(id);
 		
 		sql = "INSERT INTO produto (id, nome, descricao) VALUES (?, ?, ?)";		
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
@@ -52,14 +51,69 @@ public class DVDDAO implements DAO<DVD> {
 	}
 
 	@Override
-	public void update(DVD obj) {
-		// TODO Auto-generated method stub
+	public void update(DVD obj) throws ClassNotFoundException, SQLException {
+		BancoDeDados.conecta();
+		String sql = "UPDATE produto WHERE id = ?";		
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setInt(1, obj.getId());
+		ResultSet res = pstm.executeQuery();
+		DVD dvd =  null;
+		while (res.next()){
+			dvd =  new DVD();
+			dvd.setId(res.getInt("id"));
+			dvd.setNome(res.getString("nome"));
+		}
+		
+		sql = "UPDATE midia WHERE id = ?";		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setInt(1, obj.getId());
+		res = pstm.executeQuery();
+		while (res.next()){;
+			dvd.setQt(res.getShort("qt"));
+		}
+		
+		sql = "UPDATE dvd WHERE id = ?";		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setInt(1, obj.getId());
+		res = pstm.executeQuery();
+		while (res.next()){;
+			dvd.setSinopse(res.getString("sinopse"));
+		}
+		
+		BancoDeDados.desconectar();
 		
 	}
 
 	@Override
-	public void remove(DVD obj) {
-		// TODO Auto-generated method stub
+	public void remove(DVD obj) throws ClassNotFoundException, SQLException {
+		BancoDeDados.conecta();
+		String sql = "DELETE produto WHERE id = ?";		
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setInt(1, obj.getId());
+		ResultSet res = pstm.executeQuery();
+		DVD dvd =  null;
+		while (res.next()){
+			dvd =  new DVD();
+			dvd.setId(res.getInt("id"));
+			dvd.setNome(res.getString("nome"));
+		}
+		
+		sql = "DELETE midia WHERE id = ?";		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setInt(1, obj.getId());
+		res = pstm.executeQuery();
+		while (res.next()){;
+			dvd.setQt(res.getShort("qt"));
+		}
+		
+		sql = "DELETE dvd WHERE id = ?";		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.setInt(1, obj.getId());
+		res = pstm.executeQuery();
+		while (res.next()){;
+			dvd.setSinopse(res.getString("sinopse"));
+		}		
+		BancoDeDados.desconectar();
 		
 	}
 
@@ -105,17 +159,78 @@ public class DVDDAO implements DAO<DVD> {
 	}
 
 	@Override
-	public Collection<DVD> get() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<DVD> get() throws SQLException, ClassNotFoundException {
+		BancoDeDados.conecta();
+		String sql = "SELECT * FROM produto";		
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		ResultSet res = pstm.executeQuery();
+		ArrayList<DVD> dvds = new ArrayList<DVD>();
+		DVD dvd =  null;
+		while (res.next()){
+			dvd =  new DVD();
+			dvd.setId(res.getInt("id"));
+			dvd.setNome(res.getString("nome"));
+			dvds.add(dvd);
+		}
+		
+		sql = "SELECT * FROM midia";		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		res = pstm.executeQuery();
+		int index = 0;
+		while (res.next()){;
+			dvds.get(index).setQt(res.getShort("qt"));
+			index++;
+		}
+		
+		sql = "SELECT * FROM dvd";		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		res = pstm.executeQuery();
+		index = 0;
+		while (res.next()){
+			dvds.get(index).setSinopse(res.getString("sinopse"));
+			index++;
+		}
+		
+		BancoDeDados.desconectar();
+		
+		return dvds;
 	}
 
 	@Override
-	public Collection<DVD> get(String regex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
+	public Collection<DVD> get(String regex) throws ClassNotFoundException, SQLException {
+		BancoDeDados.conecta();
+		String sql = regex.replaceAll("dvd", "produto");		
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		ResultSet res = pstm.executeQuery();
+		ArrayList<DVD> dvds = new ArrayList<DVD>();
+		DVD dvd =  null;
+		while (res.next()){
+			dvd =  new DVD();
+			dvd.setId(res.getInt("id"));
+			dvd.setNome(res.getString("nome"));
+			dvds.add(dvd);
+		}
+		
+		sql = regex.replaceAll("dvd", "midia");		
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		res = pstm.executeQuery();
+		int index = 0;
+		while (res.next()){;
+			dvds.get(index).setQt(res.getShort("qt"));
+			index++;
+		}
+		
+		sql = regex;
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		res = pstm.executeQuery();
+		index = 0;
+		while (res.next()){
+			dvds.get(index).setSinopse(res.getString("sinopse"));
+			index++;
+		}		
+		BancoDeDados.desconectar();
+		
+		return dvds;
+	}	
 
 }
