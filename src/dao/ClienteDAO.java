@@ -22,6 +22,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		pstm.setString(1, obj.getCpf());
 		pstm.setString(2, obj.getNome());
 		pstm.execute();
+		
 		BancoDeDados.desconectar();		
 	}
 
