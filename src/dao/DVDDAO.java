@@ -221,7 +221,7 @@ public class DVDDAO implements DAO<DVD> {
 		}
 		
 		sql = regex;
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		index = 0;
 		while (res.next()){
