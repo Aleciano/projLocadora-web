@@ -7,13 +7,12 @@ package test;
 import java.sql.SQLException;
 
 import dao.Facade;
-import entidades.Cliente;
-import entidades.Funcionario;	
+import entidades.*;	
 
 public class Main {
 
 	/**
-	 * @param args vidal modificou
+	 * @param args	
 	 */
 	public static void main(String[] args) {
 		
@@ -31,8 +30,8 @@ public class Main {
 						
 			//Facade.cadastrarFuncionario(funcionario.getNome(), funcionario.getLogin(), funcionario.getSenha());
 			//Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
-			Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
-			
+			//Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
+			Facade.cadastrar(new DVD("Dragões","Ação",(short)2,180,"Um filme aninador"));
 //			
 //			cliente = Facade.getCliente(1);
 //			

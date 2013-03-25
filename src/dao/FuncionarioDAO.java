@@ -20,6 +20,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getLogin());
 		pstm.setString(3, obj.getSenha());
+		
 		pstm.execute();
 		BancoDeDados.desconectar();		
 	}
@@ -73,7 +74,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	public Collection<Funcionario> get() throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM funcionario";
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		while (res.next()){

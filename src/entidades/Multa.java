@@ -45,6 +45,9 @@ public class Multa {
 		this.percentual = percentual;
 		this.valor = valor;
 	}
+	public Multa() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }

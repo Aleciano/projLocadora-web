@@ -8,8 +8,9 @@ public class Promocao {
 	private String descricao;
 	private double percentual;
 	private double valor;
-	private Date duracaoInit;
-	private Date duracaoFinal;
+	private Date dtInit;
+	private Date dtFinal;
+	
 	public int getId() {
 		return id;
 	}
@@ -41,16 +42,16 @@ public class Promocao {
 		this.valor = valor;
 	}
 	public Date getDuracaoInit() {
-		return duracaoInit;
+		return dtInit;
 	}
 	public void setDuracaoInit(Date duracaoInit) {
-		this.duracaoInit = duracaoInit;
+		this.dtInit = duracaoInit;
 	}
 	public Date getDuracaoFinal() {
-		return duracaoFinal;
+		return dtFinal;
 	}
 	public void setDuracaoFinal(Date duracaoFinal) {
-		this.duracaoFinal = duracaoFinal;
+		this.dtFinal = duracaoFinal;
 	}
 	public Promocao(int id, String nome, String descricao, double percentual,
 			double valor, Date duracaoInit, Date duracaoFinal) {
@@ -60,8 +61,8 @@ public class Promocao {
 		this.descricao = descricao;
 		this.percentual = percentual;
 		this.valor = valor;
-		this.duracaoInit = duracaoInit;
-		this.duracaoFinal = duracaoFinal;
+		this.dtInit = duracaoInit;
+		this.dtFinal = duracaoFinal;
 	}
 	
 	

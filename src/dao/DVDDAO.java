@@ -16,6 +16,7 @@ public class DVDDAO implements DAO<DVD> {
 	public void save(DVD obj) throws SQLException, ClassNotFoundException {
 		BancoDeDados.conecta();
 		int id = 0;
+		/* Busca o maior ID de Produto para cadastrar no próximo (+1) */
 		String sql = "SELECT MAX(id) FROM produto";
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();

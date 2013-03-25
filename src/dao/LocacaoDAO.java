@@ -14,24 +14,24 @@ public class LocacaoDAO implements DAO<Locacao>{
 
 	@Override
 	public void save(Locacao obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO locacao (valor, dt_locacao, dt_locacao_agendada, " +
+		String sql = "INSERT INTO locacao (valor, dt_locacao, dt_devolucao_agendada, " +
 				"cpf_cliente, mat_funcionario, cod_midia) VALUES (?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
 		Calendar cal = Calendar.getInstance();
 		pstm.setDate(2, obj.getDtDevolucao());
-		pstm.setDate(2, obj.getDtDevolucaoAgendada());
-		pstm.setString(2, obj.getCliente().getCpf());
-		pstm.setInt(2, obj.getFuncionario().getMatricula());
-		pstm.setInt(2, obj.getMidia().getId());
+		pstm.setDate(3, obj.getDtDevolucaoAgendada());
+		pstm.setString(4, obj.getCliente().getCpf());
+		pstm.setInt(5, obj.getFuncionario().getMatricula());
+		pstm.setInt(6, obj.getMidia().getId());
 		pstm.execute();
 		BancoDeDados.desconectar();		
 	}
 
+	//alterar uma locação. Ex: adicionar multa.
 	@Override
 	public void update(Locacao obj) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -46,6 +46,11 @@ public class LocacaoDAO implements DAO<Locacao>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/*public Locacao get(Locacao nome) {
+		// TODO Auto-generated method stub
+		return null;
+	}*/
 
 	@Override
 	public Collection<Locacao> get() {

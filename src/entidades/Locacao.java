@@ -121,11 +121,10 @@ public class Locacao {
 		this.funcionario = funcionario;
 		this.cliente = cliente;
 	}
-	
-	public Locacao(int id, Midia midia, double valor, 
-			Promocao promocao, Date dtLocacao,
-			Date dtDevolucaoAgendada, 
-			Funcionario funcionario, Cliente cliente) {
+
+	public Locacao(int id, Midia midia, double valor, Promocao promocao,
+			Date dtLocacao, Date dtDevolucaoAgendada, Funcionario funcionario,
+			Cliente cliente) {
 		super();
 		this.id = id;
 		this.midia = midia;
@@ -136,11 +135,10 @@ public class Locacao {
 		this.funcionario = funcionario;
 		this.cliente = cliente;
 	}
-	
-	public Locacao(Midia midia, double valor, 
-			Promocao promocao, Date dtLocacao,
-			Date dtDevolucaoAgendada, 
-			Funcionario funcionario, Cliente cliente) {
+
+	public Locacao(Midia midia, double valor, Promocao promocao,
+			Date dtLocacao, Date dtDevolucaoAgendada, Funcionario funcionario,
+			Cliente cliente) {
 		super();
 		this.midia = midia;
 		this.valor = valor;
@@ -150,5 +148,7 @@ public class Locacao {
 		this.funcionario = funcionario;
 		this.cliente = cliente;
 	}
-
+	public Locacao(){
+		
+	}
 }
