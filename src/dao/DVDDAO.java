@@ -228,7 +228,7 @@ public class DVDDAO implements DAO<DVD> {
 			dvds.get(index).setSinopse(res.getString("sinopse"));
 			index++;
 		}		
-		BancoDeDados.desconectar();
+		BancoDeDados.desconectar();;
 		
 		return dvds;
 	}	
