@@ -1,6 +1,7 @@
 package entidades;
 
-import java.util.Date;
+
+import java.sql.*;
 
 public class Promocao {
 	private int id;
@@ -63,6 +64,15 @@ public class Promocao {
 		this.valor = valor;
 		this.dtInit = duracaoInit;
 		this.dtFinal = duracaoFinal;
+	}
+	public Promocao(){
+		
+	}
+	@Override
+	public String toString() {
+		return "Promocao [id=" + id + ", nome=" + nome + ", descricao="
+				+ descricao + ", percentual=" + percentual + ", valor=" + valor
+				+ ", dtInit=" + dtInit + ", dtFinal=" + dtFinal + "]";
 	}
 	
 	
