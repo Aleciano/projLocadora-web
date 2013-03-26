@@ -1,74 +1,170 @@
 package test;
 
 
-import java.sql.Date;
+//tercio
+
+//tercio
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import dao.Facade;
-import entidades.*;
+import entidades.DVD;
 
 public class Main {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-
+	
+	
+		Scanner s= new Scanner(System.in);
+		int exibirMenu()
+		{
+		System.out.println("\n\n");   
+		System.out.println("----Projeto Locadora de Vídeo----");
+		System.out.println("1. Cadastrar DVD");
+		System.out.println("2. Pesquisar DVD");
+		System.out.println("3. Remover DVD");
+		System.out.println("4. Cadastrar Cliente");
+		System.out.println("5. Pesquisar Cliente");
+		System.out.println("6. Remover Cliente");
+		System.out.println("7. Realizar Emprestimo");
+		System.out.println("8. Remover Emprestimo");
+		System.out.println("9. Devolução de Emprestimo");
+		System.out.println("10. Tarifar Promoção");
+		System.out.println("11. Sair");
+		System.out.println("-------------------------------");
+		System.out.print("Digite uma Opção: ");
 		try {
-
-/*			Funcionario funcionario = new Funcionario();
-			funcionario.setLogin("felipeadd");
-			funcionario.setNome("Felipe");
-			funcionario.setSenha("123");
-*/
-			Cliente cliente = new Cliente();
-			cliente.setCpf("873942342");
-			cliente.setNome("Elano");
-			cliente.setNumero(39);
-			cliente.setBairro("Palmeira");
-			cliente.setFone("33332344");
-			cliente.setCidade("Campina Grande");
-			cliente.setCep("58107448");
-			cliente.setLogradouro("Av. Floriano");
-			cliente.setEmail("elano@com");
-			
-			
-
-/*		 Facade.cadastrarFuncionario(funcionario.getNome(),
-			 funcionario.getLogin(), funcionario.getSenha());*/
-			
-			 Facade.cadastrarCliente(cliente);
-			 
+			int resultado = s.nextInt();
+			return resultado;
+					
+		}catch ( InputMismatchException e ) {
+			System.out.println( "Entrada de dados invalida. Tente novamente" );
 		
-			 Facade.cadastrar(new DVD("Matrix", "Ficcao", (short) 1, 480,
-			 "Muito Bom"));
-			DVD dvd = Facade.getDVD(2);
-			Cliente cliente2 = Facade.getCliente().get(0);
-//			Cliente cliente3 = Facade.getCliente("06755772"); //Pedro
-			Funcionario funcionario2 = Facade.getFuncionario().get(0);
-			Calendar agora = Calendar.getInstance();
-			
-			Facade.fazerLocao(cliente2, funcionario2, new Date(System.currentTimeMillis()), dvd, null);
+		}
+		return 0;
+		}	
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+	
+
+public static void main(String[] args) {
+			
+Main m = new Main();
+
+Facade facade = new Facade();
+	
+int opcao;
+	do{
+		opcao = m.exibirMenu();
+	switch ( opcao) {
+		
+		case 1:
+			DVD dvd = new DVD();
+			System.out.println("Bem vindo ao Cadastro de DVDS");
+			System.out.println("Digite o nome do DVD: ");
+			dvd.setNome(new Scanner(System.in).next());
+			System.out.println("Digite o descrição do DVD: ");
+			dvd.setDescricao(new Scanner(System.in).next());
+			System.out.println("Digite a quantidade de Disc: ");
+			dvd.setQt(new Scanner(System.in).nextShort());
+			System.out.println("Digite a duração: ");
+			dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
+			System.out.println("Digite a sinopse: ");
+			dvd.setSinopse(new Scanner(System.in).next());
+			System.out.println("Digite a quantidade de cópias: ");
+			int qtd = new Scanner(System.in).nextInt();
+			
+		try {
+			for (int i = 0; i < qtd; i++) {
+				
+				facade.cadastrar(dvd);
+			}
+		} catch (Exception e) {
+			System.out.println("Erro: DVD não cadastrado!");
 			e.printStackTrace();
 		}
-		//
-		// cliente = Facade.getCliente(1);
-		//
-		// Date dt = new Date(System.currentTimeMillis());
-		// dt.setDate(30);
-		// Locacao locacao = new Locacao(midia, 5, null, new
-		// Date(System.currentTimeMillis()), dt, funcionario, cliente);
-		//
-		// Facade.fazerLocaï¿½ï¿½o(locacao);
-		// Facade.FinalizarLocaï¿½ï¿½o(locacao);
+			break;
+		
+		case 2:
+			break;
+		
+		case 3:
+			
+			break;
+		case 4:
+			
+			break;
+			
+		case 5:
+			
+			break;
+			
+		case 6:
+			break;
+			
+		case 7:
+			break;
+			
+		case 8:
+			break;
+			
+		case 9:
+			break;
+			
+		case 10:
+			break;
+			
+				
+				
+		case 11:
+			System.out.println("Obrigado volte sempre.");
+			break;
+		default: System.out.println("Opcao invalida!");
+			break;
+		}
+	
+}while( opcao != 11);
+			
+	
+	
+}		
+				
+//		try {
+//			Funcionario funcionario =  new Funcionario();
+//			funcionario.setLogin("ricardo");
+//			funcionario.setNome("ricardo");
+//			
+//			Cliente cliente = new Cliente();
+//			cliente.setCpf("06755772");
+//			cliente.setNome("Pedro");
+//			
+//						
+//			//Facade.cadastrarFuncionario(funcionario.getNome(), funcionario.getLogin(), funcionario.getSenha());
+//			//Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
+//			//Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
+//			Facade.cadastrar(new DVD("Dragôes","Ação",(short)2,180,"Um filme aninador"));
+////			
+////			cliente = Facade.getCliente(1);
+////			
+////			Date dt = new Date(System.currentTimeMillis());
+////			dt.setDate(30);
+////			Locacao locacao = new Locacao(midia, 5, null, new Date(System.currentTimeMillis()), dt, funcionario, cliente);
+////			
+////			Facade.fazerLocaï¿½ï¿½o(locacao);		
+////			Facade.FinalizarLocaï¿½ï¿½o(locacao);
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (ClassNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		
+		
+		
 
 	}
 
-}
+
