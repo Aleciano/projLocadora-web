@@ -8,6 +8,7 @@ package entidades;
  * Pessoa é classe abstrata que pode ser utilizada para modelar qualquer
  * objeto do mundo real que seja um ser humano
  * 
+ *
  * 
  */
 public abstract class Pessoa {
