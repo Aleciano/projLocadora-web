@@ -48,6 +48,13 @@ public class Multa {
 	public Multa() {
 		// TODO Auto-generated constructor stub
 	}
+	@Override
+	public String toString() {
+		return "Multa [id=" + id + ", nome=" + nome + ", descricao="
+				+ descricao + ", percentual=" + percentual + ", valor=" + valor
+				+ "]";
+	}
+	
 	
 	
 }

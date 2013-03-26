@@ -37,4 +37,11 @@ public class Funcionario extends Pessoa {
 	public Funcionario(){
 		
 	}
+	@Override
+	public String toString() {
+		return "Funcionario [matricula=" + matricula + ", login=" + login
+				+ ", senha=" + senha + "]";
+	}
+	
+	
 }

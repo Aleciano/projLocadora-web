@@ -151,4 +151,17 @@ public class Locacao {
 	public Locacao(){
 		
 	}
+
+	@Override
+	public String toString() {
+		return "Locacao [id=" + id + ", midia=" + midia + ", valor=" + valor
+				+ ", multa=" + multa + ", valorPago=" + valorPago
+				+ ", promocao=" + promocao + ", dtLocacao=" + dtLocacao
+				+ ", dtDevolucaoAgendada=" + dtDevolucaoAgendada
+				+ ", dtDevolucao=" + dtDevolucao + ", funcionario="
+				+ funcionario + ", cliente=" + cliente + "]";
+	}
+	
+	
+	
 }

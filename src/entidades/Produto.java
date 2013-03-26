@@ -1,6 +1,14 @@
 package entidades;
 
+/**
+ * @author tercio
+ *
+ *Produto é uma classe abstrata usada para modelar qualquer produto que possa ser alugado no mundo real
+ *Todo produto deve ter:
+ *Um numero que o indentifique 
+ */
 public abstract class Produto {
+	
 	private int id;
 	private String nome;
 	private String descricao;
@@ -45,6 +53,12 @@ public abstract class Produto {
 	public Produto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao="
+				+ descricao + "]";
 	}
 	
 	

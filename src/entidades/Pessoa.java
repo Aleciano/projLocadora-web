@@ -199,4 +199,14 @@ public abstract class Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", logradouro="
+				+ logradouro + ", numero=" + numero + ", bairro=" + bairro
+				+ ", cidade=" + cidade + ", cep=" + cep + ", email=" + email
+				+ ", fone=" + fone + ", celular=" + celular + "]";
+	}
+
+	
+	
 }

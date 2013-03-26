@@ -1,5 +1,9 @@
 package entidades;
 
+/**
+ * @author tercio
+ * 
+ */
 public class DVD extends Midia {
 
 	private int duracaoMinutos;
@@ -34,6 +38,17 @@ public class DVD extends Midia {
 		super(nome, descricao, qt);
 		this.duracaoMinutos = duracaoMinutos;
 		this.sinopse = sinopse;
+	}
+
+	@Override
+	public String toString() {
+		return "DVD [duracaoMinutos=" + duracaoMinutos + ", sinopse=" + sinopse
+				+ ", getDuracaoMinutos()=" + getDuracaoMinutos()
+				+ ", getSinopse()=" + getSinopse() + ", getQt()=" + getQt()
+				+ ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getDescricao()=" + getDescricao() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
 	}
 
 	public DVD() {
