@@ -76,7 +76,6 @@ public class MultaDAO implements DAO<Multa> {
 		return multa;
 	}
 	
-
 	@Override
 	public Multa get (Multa id) throws ClassNotFoundException, SQLException{
 		String sql = "SELECT * FROM multa WHERE id = ?";
