@@ -30,10 +30,15 @@ public class Facade {
 		locacao.setCliente(cliente);
 		locacao.setFuncionario(funcionario);
 		locacao.setDtLocacao(data);
+		
+		Calendar cal = Calendar.getInstance();
+ 
+		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(), 2 + data.getDate()));
+//		cal.setTime(data);
+		locacao.setDtDevolucaoAgendada(new Date(cal.getTime().getTime())); 
 		locacao.setMidia(midia);
 		locacao.setValor(3);
-		Calendar cal = Calendar.getInstance();		
-		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(), data.getDay()));
+		
 		new LocacaoDAO().save(locacao);
 		
 	}	

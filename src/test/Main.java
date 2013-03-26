@@ -1,10 +1,9 @@
 package test;
 
-//tercio
 
-//tercio
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import dao.Facade;
 import entidades.*;
@@ -17,25 +16,31 @@ public class Main {
 	public static void main(String[] args) {
 
 		try {
-//			Funcionario funcionario = new Funcionario();
-//			funcionario.setLogin("ricardo");
-//			funcionario.setNome("ricardo");
-//			funcionario.setSenha("123");
-//
-//			Cliente cliente = new Cliente();
-//			cliente.setCpf("06755772");
-//			cliente.setNome("Pedro");
-//
-//			 Facade.cadastrarFuncionario(funcionario.getNome(),
-//			 funcionario.getLogin(), funcionario.getSenha());
+
+/*			Funcionario funcionario = new Funcionario();
+			funcionario.setLogin("felipeadd");
+			funcionario.setNome("Felipe");
+			funcionario.setSenha("123");
+*/
+/*			Cliente cliente = new Cliente();
+			cliente.setCpf("873942342");
+			cliente.setNome("Elano");
+*/
+/*		 Facade.cadastrarFuncionario(funcionario.getNome(),
+			 funcionario.getLogin(), funcionario.getSenha());*/
+			
 //			 Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
+			 
 			 //Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
-//			 Facade.cadastrar(new DVD("Dragões", "Ação", (short) 2, 180,
-//			 "Um filme aninador"));
+/*			 Facade.cadastrar(new DVD("Dragao Azul", "Acao", (short) 2, 180,
+			 "Um filme aninador"));*/
 			DVD dvd = Facade.getDVD(1);
-			Cliente cliente = Facade.getCliente().get(0);
-			Funcionario funcionario = Facade.getFuncionario().get(0);
-			Facade.fazerLocao(cliente, funcionario, new Date(System.currentTimeMillis()), dvd, null);
+			Cliente cliente2 = Facade.getCliente().get(0);
+			Funcionario funcionario2 = Facade.getFuncionario().get(0);
+			Calendar agora = Calendar.getInstance();
+			
+			Facade.fazerLocao(cliente2, funcionario2, new Date(System.currentTimeMillis()), dvd, null);
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
