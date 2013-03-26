@@ -3,10 +3,12 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import db.BancoDeDados;
 
+import entidades.Cliente;
 import entidades.Funcionario;
 import entidades.Multa;
 
@@ -64,7 +66,7 @@ public class MultaDAO implements DAO<Multa> {
 			multa = new Multa();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
-			multa.setNome(res.getString("descricao"));
+			multa.setDescricao(res.getString("descricao"));
 			multa.setValor(res.getDouble("valor"));
 			multa.setPercentual(res.getDouble("percentual"));
 			
@@ -73,23 +75,72 @@ public class MultaDAO implements DAO<Multa> {
 		
 		return multa;
 	}
+	
 
 	@Override
-	public Multa get (Multa id){
-		return null;
+	public Multa get (Multa id) throws ClassNotFoundException, SQLException{
+		String sql = "SELECT * FROM multa WHERE id = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm.setInt(1, id.getId());
+		ResultSet res = pstm.executeQuery();
+		Multa multa =  null;
+		while (res.next()){
+			multa = new Multa();
+			multa.setId(res.getInt("id"));
+			multa.setNome(res.getString("nome"));
+			multa.setDescricao(res.getString("descricao"));
+			multa.setValor(res.getDouble("valor"));
+			multa.setPercentual(res.getDouble("percentual"));
+			
+		}
+		BancoDeDados.desconectar();
+		
+		return multa;
 	}
 	
 	@Override
 	public Collection<Multa> get() throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM multa";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		ResultSet res = pstm.executeQuery();
+		ArrayList<Multa> multas = new ArrayList<Multa>();
+		while (res.next()){
+			Multa multa = new Multa();
+			multa.setId(res.getInt("id"));
+			multa.setNome(res.getString("nome"));
+			multa.setDescricao(res.getString("descricao"));
+			multa.setValor(res.getDouble("valor"));
+			multa.setPercentual(res.getDouble("percentual"));
+			multas.add(multa);
+		}
+		BancoDeDados.desconectar();
+		
+		
+		return multas;
 	}
 
 	@Override
 	public Collection<Multa> get(String regex) throws ClassNotFoundException,
 			SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(regex);;
+		ResultSet res = pstm.executeQuery();
+		ArrayList<Multa> multas = new ArrayList<Multa>();
+		while (res.next()){
+			Multa multa = new Multa();
+			multa.setId(res.getInt("id"));
+			multa.setNome(res.getString("nome"));
+			multa.setDescricao(res.getString("descricao"));
+			multa.setValor(res.getDouble("valor"));
+			multa.setPercentual(res.getDouble("percentual"));
+			multas.add(multa);
+		}
+		BancoDeDados.desconectar();
+		
+		return multas;
+		
 	}
 
 }
