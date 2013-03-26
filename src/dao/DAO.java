@@ -3,6 +3,7 @@ package dao;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import entidades.Cliente;
 import entidades.Funcionario;
 
 public interface DAO <T>{
@@ -12,7 +13,6 @@ public interface DAO <T>{
 	void remove(T obj) throws ClassNotFoundException, SQLException;
 	T get(T id);
 	Collection<T> get() throws ClassNotFoundException, SQLException;
-	Collection<T> get(String regex) throws ClassNotFoundException, SQLException;
-	
+	Collection<T> get(String regex) throws ClassNotFoundException,SQLException;
 
 }

@@ -212,7 +212,7 @@ public class DVDDAO implements DAO<DVD> {
 		}
 		
 		sql = regex.replaceAll("dvd", "midia");		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		int index = 0;
 		while (res.next()){;
@@ -228,7 +228,7 @@ public class DVDDAO implements DAO<DVD> {
 			dvds.get(index).setSinopse(res.getString("sinopse"));
 			index++;
 		}		
-		BancoDeDados.desconectar();;
+		BancoDeDados.desconectar();
 		
 		return dvds;
 	}	
