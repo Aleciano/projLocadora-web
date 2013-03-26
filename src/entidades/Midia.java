@@ -24,6 +24,15 @@ public abstract class Midia extends Produto {
 	public Midia() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public String toString() {
+		return "Midia [qt=" + qt + ", getQt()=" + getQt() + ", getId()="
+				+ getId() + ", getNome()=" + getNome() + ", getDescricao()="
+				+ getDescricao() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ "]";
 	}	
 	
 	

@@ -37,4 +37,20 @@ public class Funcionario extends Pessoa {
 	public Funcionario(){
 		
 	}
+	@Override
+	public String toString() {
+		return "Funcionario [matricula=" + matricula + ", login=" + login
+				+ ", senha=" + senha + ", getMatricula()=" + getMatricula()
+				+ ", getLogin()=" + getLogin() + ", getSenha()=" + getSenha()
+				+ ", getNome()=" + getNome() + ", getCpf()=" + getCpf()
+				+ ", getLogradouro()=" + getLogradouro() + ", getNumero()="
+				+ getNumero() + ", getBairro()=" + getBairro()
+				+ ", getCidade()=" + getCidade() + ", getCep()=" + getCep()
+				+ ", getEmail()=" + getEmail() + ", getFone()=" + getFone()
+				+ ", getCelular()=" + getCelular() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+	
+	
 }

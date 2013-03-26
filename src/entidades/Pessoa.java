@@ -199,4 +199,19 @@ public abstract class Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Pessoa [nome=" + nome + ", cpf=" + cpf + ", logradouro="
+				+ logradouro + ", numero=" + numero + ", bairro=" + bairro
+				+ ", cidade=" + cidade + ", cep=" + cep + ", email=" + email
+				+ ", fone=" + fone + ", celular=" + celular + ", getNome()="
+				+ getNome() + ", getCpf()=" + getCpf() + ", getLogradouro()="
+				+ getLogradouro() + ", getNumero()=" + getNumero()
+				+ ", getBairro()=" + getBairro() + ", getCidade()="
+				+ getCidade() + ", getCep()=" + getCep() + ", getEmail()="
+				+ getEmail() + ", getFone()=" + getFone() + ", getCelular()="
+				+ getCelular() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
+	}
+	
 }

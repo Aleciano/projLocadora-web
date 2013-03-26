@@ -151,4 +151,26 @@ public class Locacao {
 	public Locacao(){
 		
 	}
+
+	@Override
+	public String toString() {
+		return "Locacao [id=" + id + ", midia=" + midia + ", valor=" + valor
+				+ ", multa=" + multa + ", valorPago=" + valorPago
+				+ ", promocao=" + promocao + ", dtLocacao=" + dtLocacao
+				+ ", dtDevolucaoAgendada=" + dtDevolucaoAgendada
+				+ ", dtDevolucao=" + dtDevolucao + ", funcionario="
+				+ funcionario + ", cliente=" + cliente + ", getId()=" + getId()
+				+ ", getMidia()=" + getMidia() + ", getValor()=" + getValor()
+				+ ", getMulta()=" + getMulta() + ", getValorPago()="
+				+ getValorPago() + ", getPromocao()=" + getPromocao()
+				+ ", getDtLocacao()=" + getDtLocacao()
+				+ ", getDtDevolucaoAgendada()=" + getDtDevolucaoAgendada()
+				+ ", getDtDevolucao()=" + getDtDevolucao()
+				+ ", getFuncionario()=" + getFuncionario() + ", getCliente()="
+				+ getCliente() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
+	}
+	
+	
+	
 }

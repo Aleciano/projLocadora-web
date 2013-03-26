@@ -41,4 +41,15 @@ public class DVD extends Midia {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "DVD [duracaoMinutos=" + duracaoMinutos + ", sinopse=" + sinopse
+				+ ", getDuracaoMinutos()=" + getDuracaoMinutos()
+				+ ", getSinopse()=" + getSinopse() + ", getQt()=" + getQt()
+				+ ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getDescricao()=" + getDescricao() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+	
 }

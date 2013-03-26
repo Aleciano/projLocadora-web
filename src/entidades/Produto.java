@@ -46,6 +46,15 @@ public abstract class Produto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Produto [id=" + id + ", nome=" + nome + ", descricao="
+				+ descricao + ", getId()=" + getId() + ", getNome()="
+				+ getNome() + ", getDescricao()=" + getDescricao()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
+	}
 	
 	
 
