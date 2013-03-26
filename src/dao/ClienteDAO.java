@@ -16,11 +16,19 @@ public class ClienteDAO implements DAO<Cliente> {
 	
 	@Override
 	public void save(Cliente obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO cliente (cpf, nome) VALUES (?, ?)";
+		String sql = "INSERT INTO cliente (cpf, nome, logradouro, numero, bairro, cidade, cep, email, fone, celular) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setString(1, obj.getCpf());
 		pstm.setString(2, obj.getNome());
+		pstm.setString(3, obj.getLogradouro());
+		pstm.setInt(4, obj.getNumero());
+		pstm.setString(5, obj.getBairro());
+		pstm.setString(6, obj.getCidade());
+		pstm.setString(7, obj.getCep());
+		pstm.setString(8, obj.getEmail());
+		pstm.setString(9, obj.getFone());
+		pstm.setString(10, obj.getCelular());
 		pstm.execute();
 		
 		BancoDeDados.desconectar();		

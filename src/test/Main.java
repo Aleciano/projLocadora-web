@@ -22,20 +22,30 @@ public class Main {
 			funcionario.setNome("Felipe");
 			funcionario.setSenha("123");
 */
-/*			Cliente cliente = new Cliente();
+			Cliente cliente = new Cliente();
 			cliente.setCpf("873942342");
 			cliente.setNome("Elano");
-*/
+			cliente.setNumero(39);
+			cliente.setBairro("Palmeira");
+			cliente.setFone("33332344");
+			cliente.setCidade("Campina Grande");
+			cliente.setCep("58107448");
+			cliente.setLogradouro("Av. Floriano");
+			cliente.setEmail("elano@com");
+			
+			
+
 /*		 Facade.cadastrarFuncionario(funcionario.getNome(),
 			 funcionario.getLogin(), funcionario.getSenha());*/
 			
-//			 Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
+			 Facade.cadastrarCliente(cliente);
 			 
-			 //Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
-/*			 Facade.cadastrar(new DVD("Dragao Azul", "Acao", (short) 2, 180,
-			 "Um filme aninador"));*/
-			DVD dvd = Facade.getDVD(1);
+		
+			 Facade.cadastrar(new DVD("Matrix", "Ficcao", (short) 1, 480,
+			 "Muito Bom"));
+			DVD dvd = Facade.getDVD(2);
 			Cliente cliente2 = Facade.getCliente().get(0);
+//			Cliente cliente3 = Facade.getCliente("06755772"); //Pedro
 			Funcionario funcionario2 = Facade.getFuncionario().get(0);
 			Calendar agora = Calendar.getInstance();
 			
