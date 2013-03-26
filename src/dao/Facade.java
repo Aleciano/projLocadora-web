@@ -3,6 +3,7 @@ package dao;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 //import com.sun.org.apache.bcel.internal.generic.NEW;
 
@@ -24,9 +25,17 @@ public class Facade {
 		
 	}
 	
-	public static void fazerLocao(Cliente cliente, Funcionario funcionario, Date data, Midia midia, Promocao promocao){
-//		Date dt_devolucao = data; 
-//		Locacao locacao = new Locacao(midia, 5, promocao, data, dtDevolucaoAgendada, funcionario, cliente)
+	public static void fazerLocao(Cliente cliente, Funcionario funcionario, Date data, Midia midia, Promocao promocao) throws SQLException, ClassNotFoundException{
+		Locacao locacao = new Locacao();
+		locacao.setCliente(cliente);
+		locacao.setFuncionario(funcionario);
+		locacao.setDtLocacao(data);
+		locacao.setMidia(midia);
+		locacao.setValor(3);
+		Calendar cal = Calendar.getInstance();		
+		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(), data.getDay()));
+		new LocacaoDAO().save(locacao);
+		
 	}	
 	
 	public static void cadastrarFuncionario(String nome, String login, String senha) throws SQLException, ClassNotFoundException {
@@ -84,8 +93,8 @@ public class Facade {
 		return null;
 	}
 
-	public static DVD getDVD(int id) {
-		return null;
+	public static DVD getDVD(int id) throws SQLException, ClassNotFoundException {
+		return new DVDDAO().get(id);
 	}
 
 	public Multa getMulta(int id) {
@@ -96,16 +105,16 @@ public class Facade {
 		return null;
 	}
 
-	public static ArrayList<Funcionario> getFuncionario() {
-		return null;
+	public static ArrayList<Funcionario> getFuncionario() throws ClassNotFoundException, SQLException {
+		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
 	}
 	
 	public static ArrayList<Locacao> getLocacao() {
 		return null;
 	}
 
-	public static ArrayList<Cliente> getCliente() {
-		return null;
+	public static ArrayList<Cliente> getCliente() throws ClassNotFoundException, SQLException {
+		return (ArrayList<Cliente>) new ClienteDAO().get();
 	}
 
 	public static ArrayList<DVD> getDVD() {

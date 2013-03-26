@@ -81,6 +81,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			Cliente cliente = new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
+			clientes.add(cliente);
 		}
 		BancoDeDados.desconectar();
 		

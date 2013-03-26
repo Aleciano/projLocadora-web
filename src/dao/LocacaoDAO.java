@@ -12,13 +12,14 @@ public class LocacaoDAO implements DAO<Locacao>{
 
 	@Override
 	public void save(Locacao obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO locacao (valor, dt_locacao, dt_devolucao_agendada, " +
+		String sql = "INSERT INTO locacao (valor, dt_locacao, dt_devolucao_agendada,  " +
 				"cpf_cliente, mat_funcionario, cod_midia) VALUES (?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
-		pstm.setDate(2, obj.getDtDevolucao());
+		pstm.setDate(2, obj.getDtLocacao());		
 		pstm.setDate(3, obj.getDtDevolucaoAgendada());
+		//pstm.setDate(2, obj.getDtDevolucao());
 		pstm.setString(4, obj.getCliente().getCpf());
 		pstm.setInt(5, obj.getFuncionario().getMatricula());
 		pstm.setInt(6, obj.getMidia().getId());

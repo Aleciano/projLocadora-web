@@ -17,8 +17,8 @@ public class BancoDeDados {
 
 	private static String driverJDBC = "com.mysql.jdbc.Driver";
 	private static String domain = "jdbc:mysql://localhost/locadora_video";
-	private static String user = "root";
-	private static String pass = "123456";
+	private static String user = "guest";
+	private static String pass = "123";
 	private static Connection con;
 	private static Statement stm;
 

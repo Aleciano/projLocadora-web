@@ -11,7 +11,7 @@ public interface DAO <T>{
 	void save(T obj) throws SQLException, ClassNotFoundException;
 	void update(T obj) throws ClassNotFoundException, SQLException;
 	void remove(T obj) throws ClassNotFoundException, SQLException;
-	T get(T id);
+	T get(T id) throws ClassNotFoundException, SQLException;
 	Collection<T> get() throws ClassNotFoundException, SQLException;
 	Collection<T> get(String regex) throws ClassNotFoundException,SQLException;
 
