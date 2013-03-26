@@ -1,120 +1,58 @@
--- phpMyAdmin SQL Dump
--- version 3.4.10.1deb1
--- http://www.phpmyadmin.net
+CREATE DATABASE  IF NOT EXISTS `locadora_video` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `locadora_video`;
+-- MySQL dump 10.13  Distrib 5.5.29, for debian-linux-gnu (x86_64)
 --
--- Servidor: localhost
--- Tempo de Geração: 26/03/2013 às 17h58min
--- Versão do Servidor: 5.5.29
--- Versão do PHP: 5.3.10-1ubuntu3.6
-
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT=0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: locadora_video
+-- ------------------------------------------------------
+-- Server version	5.5.29-0ubuntu0.12.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Banco de Dados: `locadora_video`
+-- Table structure for table `promocao`
 --
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `cliente`
---
--- Criação: 26/03/2013 às 20h45min
---
-
-CREATE TABLE IF NOT EXISTS `cliente` (
-  `cpf` varchar(45) NOT NULL,
+DROP TABLE IF EXISTS `promocao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `promocao` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
-  `logradouro` varchar(64) NOT NULL,
-  `numero` int(11) unsigned NOT NULL,
-  `bairro` varchar(45) DEFAULT NULL,
-  `cidade` varchar(45) NOT NULL,
-  `cep` varchar(9) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `fone` varchar(8) NOT NULL,
-  `celular` varchar(8) DEFAULT NULL,
-  PRIMARY KEY (`cpf`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `cliente`
---
-
-INSERT INTO `cliente` (`cpf`, `nome`, `logradouro`, `numero`, `bairro`, `cidade`, `cep`, `email`, `fone`, `celular`) VALUES
-('02536755772', 'Elias', '', 0, NULL, '', NULL, NULL, '', ''),
-('06755772', 'Pedro', '', 0, NULL, '', NULL, NULL, '', ''),
-('873942342', 'Elano', 'Av. Floriano', 39, 'Palmeira', 'Campina Grande', '58107448', 'elano@com', '33332344', NULL);
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `dvd`
---
--- Criação: 23/03/2013 às 21h37min
---
-
-CREATE TABLE IF NOT EXISTS `dvd` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `duracao_minutos` int(10) unsigned DEFAULT NULL,
-  `sinopse` varchar(200) DEFAULT NULL,
+  `descricao` varchar(45) DEFAULT NULL,
+  `valor` double NOT NULL,
+  `percentual` double DEFAULT '0',
+  `dt_init` datetime NOT NULL,
+  `dt_final` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- RELAÇÕES PARA A TABELA `dvd`:
---   `id`
---       `midia` -> `id`
+-- Dumping data for table `promocao`
 --
 
---
--- Extraindo dados da tabela `dvd`
---
-
-INSERT INTO `dvd` (`id`, `duracao_minutos`, `sinopse`) VALUES
-(1, 180, 'Um filme aninador'),
-(2, 480, 'Muito Bom');
-
--- --------------------------------------------------------
+LOCK TABLES `promocao` WRITE;
+/*!40000 ALTER TABLE `promocao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `promocao` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `funcionario`
---
--- Criação: 23/03/2013 às 21h37min
+-- Table structure for table `locacao`
 --
 
-CREATE TABLE IF NOT EXISTS `funcionario` (
-  `matricula` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `login` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  PRIMARY KEY (`matricula`),
-  UNIQUE KEY `Index_funcionario_login` (`login`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Extraindo dados da tabela `funcionario`
---
-
-INSERT INTO `funcionario` (`matricula`, `nome`, `login`, `senha`) VALUES
-(6, 'Felipe', 'felipeadd', '123');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `locacao`
---
--- Criação: 26/03/2013 às 19h14min
---
-
-CREATE TABLE IF NOT EXISTS `locacao` (
+DROP TABLE IF EXISTS `locacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `locacao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `valor` double NOT NULL,
   `valor_pago` double DEFAULT NULL,
@@ -127,140 +65,199 @@ CREATE TABLE IF NOT EXISTS `locacao` (
   PRIMARY KEY (`id`),
   KEY `FK_locacao_cliente` (`cpf_cliente`),
   KEY `FK_locacao_funcionario` (`mat_funcionario`),
-  KEY `FK_locacao_midia` (`cod_midia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  KEY `FK_locacao_midia` (`cod_midia`),
+  CONSTRAINT `FK_locacao_cliente` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf`),
+  CONSTRAINT `FK_locacao_funcionario` FOREIGN KEY (`mat_funcionario`) REFERENCES `funcionario` (`matricula`),
+  CONSTRAINT `FK_locacao_midia` FOREIGN KEY (`cod_midia`) REFERENCES `midia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- RELAÇÕES PARA A TABELA `locacao`:
---   `cpf_cliente`
---       `cliente` -> `cpf`
---   `mat_funcionario`
---       `funcionario` -> `matricula`
---   `cod_midia`
---       `midia` -> `id`
+-- Dumping data for table `locacao`
 --
 
---
--- Extraindo dados da tabela `locacao`
---
-
-INSERT INTO `locacao` (`id`, `valor`, `valor_pago`, `dt_locacao`, `dt_devolucao_agendada`, `dt_devolucao`, `cpf_cliente`, `mat_funcionario`, `cod_midia`) VALUES
-(1, 3, 0, '2013-03-26 00:00:00', '2013-03-26 00:00:00', NULL, '02536755772', 6, 1),
-(5, 3, 0, '2013-03-26 00:00:00', '2013-03-28 00:00:00', NULL, '02536755772', 6, 1),
-(6, 3, 0, '2013-03-26 00:00:00', '2013-03-28 00:00:00', NULL, '02536755772', 6, 2);
-
--- --------------------------------------------------------
+LOCK TABLES `locacao` WRITE;
+/*!40000 ALTER TABLE `locacao` DISABLE KEYS */;
+INSERT INTO `locacao` VALUES (1,3,0,'2013-03-26 00:00:00','2013-03-26 00:00:00',NULL,'02536755772',6,1),(5,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'02536755772',6,1),(6,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'02536755772',6,2);
+/*!40000 ALTER TABLE `locacao` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `midia`
---
--- Criação: 25/03/2013 às 05h29min
+-- Table structure for table `dvd`
 --
 
-CREATE TABLE IF NOT EXISTS `midia` (
+DROP TABLE IF EXISTS `dvd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dvd` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `qt` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `duracao_minutos` int(10) unsigned DEFAULT NULL,
+  `sinopse` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_dvd_1` FOREIGN KEY (`id`) REFERENCES `midia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- RELAÇÕES PARA A TABELA `midia`:
---   `id`
---       `produto` -> `id`
+-- Dumping data for table `dvd`
 --
 
---
--- Extraindo dados da tabela `midia`
---
-
-INSERT INTO `midia` (`id`, `qt`) VALUES
-(1, 2),
-(2, 1);
-
--- --------------------------------------------------------
+LOCK TABLES `dvd` WRITE;
+/*!40000 ALTER TABLE `dvd` DISABLE KEYS */;
+INSERT INTO `dvd` VALUES (1,180,'Um filme aninador'),(2,480,'Muito Bom');
+/*!40000 ALTER TABLE `dvd` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `multa`
---
--- Criação: 25/03/2013 às 06h01min
+-- Table structure for table `multa`
 --
 
-CREATE TABLE IF NOT EXISTS `multa` (
+DROP TABLE IF EXISTS `multa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `multa` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `descricao` varchar(45) DEFAULT NULL,
   `valor` double NOT NULL,
   `percentual` double DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estrutura da tabela `produto`
---
--- Criação: 23/03/2013 às 21h37min
+-- Dumping data for table `multa`
 --
 
-CREATE TABLE IF NOT EXISTS `produto` (
+LOCK TABLES `multa` WRITE;
+/*!40000 ALTER TABLE `multa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `multa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `produto`
+--
+
+DROP TABLE IF EXISTS `produto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produto` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `descricao` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Extraindo dados da tabela `produto`
+-- Dumping data for table `produto`
 --
 
-INSERT INTO `produto` (`id`, `nome`, `descricao`) VALUES
-(1, 'Dragao Azul', 'Acao'),
-(2, 'Matrix', 'Ficcao');
-
--- --------------------------------------------------------
+LOCK TABLES `produto` WRITE;
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (1,'Dragao Azul','Acao'),(2,'Matrix','Ficcao');
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estrutura da tabela `promocao`
---
--- Criação: 25/03/2013 às 06h05min
+-- Table structure for table `midia`
 --
 
-CREATE TABLE IF NOT EXISTS `promocao` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `midia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `midia` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `qt` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_midia_1` FOREIGN KEY (`id`) REFERENCES `produto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `midia`
+--
+
+LOCK TABLES `midia` WRITE;
+/*!40000 ALTER TABLE `midia` DISABLE KEYS */;
+INSERT INTO `midia` VALUES (1,2),(2,1);
+/*!40000 ALTER TABLE `midia` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionario`
+--
+
+DROP TABLE IF EXISTS `funcionario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `funcionario` (
+  `matricula` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
-  `valor` double NOT NULL,
-  `percentual` double DEFAULT '0',
-  `dt_init` datetime NOT NULL,
-  `dt_final` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=big5 AUTO_INCREMENT=1 ;
+  `login` varchar(45) NOT NULL,
+  `senha` varchar(45) NOT NULL,
+  PRIMARY KEY (`matricula`),
+  UNIQUE KEY `Index_funcionario_login` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Restrições para as tabelas dumpadas
+-- Dumping data for table `funcionario`
+--
+
+LOCK TABLES `funcionario` WRITE;
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+INSERT INTO `funcionario` VALUES (6,'Felipe','felipeadd','123');
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cliente` (
+  `cpf` varchar(45) NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `logradouro` varchar(64) NOT NULL,
+  `numero` int(11) unsigned NOT NULL,
+  `bairro` varchar(45) DEFAULT NULL,
+  `cidade` varchar(45) NOT NULL,
+  `cep` varchar(9) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `fone` varchar(8) NOT NULL,
+  `celular` varchar(8) DEFAULT NULL,
+  PRIMARY KEY (`cpf`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cliente`
+--
+
+LOCK TABLES `cliente` WRITE;
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES ('02536755772','Elias','',0,NULL,'',NULL,NULL,'',''),('06755772','Pedro','',0,NULL,'',NULL,NULL,'',''),('873942342','Elano','Av. Floriano',39,'Palmeira','Campina Grande','58107448','elano@com','33332344',NULL);
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping events for database 'locadora_video'
 --
 
 --
--- Restrições para a tabela `dvd`
+-- Dumping routines for database 'locadora_video'
 --
-ALTER TABLE `dvd`
-  ADD CONSTRAINT `FK_dvd_1` FOREIGN KEY (`id`) REFERENCES `midia` (`id`);
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Restrições para a tabela `locacao`
---
-ALTER TABLE `locacao`
-  ADD CONSTRAINT `FK_locacao_cliente` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf`),
-  ADD CONSTRAINT `FK_locacao_funcionario` FOREIGN KEY (`mat_funcionario`) REFERENCES `funcionario` (`matricula`),
-  ADD CONSTRAINT `FK_locacao_midia` FOREIGN KEY (`cod_midia`) REFERENCES `midia` (`id`);
-
---
--- Restrições para a tabela `midia`
---
-ALTER TABLE `midia`
-  ADD CONSTRAINT `FK_midia_1` FOREIGN KEY (`id`) REFERENCES `produto` (`id`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-03-26 18:40:25
