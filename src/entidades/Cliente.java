@@ -37,6 +37,20 @@ public class Cliente extends Pessoa {
 		super(nome, cpf, logradouro, numero, bairro, cidade, cep, email, fone, celular);
 		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+	public String toString() {
+		return "Cliente [getNome()=" + getNome() + ", getCpf()=" + getCpf()
+				+ ", getLogradouro()=" + getLogradouro() + ", getNumero()="
+				+ getNumero() + ", getBairro()=" + getBairro()
+				+ ", getCidade()=" + getCidade() + ", getCep()=" + getCep()
+				+ ", getEmail()=" + getEmail() + ", getFone()=" + getFone()
+				+ ", getCelular()=" + getCelular() + ", toString()="
+				+ super.toString() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + "]";
+	}
+	
+	
 	
 	
 	
