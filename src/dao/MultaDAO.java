@@ -17,13 +17,13 @@ public class MultaDAO implements DAO<Multa> {
 	@Override
 	public void save(Multa obj) throws SQLException, ClassNotFoundException {
 		BancoDeDados.conecta();
-		String sql = "INSERT INTO multa (id, nome, descricao, valor, percentual) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO multa (nome, descricao, valor, percentual) VALUES (?, ?, ?, ?)";
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
-		pstm.setInt(1, obj.getId());
-		pstm.setString(2, obj.getNome());
-		pstm.setString(3, obj.getDescricao());
-		pstm.setDouble(4, obj.getValor());
-		pstm.setDouble(5, obj.getPercentual());
+		
+		pstm.setString(1, obj.getNome());
+		pstm.setString(2, obj.getDescricao());
+		pstm.setDouble(3, obj.getValor());
+		pstm.setDouble(4, obj.getPercentual());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
@@ -54,7 +54,7 @@ public class MultaDAO implements DAO<Multa> {
 		
 	}
 
-	//@Override
+	
 	public Multa get(int id) throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM multa WHERE id = ?";
 		BancoDeDados.conecta();
@@ -115,7 +115,6 @@ public class MultaDAO implements DAO<Multa> {
 			multas.add(multa);
 		}
 		BancoDeDados.desconectar();
-		
 		
 		return multas;
 	}
