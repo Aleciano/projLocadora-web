@@ -62,7 +62,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	
 	public Cliente getByCpf(String cpf) throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM cliente WHERE matricula = ?";
+		String sql = "SELECT * FROM cliente WHERE cpf = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
 		pstm.setString(1, cpf);

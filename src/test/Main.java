@@ -1,6 +1,5 @@
 package test;
 
-
 //tercio
 
 //tercio
@@ -13,12 +12,10 @@ import entidades.DVD;
 
 public class Main {
 
-	
-	
-		Scanner s= new Scanner(System.in);
-		int exibirMenu()
-		{
-		System.out.println("\n\n");   
+	Scanner s = new Scanner(System.in);
+
+	int exibirMenu() {
+		System.out.println("\n\n");
 		System.out.println("----Projeto Locadora de Vídeo----");
 		System.out.println("1. Cadastrar DVD");
 		System.out.println("2. Pesquisar DVD");
@@ -36,135 +33,123 @@ public class Main {
 		try {
 			int resultado = s.nextInt();
 			return resultado;
-					
-		}catch ( InputMismatchException e ) {
-			System.out.println( "Entrada de dados invalida. Tente novamente" );
-		
+
+		} catch (InputMismatchException e) {
+			System.out.println("Entrada de dados invalida. Tente novamente");
+
 		}
 		return 0;
-		}	
+	}
 
-	
+	public static void main(String[] args) {
 
-public static void main(String[] args) {
-			
-Main m = new Main();
+		Main m = new Main();
 
-Facade facade = new Facade();
-	
-int opcao;
-	do{
-		opcao = m.exibirMenu();
-	switch ( opcao) {
-		
-		case 1:
-			DVD dvd = new DVD();
-			System.out.println("Bem vindo ao Cadastro de DVDS");
-			System.out.println("Digite o nome do DVD: ");
-			dvd.setNome(new Scanner(System.in).next());
-			System.out.println("Digite o descrição do DVD: ");
-			dvd.setDescricao(new Scanner(System.in).next());
-			System.out.println("Digite a quantidade de Disc: ");
-			dvd.setQt(new Scanner(System.in).nextShort());
-			System.out.println("Digite a duração: ");
-			dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
-			System.out.println("Digite a sinopse: ");
-			dvd.setSinopse(new Scanner(System.in).next());
-			System.out.println("Digite a quantidade de cópias: ");
-			int qtd = new Scanner(System.in).nextInt();
-			
-		try {
-			for (int i = 0; i < qtd; i++) {
-				
-				facade.cadastrar(dvd);
+		Facade facade = new Facade();
+
+		int opcao;
+		do {
+			opcao = m.exibirMenu();
+			switch (opcao) {
+
+			case 1:
+				DVD dvd = new DVD();
+				System.out.println("Bem vindo ao Cadastro de DVDS");
+				System.out.println("Digite o nome do DVD: ");
+				dvd.setNome(new Scanner(System.in).next());
+				System.out.println("Digite o descrição do DVD: ");
+				dvd.setDescricao(new Scanner(System.in).next());
+				System.out.println("Digite a quantidade de Disc: ");
+				dvd.setQt(new Scanner(System.in).nextShort());
+				System.out.println("Digite a duração: ");
+				dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
+				System.out.println("Digite a sinopse: ");
+				dvd.setSinopse(new Scanner(System.in).next());
+				System.out.println("Digite a quantidade de cópias: ");
+				int qtd = new Scanner(System.in).nextInt();
+				dvd.setQt((short)qtd);
+				try {
+					facade.cadastrar(dvd);
+				} catch (Exception e) {
+					System.out.println("Erro: DVD não cadastrado!");
+					e.printStackTrace();
+				}
+				break;
+
+			case 2:
+				break;
+
+			case 3:
+
+				break;
+			case 4:
+
+				break;
+
+			case 5:
+
+				break;
+
+			case 6:
+				break;
+
+			case 7:
+				break;
+
+			case 8:
+				break;
+
+			case 9:
+				break;
+
+			case 10:
+				break;
+
+			case 11:
+				System.out.println("Obrigado volte sempre.");
+				break;
+			default:
+				System.out.println("Opcao invalida!");
+				break;
 			}
-		} catch (Exception e) {
-			System.out.println("Erro: DVD não cadastrado!");
-			e.printStackTrace();
-		}
-			break;
-		
-		case 2:
-			break;
-		
-		case 3:
-			
-			break;
-		case 4:
-			
-			break;
-			
-		case 5:
-			
-			break;
-			
-		case 6:
-			break;
-			
-		case 7:
-			break;
-			
-		case 8:
-			break;
-			
-		case 9:
-			break;
-			
-		case 10:
-			break;
-			
-				
-				
-		case 11:
-			System.out.println("Obrigado volte sempre.");
-			break;
-		default: System.out.println("Opcao invalida!");
-			break;
-		}
-	
-}while( opcao != 11);
-			
-	
-	
-}		
-				
-//		try {
-//			Funcionario funcionario =  new Funcionario();
-//			funcionario.setLogin("ricardo");
-//			funcionario.setNome("ricardo");
-//			
-//			Cliente cliente = new Cliente();
-//			cliente.setCpf("06755772");
-//			cliente.setNome("Pedro");
-//			
-//						
-//			//Facade.cadastrarFuncionario(funcionario.getNome(), funcionario.getLogin(), funcionario.getSenha());
-//			//Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
-//			//Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
-//			Facade.cadastrar(new DVD("Dragôes","Ação",(short)2,180,"Um filme aninador"));
-////			
-////			cliente = Facade.getCliente(1);
-////			
-////			Date dt = new Date(System.currentTimeMillis());
-////			dt.setDate(30);
-////			Locacao locacao = new Locacao(midia, 5, null, new Date(System.currentTimeMillis()), dt, funcionario, cliente);
-////			
-////			Facade.fazerLocaï¿½ï¿½o(locacao);		
-////			Facade.FinalizarLocaï¿½ï¿½o(locacao);
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-		
-		
-		
-		
+
+		} while (opcao != 11);
 
 	}
 
+	// try {
+	// Funcionario funcionario = new Funcionario();
+	// funcionario.setLogin("ricardo");
+	// funcionario.setNome("ricardo");
+	//
+	// Cliente cliente = new Cliente();
+	// cliente.setCpf("06755772");
+	// cliente.setNome("Pedro");
+	//
+	//
+	// //Facade.cadastrarFuncionario(funcionario.getNome(),
+	// funcionario.getLogin(), funcionario.getSenha());
+	// //Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
+	// //Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
+	// Facade.cadastrar(new
+	// DVD("Dragôes","Ação",(short)2,180,"Um filme aninador"));
+	// //
+	// // cliente = Facade.getCliente(1);
+	// //
+	// // Date dt = new Date(System.currentTimeMillis());
+	// // dt.setDate(30);
+	// // Locacao locacao = new Locacao(midia, 5, null, new
+	// Date(System.currentTimeMillis()), dt, funcionario, cliente);
+	// //
+	// // Facade.fazerLocaï¿½ï¿½o(locacao);
+	// // Facade.FinalizarLocaï¿½ï¿½o(locacao);
+	//
+	// } catch (SQLException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// } catch (ClassNotFoundException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
 
+}

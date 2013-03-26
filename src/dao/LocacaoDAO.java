@@ -31,18 +31,19 @@ public class LocacaoDAO implements DAO<Locacao> {
 	// alterar uma locação. Ex: adicionar multa.
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao"
-				+ "cpf_cliente, mat_funcionario, cod_midia) VALUES (?, ?, ?, ?, ?, ?, ?, ?) WHERE id = ?";
+		String sql = "UPDATE locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) SEY (?, ?, ?, ?, ?, ?, ?, ?) WHERE id =?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
-		pstm.setDate(2, obj.getDtDevolucao());
-		pstm.setDate(3, obj.getDtDevolucaoAgendada());
-		pstm.setString(4, obj.getCliente().getCpf());
-		pstm.setInt(5, obj.getFuncionario().getMatricula());
-		pstm.setInt(6, obj.getMidia().getId());
-		pstm.setInt(7, obj.getId());
+		pstm.setDouble(2, obj.getValorPago());
+		pstm.setDate(3, obj.getDtLocacao());
+		pstm.setDate(4, obj.getDtDevolucaoAgendada());
+		pstm.setDate(5, obj.getDtDevolucao());
+		pstm.setString(6, obj.getCliente().getCpf());
+		pstm.setInt(7, obj.getFuncionario().getMatricula());
+		pstm.setInt(8, obj.getMidia().getId());
+		pstm.setInt(9, obj.getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
@@ -76,7 +77,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 		Locacao locacao = null;
 		while (res.next()) {
 			locacao = new Locacao();
-			locacao.setCliente(Facade.getCliente(res.getInt("cpf_cliente")));
+			locacao.setCliente(Facade.getCliente(res.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
@@ -105,7 +106,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
 			Locacao locacao = new Locacao();
-			locacao.setCliente(Facade.getCliente(res.getInt("cpf_cliente")));
+			locacao.setCliente(Facade.getCliente(res.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
@@ -135,7 +136,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
 			Locacao locacao = new Locacao();
-			locacao.setCliente(Facade.getCliente(res.getInt("cpf_cliente")));
+			locacao.setCliente(Facade.getCliente(res.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));

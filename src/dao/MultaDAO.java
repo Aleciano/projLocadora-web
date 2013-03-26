@@ -4,12 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import db.BancoDeDados;
 
-import entidades.Cliente;
-import entidades.Funcionario;
 import entidades.Multa;
 
 public class MultaDAO implements DAO<Multa> {
