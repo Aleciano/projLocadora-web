@@ -29,7 +29,7 @@ public class Teste {
 		} */
 		Cliente cls = Facade.getCliente("06755773");
 		if(cls!=null) System.out.print(cls.toString());
-		else System.out.print("Cliente não consta na base de dados");
+		else System.out.print("Cliente não consta na base de dadoss");
 	}
 
 }
