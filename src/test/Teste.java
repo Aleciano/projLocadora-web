@@ -20,13 +20,16 @@ public class Teste {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 		
-		ArrayList<DVD> dvds = (ArrayList<DVD>) Facade.getDVD();
-		
+		/*ArrayList<DVD> dvds = (ArrayList<DVD>) Facade.getDVD("matrix");
+		System.out.printf("\n%d",dvds.size());
 		for(DVD value: dvds){
-			
+			System.out.println("\noi");
 			System.out.println( value.toString());
 			
-		} 
+		} */
+		Cliente cls = Facade.getCliente("06755773");
+		if(cls!=null) System.out.print(cls.toString());
+		else System.out.print("Cliente não consta na base de dados");
 	}
 
 }

@@ -16,7 +16,6 @@ import entidades.Promocao;
 import entidades.TipoLocacao;
 
 public class Facade {
-	
 
 	public static void fazerLocao(Cliente cliente, Funcionario funcionario,
 			double valor, Date data, Midia midia, Promocao promocao,
@@ -216,10 +215,19 @@ public class Facade {
 			ClassNotFoundException {
 		return new DVDDAO().get(id);
 	}
-
+	/*
+	 * Retornará um array vazio se não encontrar o DVD.
+	 */
 	public static Collection<DVD> getDVD(String nome) throws SQLException,
 			ClassNotFoundException {
 		return new DVDDAO().getDvdPorNome(nome);
+	}
+	/*
+	 * Retornará um array vazio se não encontrar o DVD.
+	 */
+	public static ArrayList<DVD> getDVD() throws SQLException,
+			ClassNotFoundException {
+		return (ArrayList<DVD>) new DVDDAO().get();
 	}
 
 	public static Multa getMulta(int id) throws ClassNotFoundException,
@@ -250,11 +258,6 @@ public class Facade {
 	public static ArrayList<Cliente> getCliente()
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Cliente>) new ClienteDAO().get();
-	}
-
-	public static ArrayList<DVD> getDVD() throws SQLException,
-			ClassNotFoundException {
-		return (ArrayList<DVD>) new DVDDAO().get();
 	}
 
 	public static ArrayList<Multa> getMulta() throws ClassNotFoundException,

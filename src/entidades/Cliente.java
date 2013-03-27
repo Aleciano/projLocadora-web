@@ -4,8 +4,8 @@ package entidades;
 /**
  * @author tercio, aleciano e leonardo
  *
- *Cliente é um objeto filho de pessoa que herda todos os atributos de pessoa
- *Ele é responsavel por representar os clientes de uma locadora de video  
+ *Cliente ï¿½ um objeto filho de pessoa que herda todos os atributos de pessoa
+ *Ele ï¿½ responsavel por representar os clientes de uma locadora de video  
  *
  */
 
@@ -27,9 +27,9 @@ public class Cliente extends Pessoa {
 	 * @param bairro bairro em que o cliente mora
 	 * @param cidade cidade onde o cliente mora
 	 * @param cep CEP da rua do cliente
-	 * @param email endereço eletrônico do cliente
+	 * @param email endereï¿½o eletrï¿½nico do cliente
 	 * @param fone numero do telefone residencial do cliente 
-	 * @param celular numero do telefone móvel do cliente
+	 * @param celular numero do telefone mï¿½vel do cliente
 	 */
 	public Cliente(String nome, String cpf, String logradouro, int numero,
 			String bairro, String cidade, String cep, String email,
@@ -45,9 +45,10 @@ public class Cliente extends Pessoa {
 				+ getNumero() + ", getBairro()=" + getBairro()
 				+ ", getCidade()=" + getCidade() + ", getCep()=" + getCep()
 				+ ", getEmail()=" + getEmail() + ", getFone()=" + getFone()
-				+ ", getCelular()=" + getCelular() + ", getClass()="
+				+ ", getCelular()=" + getCelular() /*+ ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ super.toString() + "]";*/
+				;
 	}
 	
 	
