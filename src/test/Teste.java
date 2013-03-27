@@ -20,7 +20,6 @@ public class Teste {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
 		
-		
 		ArrayList<DVD> dvds = (ArrayList<DVD>) Facade.getDVD();
 		
 		for(DVD value: dvds){
