@@ -26,7 +26,7 @@ public class FacadeTest {
 	public void tearDown() throws Exception {
 	}
 	
-	@test
+	@Test
 	public void Funcionario() {
 		fail("Not yet implemented");
 	}
