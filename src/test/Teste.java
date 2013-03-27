@@ -11,7 +11,7 @@ import dao.Facade;
 
 
 public class Teste {
-	int i=0;
+	
 	/**
 	 * @param args
 	 * @throws SQLException 
