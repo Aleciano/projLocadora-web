@@ -96,13 +96,6 @@ public class Facade {
 		new ClienteDAO().save(cliente);
 	}
 
-	// Comentado pois só servia para DVD e não para mídias em geral.
-	/*
-	 * public static void cadastrarMidia(String nome, String descricao, short
-	 * qt, int duracaoMinutos, String sinopse) throws SQLException,
-	 * ClassNotFoundException { DVD midia = new DVD(nome, descricao, qt,
-	 * duracaoMinutos, sinopse); new DVDDAO().save(midia); }
-	 */
 	public static void cadastrar(Funcionario funcionario) throws SQLException,
 			ClassNotFoundException {
 		new FuncionarioDAO().save(funcionario);

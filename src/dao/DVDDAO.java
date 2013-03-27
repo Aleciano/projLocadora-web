@@ -163,7 +163,7 @@ public class DVDDAO implements DAO<DVD> {
 	public Collection<DVD> get() throws SQLException, ClassNotFoundException {
 		BancoDeDados.conecta();
 		String sql = "SELECT * FROM produto";		
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
 		DVD dvd =  null;
@@ -175,16 +175,16 @@ public class DVDDAO implements DAO<DVD> {
 		}
 		
 		sql = "SELECT * FROM midia";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		int index = 0;
-		while (res.next()){;
+		while (res.next()){
 			dvds.get(index).setQt(res.getShort("qt"));
 			index++;
 		}
 		
 		sql = "SELECT * FROM dvd";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		index = 0;
 		while (res.next()){
@@ -201,7 +201,7 @@ public class DVDDAO implements DAO<DVD> {
 	public Collection<DVD> get(String regex) throws ClassNotFoundException, SQLException {
 		BancoDeDados.conecta();
 		String sql = regex.replaceAll("dvd", "produto");
-		System.out.println(sql);
+		
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> dvds = new ArrayList<DVD>();

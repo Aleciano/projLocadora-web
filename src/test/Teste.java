@@ -18,13 +18,16 @@ public class Teste {
 	 * @throws ClassNotFoundException 
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		ArrayList<DVD> dvds = (ArrayList<DVD>) Facade.getDVD("Matrix");
+		
+		
+		
+		ArrayList<DVD> dvds = (ArrayList<DVD>) Facade.getDVD();
 		
 		for(DVD value: dvds){
 			
-			System.out.printf(value.getNome());
+			System.out.println( value.toString());
 			
-		}
+		} 
 	}
 
 }

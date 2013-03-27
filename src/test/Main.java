@@ -16,7 +16,7 @@ public class Main {
 
 	int exibirMenu() {
 		System.out.println("\n\n");
-		System.out.println("----Projeto Locadora de Vídeo----");
+		System.out.println("----Projeto Locadora de Vï¿½deo----");
 		System.out.println("1. Cadastrar DVD");
 		System.out.println("2. Pesquisar DVD");
 		System.out.println("3. Remover DVD");
@@ -25,11 +25,11 @@ public class Main {
 		System.out.println("6. Remover Cliente");
 		System.out.println("7. Realizar Emprestimo");
 		System.out.println("8. Remover Emprestimo");
-		System.out.println("9. Devolução de Emprestimo");
-		System.out.println("10. Tarifar Promoção");
+		System.out.println("9. Devoluï¿½ï¿½o de Emprestimo");
+		System.out.println("10. Tarifar Promoï¿½ï¿½o");
 		System.out.println("11. Sair");
 		System.out.println("-------------------------------");
-		System.out.print("Digite uma Opção: ");
+		System.out.print("Digite uma Opï¿½ï¿½o: ");
 		try {
 			int resultado = s.nextInt();
 			return resultado;
@@ -57,21 +57,21 @@ public class Main {
 				System.out.println("Bem vindo ao Cadastro de DVDS");
 				System.out.println("Digite o nome do DVD: ");
 				dvd.setNome(new Scanner(System.in).next());
-				System.out.println("Digite o descrição do DVD: ");
+				System.out.println("Digite o descriï¿½ï¿½o do DVD: ");
 				dvd.setDescricao(new Scanner(System.in).next());
 				System.out.println("Digite a quantidade de Disc: ");
 				dvd.setQt(new Scanner(System.in).nextShort());
-				System.out.println("Digite a duração: ");
+				System.out.println("Digite a duraï¿½ï¿½o: ");
 				dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
 				System.out.println("Digite a sinopse: ");
 				dvd.setSinopse(new Scanner(System.in).next());
-				System.out.println("Digite a quantidade de cópias: ");
+				System.out.println("Digite a quantidade de cï¿½pias: ");
 				int qtd = new Scanner(System.in).nextInt();
 				dvd.setQt((short)qtd);
 				try {
 					facade.cadastrar(dvd);
 				} catch (Exception e) {
-					System.out.println("Erro: DVD não cadastrado!");
+					System.out.println("Erro: DVD nï¿½o cadastrado!");
 					e.printStackTrace();
 				}
 				break;
@@ -130,9 +130,9 @@ public class Main {
 	// //Facade.cadastrarFuncionario(funcionario.getNome(),
 	// funcionario.getLogin(), funcionario.getSenha());
 	// //Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
-	// //Facade.cadastrarMidia("dvd 1", "bla", (short)1, 120, "etc");
+
 	// Facade.cadastrar(new
-	// DVD("Dragôes","Ação",(short)2,180,"Um filme aninador"));
+	// DVD("Dragï¿½es","Aï¿½ï¿½o",(short)2,180,"Um filme aninador"));
 	// //
 	// // cliente = Facade.getCliente(1);
 	// //

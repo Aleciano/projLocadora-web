@@ -89,9 +89,10 @@ public class DVD extends Midia {
 				+ ", getDuracaoMinutos()=" + getDuracaoMinutos()
 				+ ", getSinopse()=" + getSinopse() + ", getQt()=" + getQt()
 				+ ", getId()=" + getId() + ", getNome()=" + getNome()
-				+ ", getDescricao()=" + getDescricao() + ", getClass()="
+				+ ", getDescricao()=" + getDescricao() /*+ ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ super.toString() + "]";*/
+				;
 	}
 	
 }
