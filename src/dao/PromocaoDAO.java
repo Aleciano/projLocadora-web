@@ -60,13 +60,12 @@ public class PromocaoDAO implements DAO<Promocao>{
 		
 	}
 
-	@Override
-	public Promocao get(Promocao id) throws ClassNotFoundException,
+	public Promocao get(int id) throws ClassNotFoundException,
 			SQLException {
 		String sql = "SELECT * FROM multa WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
-		pstm.setInt(1, id.getId());
+		pstm.setInt(1, id);
 		ResultSet res = pstm.executeQuery();
 		Promocao promocao =  null;
 		while (res.next()){
@@ -133,6 +132,13 @@ public class PromocaoDAO implements DAO<Promocao>{
 	
 	public PromocaoDAO() {
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public Promocao get(Promocao id) throws ClassNotFoundException,
+			SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

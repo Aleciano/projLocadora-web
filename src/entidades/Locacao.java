@@ -15,6 +15,31 @@ public class Locacao {
 	private Date dtDevolucao;
 	private Funcionario funcionario;
 	private Cliente cliente;
+	private TipoLocacao tipoLocacao;
+
+	public Locacao() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Locacao(int id, Midia midia, double valor, Multa multa,
+			double valorPago, Promocao promocao, Date dtLocacao,
+			Date dtDevolucaoAgendada, Date dtDevolucao,
+			Funcionario funcionario, Cliente cliente, TipoLocacao tipoLocacao) {
+		super();
+		this.id = id;
+		this.midia = midia;
+		this.valor = valor;
+		this.multa = multa;
+		this.valorPago = valorPago;
+		this.promocao = promocao;
+		this.dtLocacao = dtLocacao;
+		this.dtDevolucaoAgendada = dtDevolucaoAgendada;
+		this.dtDevolucao = dtDevolucao;
+		this.funcionario = funcionario;
+		this.cliente = cliente;
+		this.tipoLocacao = tipoLocacao;
+	}
 
 	public int getId() {
 		return id;
@@ -104,52 +129,12 @@ public class Locacao {
 		this.cliente = cliente;
 	}
 
-	public Locacao(int id, Midia midia, double valor, Multa multa,
-			double valorPago, Promocao promocao, Date dtLocacao,
-			Date dtDevolucaoAgendada, Date dtDevolucao,
-			Funcionario funcionario, Cliente cliente) {
-		super();
-		this.id = id;
-		this.midia = midia;
-		this.valor = valor;
-		this.multa = multa;
-		this.valorPago = valorPago;
-		this.promocao = promocao;
-		this.dtLocacao = dtLocacao;
-		this.dtDevolucaoAgendada = dtDevolucaoAgendada;
-		this.dtDevolucao = dtDevolucao;
-		this.funcionario = funcionario;
-		this.cliente = cliente;
+	public TipoLocacao getTipoLocacao() {
+		return tipoLocacao;
 	}
 
-	public Locacao(int id, Midia midia, double valor, Promocao promocao,
-			Date dtLocacao, Date dtDevolucaoAgendada, Funcionario funcionario,
-			Cliente cliente) {
-		super();
-		this.id = id;
-		this.midia = midia;
-		this.valor = valor;
-		this.promocao = promocao;
-		this.dtLocacao = dtLocacao;
-		this.dtDevolucaoAgendada = dtDevolucaoAgendada;
-		this.funcionario = funcionario;
-		this.cliente = cliente;
-	}
-
-	public Locacao(Midia midia, double valor, Promocao promocao,
-			Date dtLocacao, Date dtDevolucaoAgendada, Funcionario funcionario,
-			Cliente cliente) {
-		super();
-		this.midia = midia;
-		this.valor = valor;
-		this.promocao = promocao;
-		this.dtLocacao = dtLocacao;
-		this.dtDevolucaoAgendada = dtDevolucaoAgendada;
-		this.funcionario = funcionario;
-		this.cliente = cliente;
-	}
-	public Locacao(){
-		
+	public void setTipoLocacao(TipoLocacao tipoLocacao) {
+		this.tipoLocacao = tipoLocacao;
 	}
 
 	@Override
@@ -159,18 +144,9 @@ public class Locacao {
 				+ ", promocao=" + promocao + ", dtLocacao=" + dtLocacao
 				+ ", dtDevolucaoAgendada=" + dtDevolucaoAgendada
 				+ ", dtDevolucao=" + dtDevolucao + ", funcionario="
-				+ funcionario + ", cliente=" + cliente + ", getId()=" + getId()
-				+ ", getMidia()=" + getMidia() + ", getValor()=" + getValor()
-				+ ", getMulta()=" + getMulta() + ", getValorPago()="
-				+ getValorPago() + ", getPromocao()=" + getPromocao()
-				+ ", getDtLocacao()=" + getDtLocacao()
-				+ ", getDtDevolucaoAgendada()=" + getDtDevolucaoAgendada()
-				+ ", getDtDevolucao()=" + getDtDevolucao()
-				+ ", getFuncionario()=" + getFuncionario() + ", getCliente()="
-				+ getCliente() + ", getClass()=" + getClass() + ", hashCode()="
+				+ funcionario + ", cliente=" + cliente + ", tipoLocacao="
+				+ tipoLocacao + ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";
 	}
-	
-	
-	
+
 }

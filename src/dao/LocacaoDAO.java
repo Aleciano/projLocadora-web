@@ -12,7 +12,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 	@Override
 	public void save(Locacao obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia, cod_tipo_locacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -24,6 +24,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 		pstm.setString(6, obj.getCliente().getCpf());
 		pstm.setInt(7, obj.getFuncionario().getMatricula());
 		pstm.setInt(8, obj.getMidia().getId());
+		pstm.setInt(9, obj.getTipoLocacao().getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
@@ -31,7 +32,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 	// alterar uma locação. Ex: adicionar multa.
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) SEY (?, ?, ?, ?, ?, ?, ?, ?) WHERE id =?";
+		String sql = "UPDATE locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia, cod_tipo_locacao) SET (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id =?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -43,7 +44,8 @@ public class LocacaoDAO implements DAO<Locacao> {
 		pstm.setString(6, obj.getCliente().getCpf());
 		pstm.setInt(7, obj.getFuncionario().getMatricula());
 		pstm.setInt(8, obj.getMidia().getId());
-		pstm.setInt(9, obj.getId());
+		pstm.setInt(9, obj.getTipoLocacao().getId());
+		pstm.setInt(10, obj.getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
@@ -81,6 +83,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
+			locacao.setTipoLocacao(Facade.getTipoLocacao(res.getInt("cod_tipo_locacao")));
 			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
 			locacao.setDtDevolucaoAgendada(res.getDate("dt_devolucao_agendada"));
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
@@ -151,6 +154,20 @@ public class LocacaoDAO implements DAO<Locacao> {
 		BancoDeDados.desconectar();
 
 		return locacoes;
+	}
+	
+	public Collection<Locacao> getDvdsLocados(String regex) throws ClassNotFoundException,
+	SQLException {
+		String sql = "SELECT * FROM locacao WHERE dt_devolucao =  NULL";
+		
+		return get(sql);		
+	}
+	
+	public Collection<Locacao> getDvdPorNome(String nome) throws ClassNotFoundException,
+	SQLException {
+		String sql = "SELECT * FROM locacao WHERE nome LIKE '"+nome+"' ";
+		
+		return get(sql);		
 	}
 
 }
