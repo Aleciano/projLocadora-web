@@ -1,8 +1,5 @@
 package test;
 
-//tercio
-
-//tercio
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
