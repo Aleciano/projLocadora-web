@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+
 import entidades.Cliente;
 import entidades.DVD;
 import entidades.Funcionario;
@@ -221,7 +223,13 @@ public class Facade {
 		return new DVDDAO().get(id);
 	}
 
-	public static Multa getMulta(int id) throws ClassNotFoundException, SQLException {
+	public static Collection<DVD> getDVD(String nome) throws SQLException,
+			ClassNotFoundException {
+		return new DVDDAO().getDvdPorNome(nome);
+	}
+
+	public static Multa getMulta(int id) throws ClassNotFoundException,
+			SQLException {
 		return new MultaDAO().get(id);
 	}
 
@@ -230,8 +238,8 @@ public class Facade {
 		return new PromocaoDAO().get(id);
 	}
 
-	public static TipoLocacao getTipoLocacao(int id) throws ClassNotFoundException,
-			SQLException {
+	public static TipoLocacao getTipoLocacao(int id)
+			throws ClassNotFoundException, SQLException {
 		return new TipoLocacaoDAO().get(id);
 	}
 
@@ -264,7 +272,7 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Promocao>) new PromocaoDAO().get();
 	}
-	
+
 	public static ArrayList<TipoLocacao> getTipoLocacao()
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<TipoLocacao>) new TipoLocacaoDAO().get();
