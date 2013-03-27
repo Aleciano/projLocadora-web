@@ -10,7 +10,7 @@ import entidades.DVD;
 public class Main {
 
 	Scanner s = new Scanner(System.in);
-	
+
 	int exibirMenu() {
 		System.out.println("\n\n");
 		System.out.println("----Projeto Locadora de V�deo----");
@@ -105,8 +105,8 @@ public class Main {
 			case 11:
 				System.out.println("Obrigado volte sempre.");
 				break;
-			default:
-				System.out.println("Opcao invalida!!");
+			default:				System.out.println("Opcao invalida!");
+
 				break;
 			}
 
