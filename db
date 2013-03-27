@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.5.9, for Win32 (x86)
+CREATE DATABASE  IF NOT EXISTS `locadora_video` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `locadora_video`;
+-- MySQL dump 10.13  Distrib 5.5.29, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: locadora_video
 -- ------------------------------------------------------
--- Server version	5.5.12
+-- Server version	5.5.29-0ubuntu0.12.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,12 +18,236 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `locadora_video`
+-- Table structure for table `promocao`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `locadora_video` /*!40100 DEFAULT CHARACTER SET latin1 */;
+DROP TABLE IF EXISTS `promocao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `promocao` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `descricao` varchar(45) DEFAULT NULL,
+  `valor` double NOT NULL,
+  `percentual` double DEFAULT '0',
+  `dt_init` datetime NOT NULL,
+  `dt_final` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=big5;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-USE `locadora_video`;
+--
+-- Dumping data for table `promocao`
+--
+
+LOCK TABLES `promocao` WRITE;
+/*!40000 ALTER TABLE `promocao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `promocao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `locacao`
+--
+
+DROP TABLE IF EXISTS `locacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `locacao` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `valor` double NOT NULL,
+  `valor_pago` double DEFAULT NULL,
+  `dt_locacao` datetime NOT NULL,
+  `dt_devolucao_agendada` datetime NOT NULL,
+  `dt_devolucao` datetime DEFAULT NULL,
+  `cpf_cliente` varchar(45) NOT NULL,
+  `mat_funcionario` int(10) unsigned NOT NULL,
+  `cod_midia` int(10) unsigned NOT NULL,
+  `cod_tipo_locacao` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_locacao_cliente` (`cpf_cliente`),
+  KEY `FK_locacao_funcionario` (`mat_funcionario`),
+  KEY `FK_locacao_midia` (`cod_midia`),
+  CONSTRAINT `FK_locacao_cliente` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf`),
+  CONSTRAINT `FK_locacao_funcionario` FOREIGN KEY (`mat_funcionario`) REFERENCES `funcionario` (`matricula`),
+  CONSTRAINT `FK_locacao_midia` FOREIGN KEY (`cod_midia`) REFERENCES `midia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `locacao`
+--
+
+LOCK TABLES `locacao` WRITE;
+/*!40000 ALTER TABLE `locacao` DISABLE KEYS */;
+INSERT INTO `locacao` VALUES (1,3,0,'2013-03-26 00:00:00','2013-03-26 00:00:00',NULL,'02536755772',6,1,NULL),(5,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'02536755772',6,1,NULL),(6,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'02536755772',6,2,NULL),(7,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'06755772',6,2,NULL),(8,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'06755772',6,2,NULL),(9,2,0,'2013-03-27 00:00:00','2013-03-29 00:00:00',NULL,'873942342',7,3,1),(10,2,0,'2013-03-27 00:00:00','2013-03-29 00:00:00',NULL,'873942342',6,2,1);
+/*!40000 ALTER TABLE `locacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dvd`
+--
+
+DROP TABLE IF EXISTS `dvd`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dvd` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `duracao_minutos` int(10) unsigned DEFAULT NULL,
+  `sinopse` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_dvd_1` FOREIGN KEY (`id`) REFERENCES `midia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dvd`
+--
+
+LOCK TABLES `dvd` WRITE;
+/*!40000 ALTER TABLE `dvd` DISABLE KEYS */;
+INSERT INTO `dvd` VALUES (1,180,'Um filme aninador'),(2,480,'Muito Bom'),(3,200,''),(4,200,''),(5,200,'');
+/*!40000 ALTER TABLE `dvd` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `multa`
+--
+
+DROP TABLE IF EXISTS `multa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `multa` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `descricao` varchar(45) DEFAULT NULL,
+  `valor` double NOT NULL,
+  `percentual` double DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `multa`
+--
+
+LOCK TABLES `multa` WRITE;
+/*!40000 ALTER TABLE `multa` DISABLE KEYS */;
+INSERT INTO `multa` VALUES (11,'Branda','Leve, poucos dias',5,0);
+/*!40000 ALTER TABLE `multa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `produto`
+--
+
+DROP TABLE IF EXISTS `produto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produto` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `descricao` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `produto`
+--
+
+LOCK TABLES `produto` WRITE;
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+INSERT INTO `produto` VALUES (1,'Dragao Azul','Acao'),(2,'Matrix','Ficcao'),(3,'Anjinhos','Guris pulando'),(4,'Anjinhos','Guris pulando'),(5,'Anjinhos','Guris pulando');
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `midia`
+--
+
+DROP TABLE IF EXISTS `midia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `midia` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `qt` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_midia_1` FOREIGN KEY (`id`) REFERENCES `produto` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `midia`
+--
+
+LOCK TABLES `midia` WRITE;
+/*!40000 ALTER TABLE `midia` DISABLE KEYS */;
+INSERT INTO `midia` VALUES (1,2),(2,1),(3,5),(4,5),(5,5);
+/*!40000 ALTER TABLE `midia` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionario`
+--
+
+DROP TABLE IF EXISTS `funcionario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `funcionario` (
+  `matricula` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `login` varchar(45) NOT NULL,
+  `senha` varchar(45) NOT NULL,
+  `cpf` varchar(45) DEFAULT NULL,
+  `logradouro` varchar(45) DEFAULT NULL,
+  `numero` varchar(45) DEFAULT NULL,
+  `bairro` varchar(45) DEFAULT NULL,
+  `cidade` varchar(45) DEFAULT NULL,
+  `cep` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `fone` varchar(45) DEFAULT NULL,
+  `celular` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`matricula`),
+  UNIQUE KEY `Index_funcionario_login` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `funcionario`
+--
+
+LOCK TABLES `funcionario` WRITE;
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+INSERT INTO `funcionario` VALUES (6,'Felipe','felipeadd','123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'ricardo','ricardo','12345678',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(9,'ricardo','aleciano','qwerty',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,'ricardo','rick','qwerty',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipo_locacao`
+--
+
+DROP TABLE IF EXISTS `tipo_locacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_locacao` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `nome` varchar(45) NOT NULL,
+  `descricao` varchar(200) NOT NULL,
+  `valor_locacao` double NOT NULL,
+  `n_dias_locacao` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_locacao`
+--
+
+LOCK TABLES `tipo_locacao` WRITE;
+/*!40000 ALTER TABLE `tipo_locacao` DISABLE KEYS */;
+INSERT INTO `tipo_locacao` VALUES (1,'infantil','Menores de 14 anos',2,2);
+/*!40000 ALTER TABLE `tipo_locacao` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `cliente`
@@ -56,234 +282,12 @@ INSERT INTO `cliente` VALUES ('02536755772','Elias','',0,NULL,'',NULL,NULL,'',''
 UNLOCK TABLES;
 
 --
--- Table structure for table `dvd`
+-- Dumping events for database 'locadora_video'
 --
 
-DROP TABLE IF EXISTS `dvd`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dvd` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `duracao_minutos` int(10) unsigned DEFAULT NULL,
-  `sinopse` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_dvd_1` FOREIGN KEY (`id`) REFERENCES `midia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
--- Dumping data for table `dvd`
+-- Dumping routines for database 'locadora_video'
 --
-
-LOCK TABLES `dvd` WRITE;
-/*!40000 ALTER TABLE `dvd` DISABLE KEYS */;
-INSERT INTO `dvd` VALUES (1,180,'Um filme aninador'),(2,480,'Muito Bom'),(3,480,'Muito Bom'),(4,480,'Muito Bom'),(5,480,'Muito Bom');
-/*!40000 ALTER TABLE `dvd` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `funcionario`
---
-
-DROP TABLE IF EXISTS `funcionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `funcionario` (
-  `matricula` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `login` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
-  `cpf` varchar(45) DEFAULT NULL,
-  `logradouro` varchar(45) DEFAULT NULL,
-  `numero` varchar(45) DEFAULT NULL,
-  `bairro` varchar(45) DEFAULT NULL,
-  `cidade` varchar(45) DEFAULT NULL,
-  `cep` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `fone` varchar(45) DEFAULT NULL,
-  `celular` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`matricula`),
-  UNIQUE KEY `Index_funcionario_login` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `funcionario`
---
-
-LOCK TABLES `funcionario` WRITE;
-/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (6,'Felipe','felipeadd','123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `locacao`
---
-
-DROP TABLE IF EXISTS `locacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `locacao` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `valor` double NOT NULL,
-  `valor_pago` double DEFAULT NULL,
-  `dt_locacao` datetime NOT NULL,
-  `dt_devolucao_agendada` datetime NOT NULL,
-  `dt_devolucao` datetime DEFAULT NULL,
-  `cpf_cliente` varchar(45) NOT NULL,
-  `mat_funcionario` int(10) unsigned NOT NULL,
-  `cod_midia` int(10) unsigned NOT NULL,
-  `cod_tipo_locacao` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_locacao_cliente` (`cpf_cliente`),
-  KEY `FK_locacao_funcionario` (`mat_funcionario`),
-  KEY `FK_locacao_midia` (`cod_midia`),
-  CONSTRAINT `FK_locacao_cliente` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf`),
-  CONSTRAINT `FK_locacao_funcionario` FOREIGN KEY (`mat_funcionario`) REFERENCES `funcionario` (`matricula`),
-  CONSTRAINT `FK_locacao_midia` FOREIGN KEY (`cod_midia`) REFERENCES `midia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `locacao`
---
-
-LOCK TABLES `locacao` WRITE;
-/*!40000 ALTER TABLE `locacao` DISABLE KEYS */;
-INSERT INTO `locacao` VALUES (1,3,0,'2013-03-26 00:00:00','2013-03-26 00:00:00',NULL,'02536755772',6,1,NULL),(5,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'02536755772',6,1,NULL),(6,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'02536755772',6,2,NULL),(7,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'06755772',6,2,NULL),(8,3,0,'2013-03-26 00:00:00','2013-03-28 00:00:00',NULL,'06755772',6,2,NULL);
-/*!40000 ALTER TABLE `locacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `midia`
---
-
-DROP TABLE IF EXISTS `midia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `midia` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `qt` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_midia_1` FOREIGN KEY (`id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `midia`
---
-
-LOCK TABLES `midia` WRITE;
-/*!40000 ALTER TABLE `midia` DISABLE KEYS */;
-INSERT INTO `midia` VALUES (1,2),(2,1),(3,1),(4,1),(5,1);
-/*!40000 ALTER TABLE `midia` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `multa`
---
-
-DROP TABLE IF EXISTS `multa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `multa` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
-  `valor` double NOT NULL,
-  `percentual` double DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `multa`
---
-
-LOCK TABLES `multa` WRITE;
-/*!40000 ALTER TABLE `multa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `multa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `produto`
---
-
-DROP TABLE IF EXISTS `produto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `produto` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `produto`
---
-
-LOCK TABLES `produto` WRITE;
-/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Dragao Azul','Acao'),(2,'Matrix','Ficcao'),(3,'Matrix','Ficcao'),(4,'Matrix','Ficcao'),(5,'Matrix','Ficcao');
-/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `promocao`
---
-
-DROP TABLE IF EXISTS `promocao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `promocao` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
-  `valor` double NOT NULL,
-  `percentual` double DEFAULT '0',
-  `dt_init` datetime NOT NULL,
-  `dt_final` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=big5;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `promocao`
---
-
-LOCK TABLES `promocao` WRITE;
-/*!40000 ALTER TABLE `promocao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `promocao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tipo_locacao`
---
-
-DROP TABLE IF EXISTS `tipo_locacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tipo_locacao` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `descricao` varchar(200) NOT NULL,
-  `valor_locacao` double NOT NULL,
-  `n_dias_locacao` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tipo_locacao`
---
-
-LOCK TABLES `tipo_locacao` WRITE;
-/*!40000 ALTER TABLE `tipo_locacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tipo_locacao` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -294,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-03-26 19:23:31
+-- Dump completed on 2013-03-27  5:11:49

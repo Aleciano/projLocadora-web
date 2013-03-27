@@ -42,10 +42,20 @@ public class MultaDAO implements DAO<Multa> {
 
 	@Override
 	public void remove(Multa obj) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE multa WHERE id = ?";
+		String sql = "DELETE FROM multa WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
+		pstm.execute();
+		BancoDeDados.desconectar();
+		
+	}
+	
+	public void remove(int multa) throws ClassNotFoundException, SQLException {
+		String sql = "DELETE FROM multa WHERE id = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm.setInt(1, multa);
 		pstm.execute();
 		BancoDeDados.desconectar();
 		

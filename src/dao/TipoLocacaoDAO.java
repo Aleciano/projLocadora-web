@@ -16,7 +16,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 	public void save(TipoLocacao obj) throws SQLException,
 			ClassNotFoundException {
 		BancoDeDados.conecta();
-		String sql = "INSERT INTO tipo_locacao (nome, descricao, valor, valor_locacao, n_dias_locacao) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO tipo_locacao (nome, descricao, valor_locacao, n_dias_locacao) VALUES (?, ?, ?, ?)";
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);		
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getDescricao());
@@ -31,7 +31,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 	public void update(TipoLocacao obj) throws ClassNotFoundException,
 			SQLException {
 		BancoDeDados.conecta();
-		String sql = "UPDATE tipo_locacao (nome, descricao, valor, valor_locacao, n_dias_locacao) SET (?, ?, ?, ?, ?, ?) WHERE id = ?";
+		String sql = "UPDATE tipo_locacao (nome, descricao, valor_locacao, n_dias_locacao) SET (?, ?, ?, ?) WHERE id = ?";
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);		
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getDescricao());

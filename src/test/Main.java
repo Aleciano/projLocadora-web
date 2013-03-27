@@ -114,39 +114,6 @@ public class Main {
 
 	}
 
-	// try {
-	// Funcionario funcionario = new Funcionario();
-	// funcionario.setLogin("ricardo");
-	// funcionario.setNome("ricardo");
-	//
-	// Cliente cliente = new Cliente();
-	// cliente.setCpf("06755772");
-	// cliente.setNome("Pedro");
-	//
-	//
-	// //Facade.cadastrarFuncionario(funcionario.getNome(),
-	// funcionario.getLogin(), funcionario.getSenha());
-	// //Facade.cadastrarCliente(cliente.getCpf(), cliente.getNome());
-
-	// Facade.cadastrar(new
-	// DVD("Drag�es","A��o",(short)2,180,"Um filme aninador"));
-	// //
-	// // cliente = Facade.getCliente(1);
-	// //
-	// // Date dt = new Date(System.currentTimeMillis());
-	// // dt.setDate(30);
-	// // Locacao locacao = new Locacao(midia, 5, null, new
-	// Date(System.currentTimeMillis()), dt, funcionario, cliente);
-	// //
-	// // Facade.fazerLoca��o(locacao);
-	// // Facade.FinalizarLoca��o(locacao);
-	//
-	// } catch (SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// } catch (ClassNotFoundException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
+	
 
 }

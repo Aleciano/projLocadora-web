@@ -95,9 +95,10 @@ public class Funcionario extends Pessoa {
 				+ getNumero() + ", getBairro()=" + getBairro()
 				+ ", getCidade()=" + getCidade() + ", getCep()=" + getCep()
 				+ ", getEmail()=" + getEmail() + ", getFone()=" + getFone()
-				+ ", getCelular()=" + getCelular() + ", getClass()="
+				+ ", getCelular()=" + getCelular() /*+ ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ super.toString() + "]";*/
+				;
 	}
 	
 	

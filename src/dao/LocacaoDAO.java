@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import db.BancoDeDados;
+import entidades.Cliente;
 import entidades.Locacao;
 
 public class LocacaoDAO implements DAO<Locacao> {
@@ -79,11 +80,13 @@ public class LocacaoDAO implements DAO<Locacao> {
 		Locacao locacao = null;
 		while (res.next()) {
 			locacao = new Locacao();
-			locacao.setCliente(Facade.getCliente(res.getString("cpf_cliente")));
+			locacao.setCliente(Facade.getClienteByCpf(res
+					.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
-			locacao.setTipoLocacao(Facade.getTipoLocacao(res.getInt("cod_tipo_locacao")));
+			locacao.setTipoLocacao(Facade.getTipoLocacao(res
+					.getInt("cod_tipo_locacao")));
 			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
 			locacao.setDtDevolucaoAgendada(res.getDate("dt_devolucao_agendada"));
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
@@ -109,7 +112,8 @@ public class LocacaoDAO implements DAO<Locacao> {
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
 			Locacao locacao = new Locacao();
-			locacao.setCliente(Facade.getCliente(res.getString("cpf_cliente")));
+			locacao.setCliente(Facade.getClienteByCpf(res
+					.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
@@ -133,41 +137,53 @@ public class LocacaoDAO implements DAO<Locacao> {
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
-		;
+		System.out.print("\n"+sql);
 		ResultSet res = pstm.executeQuery();
-
+		
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
+			System.out.print("*\n");
 			Locacao locacao = new Locacao();
-			locacao.setCliente(Facade.getCliente(res.getString("cpf_cliente")));
+			locacao.setCliente(Facade.getClienteByCpf(res.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
-			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
+			locacao.setDtLocacao(res.getDate("dt_locacao"));
 			locacao.setDtDevolucaoAgendada(res.getDate("dt_devolucao_agendada"));
-			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
+			locacao.setDtDevolucao(res.getDate("dt_devolucao"));			
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
 			locacao.setValorPago(res.getDouble("valor_pago"));
 			locacoes.add(locacao);
+			locacao.toString();
 		}
 		BancoDeDados.desconectar();
 
 		return locacoes;
 	}
-	
-	public Collection<Locacao> getDvdsLocados(String regex) throws ClassNotFoundException,
-	SQLException {
+
+	public Collection<Locacao> getDvdsLocados(String regex)
+			throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM locacao WHERE dt_devolucao =  NULL";
-		
-		return get(sql);		
+
+		return get(sql);
 	}
-	
-	public Collection<Locacao> getDvdPorNome(String nome) throws ClassNotFoundException,
-	SQLException {
-		String sql = "SELECT * FROM locacao WHERE nome LIKE '"+nome+"' ";
-		
-		return get(sql);		
+
+	// esse bixo deve tá no lugar errado!
+	/*
+	 * public Collection<Locacao> getDvdPorNome(String nome) throws
+	 * ClassNotFoundException, SQLException { String sql =
+	 * "SELECT * FROM locacao WHERE nome LIKE '"+nome+"' ";
+	 * 
+	 * return get(sql); }
+	 */
+
+	public Collection<Locacao> getByCliente(String cliente)
+			throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM locacao WHERE cpf_cliente LIKE '"
+				+ cliente + "' ";
+
+		return get(sql);
 	}
 
 }

@@ -233,7 +233,7 @@ public class DVDDAO implements DAO<DVD> {
 		return dvds;
 	}	
 	
-	public Collection<DVD> getDvdPorNome(String nome) throws ClassNotFoundException,
+	public Collection<DVD> getDvdByNome(String nome) throws ClassNotFoundException,
 	SQLException {
 		String sql = "SELECT * FROM dvd WHERE nome LIKE '"+nome+"' ";
 		

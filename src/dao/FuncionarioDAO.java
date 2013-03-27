@@ -11,7 +11,7 @@ import db.BancoDeDados;
 import entidades.Funcionario;
 
 public class FuncionarioDAO implements DAO<Funcionario> {
-
+	//TODO setar resto das coisas que herda de pessoa
 	@Override
 	public void save(Funcionario obj) throws SQLException, ClassNotFoundException {
 		String sql = "INSERT INTO funcionario (nome, login, senha) VALUES (?, ?, ?)";
@@ -109,8 +109,8 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		return funcionarios;
 	}
 	
-	public Collection<Funcionario> getOndeNomeComecaComA() throws ClassNotFoundException, SQLException{
-		String sql = "SELECT * FROM funcionario WHERE nome LIKE 'A%'";
+	public Collection<Funcionario> getFuncionario(String nome) throws ClassNotFoundException, SQLException{
+		String sql = "SELECT * FROM funcionario WHERE nome LIKE '"+nome+"' ";
 		
 		return get(sql);
 	}

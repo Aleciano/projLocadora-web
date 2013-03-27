@@ -10,8 +10,7 @@ import java.sql.Statement;
 /**
  * Conectar e fazer requisicoes ao mysql
  * 
- * @author Leonardo Cartaxo
- * 
+ *  
  */
 public class BancoDeDados {
 

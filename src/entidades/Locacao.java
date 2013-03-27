@@ -25,7 +25,7 @@ public class Locacao {
 
 	private int id;
 	private Midia midia;
-	private double valor;
+//	private double valor; // valor já existe dentro do tipo da locação.
 	private Multa multa;
 	private double valorPago;
 	private Promocao promocao;
@@ -41,13 +41,14 @@ public class Locacao {
 	 */
 	public Locacao() {
 		super();
+		this.tipoLocacao = new TipoLocacao();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**construtor com parametros
 	 * @param id numero de identificacao da locacao
 	 * @param midia mida
-	 * @param valor valor da locacao
+//	 * @param valor valor da locacao
 	 * @param multa  multa aplicada a locacao
 	 * @param valorPago valor que o cliente  pagou
 	 * @param promocao promocao em vigor
@@ -65,7 +66,7 @@ public class Locacao {
 		super();
 		this.id = id;
 		this.midia = midia;
-		this.valor = valor;
+//		this.valor = valor;
 		this.multa = multa;
 		this.valorPago = valorPago;
 		this.promocao = promocao;
@@ -109,14 +110,14 @@ public class Locacao {
 	 * @return valor da locacao
 	 */
 	public double getValor() {
-		return valor;
+		return tipoLocacao.getValor_locacao();
 	}
 
 	/**
 	 * @param valor valor da locacao
 	 */
 	public void setValor(double valor) {
-		this.valor = valor;
+		this.tipoLocacao.setValor_locacao(valor);
 	}
 
 	/**
@@ -247,14 +248,15 @@ public class Locacao {
 
 	@Override
 	public String toString() {
-		return "Locacao [id=" + id + ", midia=" + midia + ", valor=" + valor
+		return "Locacao [id=" + id + ", midia=" + midia + ", valor=" + tipoLocacao.getValor_locacao()
 				+ ", multa=" + multa + ", valorPago=" + valorPago
 				+ ", promocao=" + promocao + ", dtLocacao=" + dtLocacao
 				+ ", dtDevolucaoAgendada=" + dtDevolucaoAgendada
 				+ ", dtDevolucao=" + dtDevolucao + ", funcionario="
 				+ funcionario + ", cliente=" + cliente + ", tipoLocacao="
-				+ tipoLocacao + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ tipoLocacao /*+ ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";*/
+				;
 	}
 
 }

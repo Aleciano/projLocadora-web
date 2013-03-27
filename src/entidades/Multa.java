@@ -54,9 +54,10 @@ public class Multa {
 				+ descricao + ", percentual=" + percentual + ", valor=" + valor
 				+ ", getId()=" + getId() + ", getNome()=" + getNome()
 				+ ", getDescricao()=" + getDescricao() + ", getPercentual()="
-				+ getPercentual() + ", getValor()=" + getValor()
+				+ getPercentual() + ", getValor()=" + getValor()/*
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", toString()=" + super.toString() + "]";*/
+				;
 	}
 	
 	

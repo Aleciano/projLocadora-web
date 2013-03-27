@@ -6,17 +6,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 
-import entidades.Cliente;
-import entidades.DVD;
-import entidades.Funcionario;
-import entidades.Locacao;
-import entidades.Midia;
-import entidades.Multa;
-import entidades.Promocao;
-import entidades.TipoLocacao;
+import entidades.*;
 
 public class Facade {
-
+	// PRESTES A SER DELETADO
 	public static void fazerLocao(Cliente cliente, Funcionario funcionario,
 			double valor, Date data, Midia midia, Promocao promocao,
 			TipoLocacao tipo) throws SQLException, ClassNotFoundException {
@@ -42,13 +35,14 @@ public class Facade {
 		locacao.setCliente(cliente);
 		locacao.setFuncionario(funcionario);
 		locacao.setDtLocacao(data);
+
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(),
-				2 + data.getDate()));
+		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(), tipo
+				.getnDiasLocacao() + data.getDate()));
 		locacao.setDtDevolucaoAgendada(new Date(cal.getTime().getTime()));
+
 		locacao.setMidia(midia);
 		locacao.setTipoLocacao(tipo);
-		locacao.setValor(3);
 
 		new LocacaoDAO().save(locacao);
 
@@ -100,7 +94,7 @@ public class Facade {
 		new FuncionarioDAO().save(funcionario);
 	}
 
-	public void cadastrar(TipoLocacao tipo) throws SQLException,
+	public static void cadastrar(TipoLocacao tipo) throws SQLException,
 			ClassNotFoundException {
 		new TipoLocacaoDAO().save(tipo);
 	}
@@ -156,7 +150,7 @@ public class Facade {
 		new LocacaoDAO().update(locacao);
 	}
 
-	public void update(TipoLocacao tipo) throws SQLException,
+	public static void update(TipoLocacao tipo) throws SQLException,
 			ClassNotFoundException {
 		new TipoLocacaoDAO().update(tipo);
 	}
@@ -181,6 +175,11 @@ public class Facade {
 		new MultaDAO().remove(multa);
 	}
 
+	public static void remove(int multa) throws SQLException,
+			ClassNotFoundException {
+		new MultaDAO().remove(multa);
+	}
+
 	public static void remove(Promocao promocao) throws SQLException,
 			ClassNotFoundException {
 		new PromocaoDAO().remove(promocao);
@@ -196,7 +195,7 @@ public class Facade {
 		new TipoLocacaoDAO().remove(tipo);
 	}
 
-	public static Funcionario getFuncionario(int id) throws SQLException,
+	public static Funcionario getClienteByCpf(int id) throws SQLException,
 			ClassNotFoundException {
 		return new FuncionarioDAO().get(id);
 	}
@@ -206,22 +205,34 @@ public class Facade {
 		return new LocacaoDAO().get(id);
 	}
 
-	public static Cliente getCliente(String cpf) throws ClassNotFoundException,
+	public static Collection<Locacao> getLocacao(String cliente)
+			throws ClassNotFoundException, SQLException {
+		return new LocacaoDAO().getByCliente(cliente);
+	}
+
+	public static Cliente getClienteByCpf(String cpf) throws ClassNotFoundException,
 			SQLException {
 		return new ClienteDAO().getByCpf(cpf);
+	}
+	
+	public static Collection<Cliente> getCliente(String nome) throws ClassNotFoundException,
+	SQLException{
+		return new ClienteDAO().getByNome(nome);
 	}
 
 	public static DVD getDVD(int id) throws SQLException,
 			ClassNotFoundException {
 		return new DVDDAO().get(id);
 	}
+
 	/*
 	 * Retornará um array vazio se não encontrar o DVD.
 	 */
 	public static Collection<DVD> getDVD(String nome) throws SQLException,
 			ClassNotFoundException {
-		return new DVDDAO().getDvdPorNome(nome);
+		return new DVDDAO().getDvdByNome(nome);
 	}
+
 	/*
 	 * Retornará um array vazio se não encontrar o DVD.
 	 */
@@ -248,6 +259,17 @@ public class Facade {
 	public static ArrayList<Funcionario> getFuncionario()
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
+	}
+
+	public static ArrayList<Funcionario> getFuncionarioByNome(String nome)
+			throws ClassNotFoundException, SQLException {
+		return (ArrayList<Funcionario>) new FuncionarioDAO()
+				.getFuncionario(nome);
+	}
+	
+	public static Funcionario getFuncionario(int funcionario)
+			throws ClassNotFoundException, SQLException {
+		return new FuncionarioDAO().get(funcionario);
 	}
 
 	public static ArrayList<Locacao> getLocacao()
