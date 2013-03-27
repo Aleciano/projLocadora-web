@@ -20,6 +20,7 @@ import java.sql.Date;
  * o tipo de locacao @param tipoLocacao  
  */
 
+
 public class Locacao {
 
 	private int id;
