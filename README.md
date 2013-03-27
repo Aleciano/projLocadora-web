@@ -2,7 +2,7 @@ projLocadora-web
 ================
 
 O Repositório do projeto da disciplina de Programação Web.
-
+:
 :Dicas para usar o GitHub com o Eclipse:
 
 I. Clonando (baixando o projeto pela primeira vez) via Eclipse é só importar um projeto e informar que é do tipo Git. O eclipse pedirá uma URI, então vá até a página do projeto no Github e copie o link SSH (clique neles que mudarão no box). Clique duplo em URI, o eclipse capturará o conteúdo na área de transferência, em Connection marque ssh. Embaixo há um usuário, deixe git mesmo e sem senha. Se der certo, o eclipse irá pedir a frase que você passou ao criar as chaves. Abrirá um marcador com o nome 'master', dê Next duas vezes. O eclipse irá pedir para criar outra senha, bote algo que deseje. Daí para frente é como importar um projeto normal no Eclipse. Ao fechar o assistente, ao lado do projeto terá um nome como: projLocadora-web master.
