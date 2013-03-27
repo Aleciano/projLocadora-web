@@ -5,6 +5,7 @@ package entidades;
  * DVD e filho de Midia e modela um dvd de uma locadora do mundo real
  * DVD possui atributos como tempo de duracao @paran duracaoMinutos e sinopse 
  * @paran sinopse
+ * 
  */
 public class DVD extends Midia {
 
