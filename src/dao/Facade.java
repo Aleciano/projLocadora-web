@@ -16,6 +16,7 @@ import entidades.Promocao;
 import entidades.TipoLocacao;
 
 public class Facade {
+	
 
 	public static void fazerLocao(Cliente cliente, Funcionario funcionario,
 			double valor, Date data, Midia midia, Promocao promocao,
