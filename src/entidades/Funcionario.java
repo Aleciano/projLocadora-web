@@ -11,8 +11,10 @@ package entidades;
  *
  */
 /**
- * @author tercio
- *
+ * Esta classe  e filha de Pessoa e modela um funcionario de uma video locadora 
+ * Funcionario possui todos os atributos de pessoa e mais:  
+ * uma matricula, um login e uma senha 
+ * 
  */
 public class Funcionario extends Pessoa {
 
@@ -43,7 +45,7 @@ public class Funcionario extends Pessoa {
 		this.login = login;
 	}
 	/**
-	 * @returna senha do funcionario
+	 * @return senha do funcionario
 	 */
 	public String getSenha() {
 		return senha;

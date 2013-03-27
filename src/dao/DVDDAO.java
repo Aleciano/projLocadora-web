@@ -20,102 +20,100 @@ public class DVDDAO implements DAO<DVD> {
 		int id = 0;
 		/* Busca o maior ID de Produto para cadastrar no próximo (+1) */
 		String sql = "SELECT MAX(id) FROM produto";
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
-		while(res.next()){
+		while (res.next()) {
 			id = res.getInt(1);
 		}
 		id++;
-		
-		sql = "INSERT INTO produto (id, nome, descricao) VALUES (?, ?, ?)";		
+
+		sql = "INSERT INTO produto (id, nome, descricao) VALUES (?, ?, ?)";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setString(2, obj.getNome());
 		pstm.setString(3, obj.getDescricao());
 		pstm.execute();
-		
-		sql = "INSERT INTO midia (id, qt) VALUES (?, ?)";		
+
+		sql = "INSERT INTO midia (id, qt) VALUES (?, ?)";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setInt(2, obj.getQt());
 		pstm.execute();
-		
-		sql = "INSERT INTO dvd (id, duracao_minutos, sinopse) VALUES (?, ?, ?)";		
+
+		sql = "INSERT INTO dvd (id, duracao_minutos, sinopse) VALUES (?, ?, ?)";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setInt(2, obj.getDuracaoMinutos());
 		pstm.setString(3, obj.getSinopse());
-		pstm.execute();		
-		
+		pstm.execute();
+
 		BancoDeDados.desconectar();
-		
+
 	}
 
 	@Override
 	public void update(DVD obj) throws ClassNotFoundException, SQLException {
 		BancoDeDados.conecta();
-		String sql = "UPDATE produto WHERE id = ?";		
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		String sql = "UPDATE produto WHERE id = ?";
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		;
 		pstm.setInt(1, obj.getId());
 		ResultSet res = pstm.executeQuery();
-		DVD dvd =  null;
-		while (res.next()){
-			dvd =  new DVD();
+		DVD dvd = null;
+		while (res.next()) {
+			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 		}
-		
-		sql = "UPDATE midia WHERE id = ?";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+
+		sql = "UPDATE midia WHERE id = ?";
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		;
 		pstm.setInt(1, obj.getId());
 		res = pstm.executeQuery();
-		while (res.next()){;
+		while (res.next()) {
+			;
 			dvd.setQt(res.getShort("qt"));
 		}
-		
-		sql = "UPDATE dvd WHERE id = ?";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+
+		sql = "UPDATE dvd WHERE id = ?";
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		;
 		pstm.setInt(1, obj.getId());
 		res = pstm.executeQuery();
-		while (res.next()){;
+		while (res.next()) {
+			;
 			dvd.setSinopse(res.getString("sinopse"));
 		}
-		
+
 		BancoDeDados.desconectar();
-		
+
 	}
 
 	@Override
 	public void remove(DVD obj) throws ClassNotFoundException, SQLException {
 		BancoDeDados.conecta();
-		String sql = "DELETE produto WHERE id = ?";		
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		String sql = "DELETE FROM dvd WHERE id = ?";
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		;
 		pstm.setInt(1, obj.getId());
-		ResultSet res = pstm.executeQuery();
-		DVD dvd =  null;
-		while (res.next()){
-			dvd =  new DVD();
-			dvd.setId(res.getInt("id"));
-			dvd.setNome(res.getString("nome"));
-		}
-		
-		sql = "DELETE midia WHERE id = ?";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		pstm.execute();
+
+		sql = "DELETE FROM midia WHERE id = ?";
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
-		res = pstm.executeQuery();
-		while (res.next()){;
-			dvd.setQt(res.getShort("qt"));
-		}
-		
-		sql = "DELETE dvd WHERE id = ?";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+
+		pstm.execute();
+
+		sql = "DELETE FROM produto WHERE id = ?";
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
-		res = pstm.executeQuery();
-		while (res.next()){;
-			dvd.setSinopse(res.getString("sinopse"));
-		}		
+		pstm.execute();
 		BancoDeDados.desconectar();
-		
+
 	}
 
 	@Override
@@ -123,120 +121,128 @@ public class DVDDAO implements DAO<DVD> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
 	public DVD get(int id) throws SQLException, ClassNotFoundException {
 		BancoDeDados.conecta();
-		String sql = "SELECT * FROM produto WHERE id = ?";		
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		String sql = "SELECT * FROM produto WHERE id = ?";
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		;
 		pstm.setInt(1, id);
 		ResultSet res = pstm.executeQuery();
-		DVD dvd =  null;
-		while (res.next()){
-			dvd =  new DVD();
+		DVD dvd = null;
+		while (res.next()) {
+			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 		}
-		
-		sql = "SELECT * FROM midia WHERE id = ?";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+
+		sql = "SELECT * FROM midia WHERE id = ?";
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		;
 		pstm.setInt(1, id);
 		res = pstm.executeQuery();
-		while (res.next()){;
+		while (res.next()) {
+			;
 			dvd.setQt(res.getShort("qt"));
 		}
-		
-		sql = "SELECT * FROM dvd WHERE id = ?";		
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+
+		sql = "SELECT * FROM dvd WHERE id = ?";
+		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		;
 		pstm.setInt(1, id);
 		res = pstm.executeQuery();
-		while (res.next()){;
+		while (res.next()) {
+			;
 			dvd.setSinopse(res.getString("sinopse"));
 		}
-		
+
 		BancoDeDados.desconectar();
-		
+
 		return dvd;
 	}
 
 	@Override
 	public Collection<DVD> get() throws SQLException, ClassNotFoundException {
 		BancoDeDados.conecta();
-		String sql = "SELECT * FROM produto";		
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		String sql = "SELECT * FROM produto";
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
-		DVD dvd =  null;
-		while (res.next()){
-			dvd =  new DVD();
+		DVD dvd = null;
+		while (res.next()) {
+			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 			dvds.add(dvd);
 		}
-		
-		sql = "SELECT * FROM midia";		
+
+		sql = "SELECT * FROM midia";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		int index = 0;
-		while (res.next()){
+		while (res.next()) {
 			dvds.get(index).setQt(res.getShort("qt"));
 			index++;
 		}
-		
-		sql = "SELECT * FROM dvd";		
+
+		sql = "SELECT * FROM dvd";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		index = 0;
-		while (res.next()){
+		while (res.next()) {
 			dvds.get(index).setSinopse(res.getString("sinopse"));
 			index++;
 		}
-		
+
 		BancoDeDados.desconectar();
-		
+
 		return dvds;
 	}
 
 	@Override
-	public Collection<DVD> get(String regex) throws ClassNotFoundException, SQLException {
+	public Collection<DVD> get(String regex) throws ClassNotFoundException,
+			SQLException {
 		BancoDeDados.conecta();
 		String sql = regex.replaceAll("dvd", "produto");
-		
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
-		DVD dvd =  null;
-		while (res.next()){
-			dvd =  new DVD();
+		DVD dvd = null;
+		while (res.next()) {
+			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 			dvds.add(dvd);
 		}
-		
-		for(DVD dvd2: dvds){
+
+		for (DVD dvd2 : dvds) {
 			String sql2 = "SELECT * FROM midia WHERE id = ?";
 			pstm = BancoDeDados.getConexao().prepareStatement(sql2);
 			pstm.setInt(1, dvd2.getId());
 			res = pstm.executeQuery();
-			while (res.next()){
+			while (res.next()) {
 				dvd2.setQt(res.getShort("qt"));
 			}
 			sql2 = "SELECT * FROM dvd WHERE id = ?";
 			pstm = BancoDeDados.getConexao().prepareStatement(sql2);
 			pstm.setInt(1, dvd2.getId());
 			res = pstm.executeQuery();
-			while (res.next()){
+			while (res.next()) {
 				dvd2.setSinopse(res.getString("sinopse"));
 			}
 		}
-					
+
 		return dvds;
-	}	
-	
-	public Collection<DVD> getDvdByNome(String nome) throws ClassNotFoundException,
-	SQLException {
-		String sql = "SELECT * FROM dvd WHERE nome LIKE '"+nome+"' ";
-		
-		return get(sql);		
+	}
+
+	public Collection<DVD> getDvdByNome(String nome)
+			throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM dvd WHERE nome LIKE '" + nome + "' ";
+
+		return get(sql);
 	}
 }

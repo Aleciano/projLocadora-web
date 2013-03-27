@@ -3,8 +3,8 @@ package entidades;
 /**
  * @author tercio
  * DVD e filho de Midia e modela um dvd de uma locadora do mundo real
- * DVD possui atributos como tempo de duracao @paran duracaoMinutos e sinopse 
- * @paran sinopse
+ * DVD possui atributos como tempo de duracao  duracaoMinutos e sinopse 
+ *
  */
 public class DVD extends Midia {
 
@@ -58,7 +58,6 @@ public class DVD extends Midia {
 
 	/**construtor sem id
 	 * 
-	 * @param nome 
 	 * @param nome nome do Produto
 	 * @param descricao descricao do DVD
 	 * @param qt quantidade de midias do DVD

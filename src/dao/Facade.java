@@ -209,6 +209,11 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return new LocacaoDAO().getByCliente(cliente);
 	}
+	
+	public static Collection<Locacao> getLocacaoAberta(String cliente)
+			throws ClassNotFoundException, SQLException {
+		return new LocacaoDAO().getLocacaoAbertaByCliente(cliente);
+	}
 
 	public static Cliente getClienteByCpf(String cpf) throws ClassNotFoundException,
 			SQLException {

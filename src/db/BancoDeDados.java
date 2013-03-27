@@ -10,8 +10,8 @@ import java.sql.Statement;
 /**
  * Conectar e fazer requisicoes ao mysql
  * 
- *  
- */
+ * 
+ *  */
 public class BancoDeDados {
 
 	private static String driverJDBC = "com.mysql.jdbc.Driver";

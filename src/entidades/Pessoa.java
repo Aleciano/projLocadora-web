@@ -5,7 +5,7 @@ package entidades;
 
 /**
  * @author aleciano, tercio e leonardo
- * Pessoa é classe abstrata que pode ser utilizada para modelar qualquer
+ * Pessoa, classe abstrata que pode ser utilizada para modelar qualquer
  * objeto do mundo real que seja um ser humano
  * 
  *
@@ -32,9 +32,9 @@ public abstract class Pessoa {
 	 * @param bairro bairro em que o cliente mora
 	 * @param cidade cidade onde o cliente mora
 	 * @param cep CEP da rua do cliente
-	 * @param email endereço eletrônico do cliente
+	 * @param email endereco eletronico do cliente
 	 * @param fone numero do telefone residencial do cliente 
-	 * @param celular numero do telefone móvel do cliente
+	 * @param celular numero do telefone movel do cliente
 	 */
 	public Pessoa(String nome, String cpf, String logradouro, int numero,
 			String bairro, String cidade, String cep, String email,
@@ -60,7 +60,7 @@ public abstract class Pessoa {
 	}
 
 	/**
-	 * @param nome é o nome que pessoa deve receber
+	 * @param nome Ã© o nome que pessoa deve receber
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -74,7 +74,7 @@ public abstract class Pessoa {
 	}
 
 	/**
-	 * @param cpf é o CPF de pessoa
+	 * @param cpf Ã© o CPF de pessoa
 	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;

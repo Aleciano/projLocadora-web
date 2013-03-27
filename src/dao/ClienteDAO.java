@@ -73,12 +73,13 @@ public class ClienteDAO implements DAO<Cliente> {
 		ResultSet res = pstm.executeQuery();
 		Cliente cliente = null;
 		while (res.next()) {
+			
 			cliente = new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
 		}
 		BancoDeDados.desconectar();
-
+		
 		return cliente;
 	}
 
@@ -119,7 +120,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
-		System.out.print(sql);
+//		System.out.print(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		while (res.next()) {
