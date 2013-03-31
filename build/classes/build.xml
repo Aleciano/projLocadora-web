@@ -5,7 +5,7 @@
      LocadoraVideo    
      description
                    
-     tercio                                                                
+     tercio, leonardo e aleciano                                                               
      ====================================================================== -->
 <project name="LocadoraVideo" default="compilar">
 	<description>
