@@ -12,3 +12,4 @@ II. Dando o commit e salvando no repositório do Github. O commit é como prepar
 III. Para sincronizar com as mudanças que estão aplicadas no repositório da web, botão direito na raiz do projeto, menu Team, depois Syncronize. Será aberta uma nova perspectiva do Eclipse e na aba do lado esquerdo aparecerão os arquivos com novidades. Clique duplo sobre elas para visualizar a diferença. No lado direito ficará a versão do repositório web e na esquerda a sua versão local. Dá para ver as diferenças e verificar se realmente o Egit verificou o repositório web. Às vezes só pega na 2º Syncronize. Se você quiser aceitar todas as mudanças, clique com o direito na raiz do projeto e Merge. Poderia ser Overwrite, mas para garantir que suas alterações NÃO comitadas sejam perdidas, o merge faz essa mixagem entre a sua versão local e a versão da web. Nesta situação, se ocorrerem conflitos, é mais minuncioso e chato para resolvê-los.
 
 Entregável 2+1..
+testando
