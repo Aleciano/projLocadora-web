@@ -10,7 +10,6 @@ package entidades;
 public class Multa {
 	private int id;
 	private String nome;
-	private String descricao;
 	private double percentual;
 	private double valor;
 
@@ -40,20 +39,6 @@ public class Multa {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	/**
-	 * @return a descricao da multa
-	 */
-	public String getDescricao() {
-		return descricao;
-	}
-
-	/**
-	 * @param descricao descricao da multa
-	 */
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	/**
@@ -91,12 +76,12 @@ public class Multa {
 	 * @param percentual percentual da multa 
 	 * @param valor valor da multa
 	 */
-	public Multa(int id, String nome, String descricao, double percentual,
+	public Multa(int id, String nome, double percentual,
 			double valor) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.descricao = descricao;
+
 		this.percentual = percentual;
 		this.valor = valor;
 	}
@@ -113,10 +98,9 @@ public class Multa {
 	 */
 	@Override
 	public String toString() {
-		return "Multa [id=" + id + ", nome=" + nome + ", descricao="
-				+ descricao + ", percentual=" + percentual + ", valor=" + valor
+		return "Multa [id=" + id + ", nome=" + nome + ", percentual=" + percentual + ", valor=" + valor
 				+ ", getId()=" + getId() + ", getNome()=" + getNome()
-				+ ", getDescricao()=" + getDescricao() + ", getPercentual()="
+				+ ", getPercentual()="
 				+ getPercentual() + ", getValor()=" + getValor()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";

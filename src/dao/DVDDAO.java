@@ -41,11 +41,12 @@ public class DVDDAO implements DAO<DVD> {
 		pstm.setInt(2, obj.getQt());
 		pstm.execute();
 
-		sql = "INSERT INTO dvd (id, duracao_minutos, sinopse) VALUES (?, ?, ?)";
+		sql = "INSERT INTO dvd (id, duracao_minutos, sinopse, locado) VALUES (?, ?, ?, ?)";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setInt(2, obj.getDuracaoMinutos());
 		pstm.setString(3, obj.getSinopse());
+		pstm.setBoolean(4, (false));
 		pstm.execute();
 
 		BancoDeDados.desconectar();
@@ -55,38 +56,46 @@ public class DVDDAO implements DAO<DVD> {
 	@Override
 	public void update(DVD obj) throws ClassNotFoundException, SQLException {
 		BancoDeDados.conecta();
-		String sql = "UPDATE produto WHERE id = ?";
+		String sql = "UPDATE produto SET nome = ?, descricao = ? WHERE id = ?";
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
-		;
-		pstm.setInt(1, obj.getId());
-		ResultSet res = pstm.executeQuery();
-		DVD dvd = null;
-		while (res.next()) {
+//		UPDATE produto SET nome='matrix2', descricao='filme' WHERE id = 2
+		pstm.setInt(3, obj.getId());
+		pstm.setString(1, obj.getNome());
+		pstm.setString(2, obj.getDescricao());
+		pstm.execute();
+//		ResultSet res = pstm.executeQuery();
+
+		//DVD dvd = null;
+/*		while (res.next()) {
 			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
-		}
+		}*/
 
-		sql = "UPDATE midia WHERE id = ?";
+		sql = "UPDATE midia SET qt = ? WHERE id = ?";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
-		;
-		pstm.setInt(1, obj.getId());
-		res = pstm.executeQuery();
-		while (res.next()) {
+		
+		pstm.setInt(2, obj.getId());
+		pstm.setInt(1, obj.getQt());
+		pstm.execute();
+/*		while (res.next()) {
 			;
 			dvd.setQt(res.getShort("qt"));
-		}
-
-		sql = "UPDATE dvd WHERE id = ?";
+		}*/
+		sql = "UPDATE dvd SET duracao_minutos = ?, sinopse = ?, locado = ? WHERE id = ?";
 		pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		;
-		pstm.setInt(1, obj.getId());
-		res = pstm.executeQuery();
-		while (res.next()) {
+		pstm.setInt(4, obj.getId());
+		pstm.setInt(1, obj.getDuracaoMinutos());
+		pstm.setString(2, obj.getSinopse());
+		pstm.setBoolean(3, obj.isLocado());
+		pstm.execute();
+/*		while (res.next()) {
 			;
 			dvd.setSinopse(res.getString("sinopse"));
-		}
+			dvd.setDuracaoMinutos(res.getInt("duracao_minutos"));
+		}*/
 
 		BancoDeDados.desconectar();
 
@@ -216,6 +225,7 @@ public class DVDDAO implements DAO<DVD> {
 			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
+			dvd.setDescricao(res.getString("descricao"));
 			dvds.add(dvd);
 		}
 
@@ -233,6 +243,8 @@ public class DVDDAO implements DAO<DVD> {
 			res = pstm.executeQuery();
 			while (res.next()) {
 				dvd2.setSinopse(res.getString("sinopse"));
+				dvd2.setDuracaoMinutos(res.getInt("duracao_minutos"));
+				dvd2.setLocado(res.getBoolean("locado"));
 			}
 		}
 
@@ -241,7 +253,10 @@ public class DVDDAO implements DAO<DVD> {
 
 	public Collection<DVD> getDvdByNome(String nome)
 			throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM dvd WHERE nome LIKE '" + nome + "' ";
+
+		String sql = "SELECT * FROM dvd WHERE nome LIKE '" + nome + "%' ";		
+		//		String sql = "SELECT * FROM produto WHERE nome LIKE '" + nome + "%' ";
+
 
 		return get(sql);
 	}

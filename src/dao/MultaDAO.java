@@ -14,27 +14,27 @@ public class MultaDAO implements DAO<Multa> {
 	@Override
 	public void save(Multa obj) throws SQLException, ClassNotFoundException {
 		BancoDeDados.conecta();
-		String sql = "INSERT INTO multa (nome, descricao, valor, percentual) VALUES (?, ?, ?, ?)";
+		String sql = "INSERT INTO multa (nome, valor) VALUES (?, ?)";
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		
 		pstm.setString(1, obj.getNome());
-		pstm.setString(2, obj.getDescricao());
-		pstm.setDouble(3, obj.getValor());
-		pstm.setDouble(4, obj.getPercentual());
+
+		pstm.setDouble(2, obj.getValor());
+
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
 
 	@Override
 	public void update(Multa obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE multa (nome, descricao, valor, percentual) SET (?, ?, ?, ?) WHERE id = ?";
+		String sql = "UPDATE multa (nome, valor) SET (?, ?) WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
-		pstm.setString(2, obj.getDescricao());
-		pstm.setDouble(3, obj.getValor());
-		pstm.setDouble(4, obj.getPercentual());
-		pstm.setInt(5, obj.getId());
+
+		pstm.setDouble(2, obj.getValor());
+
+		pstm.setInt(3, obj.getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 		
@@ -73,9 +73,7 @@ public class MultaDAO implements DAO<Multa> {
 			multa = new Multa();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
-			multa.setDescricao(res.getString("descricao"));
 			multa.setValor(res.getDouble("valor"));
-			multa.setPercentual(res.getDouble("percentual"));
 			
 		}
 		BancoDeDados.desconectar();
@@ -95,10 +93,8 @@ public class MultaDAO implements DAO<Multa> {
 			multa = new Multa();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
-			multa.setDescricao(res.getString("descricao"));
 			multa.setValor(res.getDouble("valor"));
-			multa.setPercentual(res.getDouble("percentual"));
-			
+	
 		}
 		BancoDeDados.desconectar();
 		
@@ -116,9 +112,7 @@ public class MultaDAO implements DAO<Multa> {
 			Multa multa = new Multa();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
-			multa.setDescricao(res.getString("descricao"));
 			multa.setValor(res.getDouble("valor"));
-			multa.setPercentual(res.getDouble("percentual"));
 			multas.add(multa);
 		}
 		BancoDeDados.desconectar();
@@ -137,9 +131,7 @@ public class MultaDAO implements DAO<Multa> {
 			Multa multa = new Multa();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
-			multa.setDescricao(res.getString("descricao"));
 			multa.setValor(res.getDouble("valor"));
-			multa.setPercentual(res.getDouble("percentual"));
 			multas.add(multa);
 		}
 		BancoDeDados.desconectar();

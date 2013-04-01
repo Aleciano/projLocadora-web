@@ -15,7 +15,6 @@ public class TipoLocacao {
 	
 	private int id;
 	private String nome;
-	private String descricao;
 	private double valor_locacao;
 	private int nDiasLocacao;
 
@@ -39,7 +38,6 @@ public class TipoLocacao {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.descricao = descricao;
 		this.valor_locacao = valor_locacao;
 		this.nDiasLocacao = nDiasLocacao;
 	}
@@ -72,20 +70,7 @@ public class TipoLocacao {
 		this.nome = nome;
 	}
 
-	/**
-	 * @return a descricao
-	 */
-	public String getDescricao() {
-		return descricao;
-	}
-
-	/**
-	 * @param descricao descricao
-	 */
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-
+	
 	/**
 	 * @return o valor
 	 */
@@ -119,11 +104,9 @@ public class TipoLocacao {
 	 */
 	@Override
 	public String toString() {
-		return "TipoLocacao [id=" + id + ", nome=" + nome + ", descricao="
-				+ descricao + ", valor_locacao=" + valor_locacao
+		return "TipoLocacao [id=" + id + ", nome=" + nome + ", valor_locacao=" + valor_locacao
 				+ ", nDiasLocacao=" + nDiasLocacao + ", getId()=" + getId()
-				+ ", getNome()=" + getNome() + ", getDescricao()="
-				+ getDescricao() + ", getValor_locacao()=" + getValor_locacao()
+				+ ", getNome()=" + getNome() + ", getValor_locacao()=" + getValor_locacao()
 				+ ", getnDiasLocacao()=" + getnDiasLocacao() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";

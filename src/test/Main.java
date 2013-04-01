@@ -59,7 +59,9 @@ public class Main {
 		TipoLocacao tipo;
 		Funcionario funcX;
 		Cliente clienteaux = null;
+		Promocao promocao = null;
 		int opcao, i;
+		String d;
 		Date dt = null;
 		do {
 			opcao = m.exibirMenu();
@@ -73,7 +75,7 @@ public class Main {
 				dvd.setNome(new Scanner(System.in).next());
 				System.out.println("Digite o descrição do DVD: ");
 				dvd.setDescricao(new Scanner(System.in).next());
-				System.out.println("Digite a quantidade de Disc: ");
+				System.out.println("Digite a quantidade de mídias: ");
 				dvd.setQt(new Scanner(System.in).nextShort());
 				System.out.println("Digite a duração: ");
 				dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
@@ -99,7 +101,7 @@ public class Main {
 				System.out.println("Bem vindo a Pesquisa de DVD");
 				System.out.println("----------------------------------");
 				System.out.println("Digite o nome do DVD: ");
-				String d = new Scanner(System.in).next();
+				d = new Scanner(System.in).next();
 
 				try {
 					listaDvd = (ArrayList<DVD>) Facade.getDVD(d);
@@ -267,11 +269,18 @@ public class Main {
 						d = new Scanner(System.in).next();
 
 						listaDvd = (ArrayList<DVD>) Facade.getDVD(d);
+						if (listaDvd.size() > 0) {
+
+							System.out.println("Foram Encontrados "
+									+ listaDvd.size() + "DVD com a Descrição:");}
 						dt = new Date(System.currentTimeMillis());
 						tipo = Facade.getTipoLocacao(1);
 						funcX = Facade.getFuncionarioByNome("Felipe").get(0);
-						Facade.fazerLocao(clienteaux, funcX, dt, listaDvd.get(0),
-								null, tipo);
+						
+						Facade.fazerLocacao(clienteaux, funcX, dt,
+								listaDvd.get(0), promocao);
+						/*Facade.fazerLocacao(clienteaux, funcX, dt,
+								listaDvd.get(0), null, tipo);*/
 						Calendar cal = Calendar.getInstance();
 						cal.setTime(new java.util.Date(dt.getYear(), dt
 								.getMonth(), tipo.getnDiasLocacao()
@@ -283,7 +292,7 @@ public class Main {
 
 					}
 				} catch (Exception e) {
-					System.out.println("Erro: Cliente não cadastrado!");
+					System.out.println("Erro no processamento!");
 					e.printStackTrace();
 				}
 

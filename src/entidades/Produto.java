@@ -1,5 +1,7 @@
 package entidades;
 
+
+
 public abstract class Produto {
 	private int id;
 	private String nome;
@@ -35,7 +37,13 @@ public abstract class Produto {
 		this.nome = nome;
 		this.descricao = descricao;
 	}
+
 	
+	/**
+	 * construtor
+	 * @param nome nome do Produto
+	 * param descricao descricao do tipo de mídia: filme, infantil e show.
+	 */
 	public Produto(String nome, String descricao) {
 		super();
 		this.nome = nome;
@@ -55,7 +63,7 @@ public abstract class Produto {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
 	}
-	
-	
+
+
 
 }

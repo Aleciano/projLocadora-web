@@ -13,40 +13,40 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 	@Override
 	public void save(Locacao obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia, cod_tipo_locacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO locacao (valor, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
-		pstm.setDouble(2, obj.getValorPago());
-		pstm.setDate(3, obj.getDtLocacao());
-		pstm.setDate(4, obj.getDtDevolucaoAgendada());
-		pstm.setDate(5, obj.getDtDevolucao());
-		pstm.setString(6, obj.getCliente().getCpf());
-		pstm.setInt(7, obj.getFuncionario().getMatricula());
-		pstm.setInt(8, obj.getMidia().getId());
-		pstm.setInt(9, obj.getTipoLocacao().getId());
+		// pstm.setDouble(2, obj.getValorPago());
+		pstm.setDate(2, obj.getDtLocacao());
+		pstm.setDate(3, obj.getDtDevolucaoAgendada());
+		pstm.setDate(4, obj.getDtDevolucao());
+		pstm.setString(5, obj.getCliente().getCpf());
+		pstm.setInt(6, obj.getFuncionario().getMatricula());
+		pstm.setInt(7, obj.getMidia().getId());
+		// pstm.setInt(9, obj.getTipoLocacao().getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
 
-	// alterar uma locação. Ex: adicionar multa.
+	// Se tiver multa ela já vem embutida no valor, já que aqui o interesse é só salvar, e não fazer cálculos.
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE locacao (valor, valor_pago, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia, cod_tipo_locacao) SET (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id =?";
+		String sql = "UPDATE locacao (valor, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) SET (?, ?, ?, ?, ?, ?, ?) WHERE id =?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
-		pstm.setDouble(2, obj.getValorPago());
-		pstm.setDate(3, obj.getDtLocacao());
-		pstm.setDate(4, obj.getDtDevolucaoAgendada());
-		pstm.setDate(5, obj.getDtDevolucao());
-		pstm.setString(6, obj.getCliente().getCpf());
-		pstm.setInt(7, obj.getFuncionario().getMatricula());
-		pstm.setInt(8, obj.getMidia().getId());
-		pstm.setInt(9, obj.getTipoLocacao().getId());
-		pstm.setInt(10, obj.getId());
+		// pstm.setDouble(2, obj.getValorPago());
+		pstm.setDate(2, obj.getDtLocacao());
+		pstm.setDate(3, obj.getDtDevolucaoAgendada());
+		pstm.setDate(4, obj.getDtDevolucao());
+		pstm.setString(5, obj.getCliente().getCpf());
+		pstm.setInt(6, obj.getFuncionario().getMatricula());
+		pstm.setInt(7, obj.getMidia().getId());
+		// pstm.setInt(9, obj.getTipoLocacao().getId());
+		pstm.setInt(8, obj.getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
@@ -85,14 +85,13 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
-			locacao.setTipoLocacao(Facade.getTipoLocacao(res
-					.getInt("cod_tipo_locacao")));
+//			locacao.setTipoLocacao(Facade.getTipoLocacao(res.getInt("cod_tipo_locacao")));
 			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
 			locacao.setDtDevolucaoAgendada(res.getDate("dt_devolucao_agendada"));
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-			locacao.setValorPago(res.getDouble("valor_pago"));
+//			locacao.setValorPago(res.getDouble("valor_pago"));
 		}
 		BancoDeDados.desconectar();
 
@@ -122,7 +121,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-			locacao.setValorPago(res.getDouble("valor_pago"));
+//			locacao.setValorPago(res.getDouble("valor_pago"));
 			locacoes.add(locacao);
 		}
 		BancoDeDados.desconectar();
@@ -154,7 +153,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-			locacao.setValorPago(res.getDouble("valor_pago"));
+//			locacao.setValorPago(res.getDouble("valor_pago"));
 			locacoes.add(locacao);
 			locacao.toString();
 		}
@@ -163,9 +162,9 @@ public class LocacaoDAO implements DAO<Locacao> {
 		return locacoes;
 	}
 
-	public Collection<Locacao> getDvdsLocados(String regex)
+	public Collection<Locacao> getLocacoesAbertas()
 			throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM locacao WHERE dt_devolucao =  NULL";
+		String sql = "SELECT * FROM locacao WHERE dt_devolucao is NULL";
 
 		return get(sql);
 	}
@@ -187,10 +186,10 @@ public class LocacaoDAO implements DAO<Locacao> {
 		return get(sql);
 	}
 
-	public Collection<Locacao> getLocacaoAbertaByCliente(String cliente)
+	public Collection<Locacao> getLocacoesAbertasByCliente(String cliente)
 			throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM locacao WHERE cpf_cliente LIKE '" + cliente
-				+ "' AND dt_devolucao = null";
+				+ "' AND dt_devolucao is NULL";
 
 		return get(sql);
 	}

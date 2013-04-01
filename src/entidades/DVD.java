@@ -10,6 +10,7 @@ public class DVD extends Midia {
 
 	private int duracaoMinutos;
 	private String sinopse;
+	boolean locado;
 
 	/**
 	 * @return tempo de duracao do DVD em minutos
@@ -39,6 +40,14 @@ public class DVD extends Midia {
 		this.sinopse = sinopse;
 	}
 
+	public boolean isLocado() {
+		return locado;
+	}
+
+	public void setLocado(boolean locado) {
+		this.locado = locado;
+	}
+
 	/* Construtor que recebe o Id explicitamente.*/
 	/**
 	 * construtor 
@@ -54,6 +63,7 @@ public class DVD extends Midia {
 		super(id, nome, descricao, qt);
 		this.duracaoMinutos = duracaoMinutos;
 		this.sinopse = sinopse;
+		this.locado = false;
 	}
 
 	/**construtor sem id
@@ -79,19 +89,12 @@ public class DVD extends Midia {
 		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see entidades.Midia#toString()
-	 */
 	@Override
 	public String toString() {
 		return "DVD [duracaoMinutos=" + duracaoMinutos + ", sinopse=" + sinopse
-				+ ", getDuracaoMinutos()=" + getDuracaoMinutos()
-				+ ", getSinopse()=" + getSinopse() + ", getQt()=" + getQt()
-				+ ", getId()=" + getId() + ", getNome()=" + getNome()
-				+ ", getDescricao()=" + getDescricao() /*+ ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";*/
-				;
+				+ ", locado=" + locado + ", getDuracaoMinutos()="
+				+ getDuracaoMinutos() + ", getSinopse()=" + getSinopse() + "]";
 	}
 	
+
 }

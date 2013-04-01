@@ -10,7 +10,7 @@ import entidades.*;
 
 public class Facade {
 	// PRESTES A SER DELETADO
-	public static void fazerLocao(Cliente cliente, Funcionario funcionario,
+	public static void fazerLocacao(Cliente cliente, Funcionario funcionario,
 			double valor, Date data, Midia midia, Promocao promocao,
 			TipoLocacao tipo) throws SQLException, ClassNotFoundException {
 		Locacao locacao = new Locacao();
@@ -22,42 +22,49 @@ public class Facade {
 				2 + data.getDate()));
 		locacao.setDtDevolucaoAgendada(new Date(cal.getTime().getTime()));
 		locacao.setMidia(midia);
-		locacao.setTipoLocacao(tipo);
+//		locacao.setTipoLocacao(tipo);
 		locacao.setValor(valor);
 
 		new LocacaoDAO().save(locacao);
 	}
-
-	public static void fazerLocao(Cliente cliente, Funcionario funcionario,
-			Date data, Midia midia, Promocao promocao, TipoLocacao tipo)
+	//TODO alterar para receber promoções
+	public static void fazerLocacao(Cliente cliente, Funcionario funcionario,
+			Date data, Midia midia, Promocao promocao/*, TipoLocacao tipo*/)
 			throws SQLException, ClassNotFoundException {
 		Locacao locacao = new Locacao();
 		locacao.setCliente(cliente);
 		locacao.setFuncionario(funcionario);
 		locacao.setDtLocacao(data);
+		TipoLocacao tipo = null;
 
+		tipo = Facade.getTipoLocacao(midia.getDescricao());
+		locacao.setValor(tipo.getValor_locacao());
+		
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(), tipo
 				.getnDiasLocacao() + data.getDate()));
 		locacao.setDtDevolucaoAgendada(new Date(cal.getTime().getTime()));
 
 		locacao.setMidia(midia);
-		locacao.setTipoLocacao(tipo);
+		locacao.setValor(promocao);
+//		locacao.setTipoLocacao(tipo);
 
 		new LocacaoDAO().save(locacao);
+		((DVD)midia).setLocado(true);
+		Facade.update((DVD)midia);
 
 	}
 
-	public static void fazerLocao(Locacao locacao) throws SQLException,
+	public static void fazerLocacao(Locacao locacao) throws SQLException,
 			ClassNotFoundException {
 		new LocacaoDAO().save(locacao);
 	}
 
-	public static void FinalizarLocao(Locacao locacao, double valor_pago,
+	public static void FinalizarLocao(Locacao locacao, /*double valor_pago,*/
 			Multa multa) throws ClassNotFoundException, SQLException {
-		locacao.setValor(valor_pago);
+		locacao.setValor(locacao.getValor() + multa.getValor());
 		locacao.setDtDevolucao(new Date(System.currentTimeMillis()));
-		locacao.setMulta(multa);
+//		locacao.setMulta(multa);
 		new LocacaoDAO().update(locacao);
 	}
 
@@ -210,11 +217,15 @@ public class Facade {
 		return new LocacaoDAO().getByCliente(cliente);
 	}
 	
-	public static Collection<Locacao> getLocacaoAberta(String cliente)
+	public static Collection<Locacao> getLocacoesAbertas(String cliente)
 			throws ClassNotFoundException, SQLException {
-		return new LocacaoDAO().getLocacaoAbertaByCliente(cliente);
+		return new LocacaoDAO().getLocacoesAbertasByCliente(cliente);
 	}
 
+	public static Collection<Locacao> getLocacoesAbertas()
+			throws ClassNotFoundException, SQLException {
+		return new LocacaoDAO().getLocacoesAbertas();
+	}
 	public static Cliente getClienteByCpf(String cpf) throws ClassNotFoundException,
 			SQLException {
 		return new ClienteDAO().getByCpf(cpf);
@@ -300,5 +311,10 @@ public class Facade {
 	public static ArrayList<TipoLocacao> getTipoLocacao()
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<TipoLocacao>) new TipoLocacaoDAO().get();
+	}
+	
+	public static TipoLocacao getTipoLocacao(String descricao)
+			throws ClassNotFoundException, SQLException {
+		return ((ArrayList<TipoLocacao>) (new TipoLocacaoDAO().getTipoByNome(descricao))).get(0); 
 	}
 }
