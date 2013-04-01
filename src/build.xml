@@ -43,7 +43,7 @@
 
 		</target>
 	
-	<!-- gera o .jar-->
+	<!-- gera o arquivo .jar-->
 		<target name="gerarjar" depends="compilar">
 			
 			<jar destfile="${dist.dir}/app.jar" basedir="${bin.dir}">
