@@ -33,7 +33,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 	// Se tiver multa ela já vem embutida no valor, já que aqui o interesse é só salvar, e não fazer cálculos.
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE locacao (valor, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) SET (?, ?, ?, ?, ?, ?, ?) WHERE id =?";
+		String sql = "UPDATE locacao SET valor=?, dt_locacao=?, dt_devolucao_agendada=?, dt_devolucao=?, cpf_cliente=?, mat_funcionario=?, cod_midia=? WHERE id =?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -53,7 +53,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 	@Override
 	public void remove(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE locacao WHERE id = ?";
+		String sql = "DELETE from locacao WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);

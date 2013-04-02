@@ -110,7 +110,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 		ArrayList<TipoLocacao> tipos = new ArrayList<TipoLocacao>();
 		TipoLocacao tipo = null;
 		while (res.next()) {
-			System.out.print("*");
+			System.out.print("Achou e formando locacao");
 			tipo = new TipoLocacao();
 			tipo.setId(res.getInt("id"));
 			tipo.setNome(res.getString("nome"));

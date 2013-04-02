@@ -6,7 +6,6 @@ import java.sql.*;
 public class Promocao {
 	private int id;
 	private String nome;
-	private double percentual;
 	private double valor;
 	private Date dtInit;
 	private Date dtFinal;
@@ -24,12 +23,6 @@ public class Promocao {
 		this.nome = nome;
 	}
 	
-	public double getPercentual() {
-		return percentual;
-	}
-	public void setPercentual(double percentual) {
-		this.percentual = percentual;
-	}
 	public double getValor() {
 		return valor;
 	}
@@ -54,7 +47,6 @@ public class Promocao {
 		this.id = id;
 		this.nome = nome;
 
-		this.percentual = percentual;
 		this.valor = valor;
 		this.dtInit = duracaoInit;
 		this.dtFinal = duracaoFinal;
@@ -64,7 +56,7 @@ public class Promocao {
 	}
 	@Override
 	public String toString() {
-		return "Promocao [id=" + id + ", nome=" + nome + ", percentual=" + percentual + ", valor=" + valor
+		return "Promocao [id=" + id + ", nome=" + nome + ", valor=" + valor
 				+ ", dtInit=" + dtInit + ", dtFinal=" + dtFinal + "]";
 	}
 	

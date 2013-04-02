@@ -101,6 +101,11 @@ public class MultaDAO implements DAO<Multa> {
 		return multa;
 	}
 	
+	public Collection<Multa> getMultaPorNome(String nome) throws ClassNotFoundException, SQLException{
+		String sql = "SELECT * FROM multa WHERE nome like '"+nome+"%'";
+		return get(sql);
+	}
+	
 	@Override
 	public Collection<Multa> get() throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM multa";

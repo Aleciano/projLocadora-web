@@ -121,14 +121,14 @@ public class Locacao {
 	 * @param valor valor da locacao
 	 */
 	public void setValor(double valor) {
-		//TODO setar com multa ou promoção
+		this.valor = valor;
 		
 	}
 	/**
 	 * @param valor valor da locacao
 	 */
 	public void setValor(Multa multa) {
-		setValor(valor + multa.getValor());
+		this.valor = (multa != null) ? this.valor + multa.getValor() : valor;
 		
 	}
 	/**

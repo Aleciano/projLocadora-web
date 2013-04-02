@@ -1,7 +1,7 @@
 package entidades;
 
 /**
- * @author tercio, aleciano, leonardoddd Esta classe é uma classe abstrata filha
+ * @author tercio, aleciano, leonardo Esta classe é uma classe abstrata filha
  *         de Produto Ela modela uma midia locavel do mundo real; Ela possui um
  *         numero de idendificacao da midia,
  * 

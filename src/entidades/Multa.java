@@ -4,13 +4,13 @@ package entidades;
  * @author tercio, aleciano e leonardo Esta classe modela uma multa que pode ser
  *         aplicada a uma locacao de uma produto de uma locadora que teve a
  *         entrega atrazada. Ela possui os seguintes atributos: um numero de
- *         identificacao, um nome ,uma descricao, um percentual e um valor 
+ *         identificacao, um nome ,uma descricao e um valor. 
  * 
  */
 public class Multa {
 	private int id;
 	private String nome;
-	private double percentual;
+
 	private double valor;
 
 	/**
@@ -41,20 +41,7 @@ public class Multa {
 		this.nome = nome;
 	}
 
-	/**
-	 * @return o percentual a multa
-	 */
-	public double getPercentual() {
-		return percentual;
-	}
-
-	/**
-	 * @param percentual percentual da multa
-	 */
-	public void setPercentual(double percentual) {
-		this.percentual = percentual;
-	}
-
+	
 	/**
 	 * @return o valor da multa
 	 */
@@ -72,17 +59,30 @@ public class Multa {
 	/**construtor com parametros
 	 * @param id numero de idenditificacao da multa
 	 * @param nome nome da multa
-	 * @param descricao descricao a multa
-	 * @param percentual percentual da multa 
+
 	 * @param valor valor da multa
 	 */
-	public Multa(int id, String nome, double percentual,
+	public Multa(int id, String nome,
 			double valor) {
 		super();
 		this.id = id;
 		this.nome = nome;
 
-		this.percentual = percentual;
+		this.valor = valor;
+	}
+	
+	/**construtor com parametros
+	 * @param id numero de idenditificacao da multa
+	 * @param nome nome da multa
+
+	 * @param valor valor da multa
+	 */
+	public Multa(String nome,
+			double valor) {
+		super();
+		this.id = 99;
+		this.nome = nome;
+
 		this.valor = valor;
 	}
 
@@ -93,17 +93,16 @@ public class Multa {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	public String toString() {
+		return "Multa [id=" + id + ", nome=" + nome + ", valor=" + valor
+				+ ", getId()=" + getId() + ", getNome()=" + getNome()
+				+ ", getValor()=" + getValor() + "]";
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	@Override
-	public String toString() {
-		return "Multa [id=" + id + ", nome=" + nome + ", percentual=" + percentual + ", valor=" + valor
-				+ ", getId()=" + getId() + ", getNome()=" + getNome()
-				+ ", getPercentual()="
-				+ getPercentual() + ", getValor()=" + getValor()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
+	
 
 }
