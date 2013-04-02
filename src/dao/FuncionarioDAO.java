@@ -14,12 +14,22 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	//TODO setar resto das coisas que herda de pessoa
 	@Override
 	public void save(Funcionario obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO funcionario (nome, login, senha) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO funcionario (nome, login, cpf, senha, logradouro, numero, bairro, cidade, cep, email, fone, celular) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getLogin());
-		pstm.setString(3, obj.getSenha());
+		pstm.setString(3, obj.getCpf());
+		pstm.setString(4, obj.getSenha());
+	
+		pstm.setString(5, obj.getLogradouro());
+		pstm.setInt(6, obj.getNumero());
+		pstm.setString(7, obj.getBairro());
+		pstm.setString(8, obj.getCidade());
+		pstm.setString(9, obj.getCep());
+		pstm.setString(10, obj.getEmail());
+		pstm.setString(11, obj.getFone());
+		pstm.setString(12, obj.getCelular());		
 		
 		pstm.execute();
 		BancoDeDados.desconectar();		
@@ -27,13 +37,23 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 
 	@Override
 	public void update(Funcionario obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE funcionario (nome, login, senha) SET (?, ?, ?) WHERE matricula = ?";
+		String sql = "UPDATE funcionario SET nome=?, login=?, cpf=?, senha=?, logradouro=?, numero=?, bairro=?, cidade=?, cep=?, email=?, fone=?, celular=? WHERE matricula = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getLogin());
-		pstm.setString(3, obj.getSenha());
-		pstm.setInt(4, obj.getMatricula());
+		pstm.setString(3, obj.getCpf());
+		pstm.setString(4, obj.getSenha());
+	
+		pstm.setString(5, obj.getLogradouro());
+		pstm.setInt(6, obj.getNumero());
+		pstm.setString(7, obj.getBairro());
+		pstm.setString(8, obj.getCidade());
+		pstm.setString(9, obj.getCep());
+		pstm.setString(10, obj.getEmail());
+		pstm.setString(11, obj.getFone());
+		pstm.setString(12, obj.getCelular());		
+		pstm.setInt(13, obj.getMatricula());
 		pstm.execute();
 		BancoDeDados.desconectar();
 		
@@ -64,6 +84,16 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionario.setLogin(res.getString("login"));
 			funcionario.setSenha(res.getString("senha"));
 			funcionario.setNome(res.getString("nome"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
+			
 		}
 		BancoDeDados.desconectar();
 		
@@ -83,6 +113,15 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionario.setLogin(res.getString("login"));
 			funcionario.setSenha(res.getString("senha"));
 			funcionario.setNome(res.getString("nome"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
 			funcionarios.add(funcionario);
 		}
 		BancoDeDados.desconectar();
@@ -102,7 +141,17 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionario.setLogin(res.getString("login"));
 			funcionario.setSenha(res.getString("senha"));
 			funcionario.setNome(res.getString("nome"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
 			funcionarios.add(funcionario);
+			
 		}
 		BancoDeDados.desconectar();
 		
@@ -116,9 +165,30 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	}
 
 	@Override
-	public Funcionario get(Funcionario id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Funcionario get(Funcionario id) throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM funcionario WHERE matricula = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		pstm.setInt(1, id.getMatricula());
+		ResultSet res = pstm.executeQuery();
+		Funcionario funcionario = null;
+		while (res.next()) {
+			funcionario.setMatricula(res.getInt("matricula"));
+			funcionario.setLogin(res.getString("login"));
+			funcionario.setSenha(res.getString("senha"));
+			funcionario.setNome(res.getString("nome"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
+		}
+		return funcionario;
 	}
 
 	

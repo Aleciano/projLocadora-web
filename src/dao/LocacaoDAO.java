@@ -30,10 +30,11 @@ public class LocacaoDAO implements DAO<Locacao> {
 		BancoDeDados.desconectar();
 	}
 
-	// Se tiver multa ela já vem embutida no valor, já que aqui o interesse é só salvar, e não fazer cálculos.
+	// Se tiver multa ela já vem embutida no valor, já que aqui o interesse é só
+	// salvar, e não fazer cálculos.
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE locacao SET valor=?, dt_locacao=?, dt_devolucao_agendada=?, dt_devolucao=?, cpf_cliente=?, mat_funcionario=?, cod_midia=? WHERE id =?";
+		String sql = "UPDATE locacao SET valor=?, dt_locacao=?, dt_devolucao_agendada=?, dt_devolucao=?, cpf_cliente=?, mat_funcionario=?, cod_midia=? WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -85,13 +86,13 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setFuncionario(Facade.getFuncionario(res
 					.getInt("mat_funcionario")));
 			locacao.setMidia(Facade.getDVD(res.getInt("cod_midia")));
-//			locacao.setTipoLocacao(Facade.getTipoLocacao(res.getInt("cod_tipo_locacao")));
+			// locacao.setTipoLocacao(Facade.getTipoLocacao(res.getInt("cod_tipo_locacao")));
 			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
 			locacao.setDtDevolucaoAgendada(res.getDate("dt_devolucao_agendada"));
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-//			locacao.setValorPago(res.getDouble("valor_pago"));
+			// locacao.setValorPago(res.getDouble("valor_pago"));
 		}
 		BancoDeDados.desconectar();
 
@@ -121,7 +122,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-//			locacao.setValorPago(res.getDouble("valor_pago"));
+			// locacao.setValorPago(res.getDouble("valor_pago"));
 			locacoes.add(locacao);
 		}
 		BancoDeDados.desconectar();
@@ -153,7 +154,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setDtDevolucao(res.getDate("dt_devolucao"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-//			locacao.setValorPago(res.getDouble("valor_pago"));
+			// locacao.setValorPago(res.getDouble("valor_pago"));
 			locacoes.add(locacao);
 			locacao.toString();
 		}
