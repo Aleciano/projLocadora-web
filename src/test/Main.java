@@ -275,7 +275,7 @@ public class Main {
 									+ listaDvd.size() + "DVD com a Descrição:");}
 						dt = new Date(System.currentTimeMillis());
 						tipo = Facade.getTipoLocacao(1);
-						funcX = Facade.getFuncionarioByNome("Felipe").get(0);
+						funcX = Facade.getFuncionario("4567");
 						
 						Facade.fazerLocacao(clienteaux, funcX, dt,
 								listaDvd.get(0), promocao);
@@ -311,9 +311,38 @@ public class Main {
 
 				System.out.println("Bem vindo ao Cadastro de Funcionario");
 				System.out.println("----------------------------------");
-				System.out.println("Digite o nome do DVD: ");
-				funcionario.setLogin("ricardo");
-				funcionario.setNome("ricardo");
+				System.out.println("Digite o CPF do Funcionario: ");
+
+				cpf = new Scanner(System.in).next();
+				try {
+					funcX = Facade.getFuncionario(cpf);
+
+					if (funcX != null) {
+						System.out.println("Funcionario já cadastrado!");
+						System.out
+								.print("Retornando ao menu inicial, APERTE ENTER");
+						rm = new Scanner(System.in).nextLine();
+					} else {
+						funcX = new Funcionario();
+						funcX.setCpf(cpf);
+						System.out.println("Digite o nome do novo escravo: ");
+						funcX.setNome(new Scanner(System.in).next());
+						System.out.println("Digite o login: ");
+						funcX.setLogin(new Scanner(System.in).next());
+						System.out.println("Digite a senha: ");
+						funcX.setSenha(new Scanner(System.in).next());
+						
+
+						Facade.cadastrar(funcX);
+						System.out.println("Funcionario cadastrado com Sucesso!!");
+						System.out.println(Facade.getFuncionario(cpf).toString()); 
+					}
+
+				} catch (Exception e) {
+					System.out.println("Erro no processamento!");
+					e.printStackTrace();
+				}
+
 				break;
 
 			case 12:

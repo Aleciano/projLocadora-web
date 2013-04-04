@@ -8,20 +8,23 @@ import java.util.Collection;
 
 import db.BancoDeDados;
 
+import entidades.Cliente;
 import entidades.Funcionario;
 
 public class FuncionarioDAO implements DAO<Funcionario> {
-	//TODO setar resto das coisas que herda de pessoa
+	// TODO setar resto das coisas que herda de pessoa
 	@Override
-	public void save(Funcionario obj) throws SQLException, ClassNotFoundException {
+	public void save(Funcionario obj) throws SQLException,
+			ClassNotFoundException {
 		String sql = "INSERT INTO funcionario (nome, login, cpf, senha, logradouro, numero, bairro, cidade, cep, email, fone, celular) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getLogin());
 		pstm.setString(3, obj.getCpf());
 		pstm.setString(4, obj.getSenha());
-	
+
 		pstm.setString(5, obj.getLogradouro());
 		pstm.setInt(6, obj.getNumero());
 		pstm.setString(7, obj.getBairro());
@@ -29,22 +32,24 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		pstm.setString(9, obj.getCep());
 		pstm.setString(10, obj.getEmail());
 		pstm.setString(11, obj.getFone());
-		pstm.setString(12, obj.getCelular());		
-		
+		pstm.setString(12, obj.getCelular());
+
 		pstm.execute();
-		BancoDeDados.desconectar();		
+		BancoDeDados.desconectar();
 	}
 
 	@Override
-	public void update(Funcionario obj) throws ClassNotFoundException, SQLException {
+	public void update(Funcionario obj) throws ClassNotFoundException,
+			SQLException {
 		String sql = "UPDATE funcionario SET nome=?, login=?, cpf=?, senha=?, logradouro=?, numero=?, bairro=?, cidade=?, cep=?, email=?, fone=?, celular=? WHERE matricula = ?";
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
 		pstm.setString(2, obj.getLogin());
 		pstm.setString(3, obj.getCpf());
 		pstm.setString(4, obj.getSenha());
-	
+
 		pstm.setString(5, obj.getLogradouro());
 		pstm.setInt(6, obj.getNumero());
 		pstm.setString(7, obj.getBairro());
@@ -52,33 +57,36 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		pstm.setString(9, obj.getCep());
 		pstm.setString(10, obj.getEmail());
 		pstm.setString(11, obj.getFone());
-		pstm.setString(12, obj.getCelular());		
+		pstm.setString(12, obj.getCelular());
 		pstm.setInt(13, obj.getMatricula());
 		pstm.execute();
 		BancoDeDados.desconectar();
-		
+
 	}
 
 	@Override
-	public void remove(Funcionario obj) throws ClassNotFoundException, SQLException {
+	public void remove(Funcionario obj) throws ClassNotFoundException,
+			SQLException {
 		String sql = "DELETE funcionario WHERE matricula = ?";
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		pstm.setInt(1, obj.getMatricula());
 		pstm.execute();
 		BancoDeDados.desconectar();
-		
+
 	}
 
-	
 	public Funcionario get(int id) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT * FROM funcionario WHERE matricula = ?";
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		;
 		pstm.setInt(1, id);
 		ResultSet res = pstm.executeQuery();
-		Funcionario funcionario =  null;
-		while (res.next()){
+		Funcionario funcionario = null;
+		while (res.next()) {
 			funcionario = new Funcionario();
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
@@ -93,21 +101,23 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionario.setCpf(res.getString("cpf"));
 			funcionario.setCelular(res.getString("celular"));
 			funcionario.setFone(res.getString("fone"));
-			
+
 		}
 		BancoDeDados.desconectar();
-		
+
 		return funcionario;
 	}
 
 	@Override
-	public Collection<Funcionario> get() throws ClassNotFoundException, SQLException {
+	public Collection<Funcionario> get() throws ClassNotFoundException,
+			SQLException {
 		String sql = "SELECT * FROM funcionario";
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
-		while (res.next()){
+		while (res.next()) {
 			Funcionario funcionario = new Funcionario();
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
@@ -125,17 +135,20 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionarios.add(funcionario);
 		}
 		BancoDeDados.desconectar();
-		
+
 		return funcionarios;
 	}
 
 	@Override
-	public Collection<Funcionario> get(String regex) throws ClassNotFoundException, SQLException {
+	public Collection<Funcionario> get(String regex)
+			throws ClassNotFoundException, SQLException {
 		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(regex);;
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(
+				regex);
+		;
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
-		while (res.next()){
+		while (res.next()) {
 			Funcionario funcionario = new Funcionario();
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
@@ -151,21 +164,49 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionario.setCelular(res.getString("celular"));
 			funcionario.setFone(res.getString("fone"));
 			funcionarios.add(funcionario);
-			
+
 		}
 		BancoDeDados.desconectar();
-		
+
 		return funcionarios;
 	}
-	
-	public Collection<Funcionario> getFuncionario(String nome) throws ClassNotFoundException, SQLException{
-		String sql = "SELECT * FROM funcionario WHERE nome LIKE '"+nome+"' ";
-		
-		return get(sql);
+
+
+	public Funcionario getFuncionario(String cpf) throws ClassNotFoundException,
+			SQLException {
+		String sql = "SELECT * FROM funcionario WHERE cpf = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+
+		pstm.setString(1, cpf);
+		ResultSet res = pstm.executeQuery();
+		Funcionario funcionario = null;
+		while (res.next()) {
+
+			funcionario = new Funcionario();
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setMatricula(res.getInt("matricula"));
+			funcionario.setLogin(res.getString("login"));
+			funcionario.setSenha(res.getString("senha"));
+			funcionario.setNome(res.getString("nome"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
+		}
+		BancoDeDados.desconectar();
+
+		return funcionario;
 	}
 
 	@Override
-	public Funcionario get(Funcionario id) throws ClassNotFoundException, SQLException {
+	public Funcionario get(Funcionario id) throws ClassNotFoundException,
+			SQLException {
 		String sql = "SELECT * FROM funcionario WHERE matricula = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
@@ -174,6 +215,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		ResultSet res = pstm.executeQuery();
 		Funcionario funcionario = null;
 		while (res.next()) {
+			funcionario = new Funcionario();
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
 			funcionario.setSenha(res.getString("senha"));
@@ -191,5 +233,4 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		return funcionario;
 	}
 
-	
 }

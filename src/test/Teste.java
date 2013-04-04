@@ -37,8 +37,8 @@ public class Teste {
 		 * Facade.fazerLocacao(clienteX, funcX, dt, midia_escolhida, null);
 		 */
 		ArrayList<Locacao> locacoes_do_cliente = (ArrayList<Locacao>) Facade
-				.getLocacoesAbertas(((ArrayList<Cliente>) Facade
-						.getCliente("Elias")).get(0).getCpf());
+				.getLocacoes(((ArrayList<Cliente>) Facade
+						.getCliente("Vidal")).get(0).getCpf());
 		for (i = 0; i < locacoes_do_cliente.size(); i++) {
 			System.out.println(locacoes_do_cliente.get(i).toString());
 		}
@@ -50,13 +50,17 @@ public class Teste {
 
 		if (opcao >= locacoes_do_cliente.size())
 			for (Locacao fimLocacao : locacoes_do_cliente) {
-				// fimLocacao = locacoes_do_cliente.get(opcao);
-
+/*				
 				// http://docs.oracle.com/javase/7/docs/api/constant-values.html#java.util.Calendar.DAY_OF_YEAR
 				Calendar dateLocacao = Calendar.getInstance();
 				cal.setTime(new java.util.Date(fimLocacao
 						.getDtLocacao().getYear(), fimLocacao.getDtLocacao()
 						.getMonth(), 15+fimLocacao.getDtLocacao().getDate()));
+				fimLocacao.setDtDevolucao(new Date(cal.getTime().getTime()));
+				
+				fimLocacao.setDtDevolucao(cal.setTime(new java.util.Date(fimLocacao
+						.getDtLocacao().getYear(), fimLocacao.getDtLocacao()
+						.getMonth(), 15+fimLocacao.getDtLocacao().getDate())));
 
 				if ((cal.get(6) - dateLocacao.get(6)) > 2) {
 					System.out.println("Multa Branda!!");
@@ -70,6 +74,8 @@ public class Teste {
 				input.nextLine();
 				
 				Facade.FinalizarLocao(fimLocacao, multa);
+*/			
+				Facade.remove(fimLocacao);
 			}
 		else if (opcao > 0) {
 			Calendar dateLocacao = Calendar.getInstance();

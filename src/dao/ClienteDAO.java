@@ -57,7 +57,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	@Override
 	public void remove(Cliente obj) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE cliente WHERE cpf like  ";
+		String sql = "DELETE cliente WHERE cpf like ? ";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -70,7 +70,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	public Cliente getByCpf(String cpf) throws ClassNotFoundException,
 			SQLException {
-		String sql = "SELECT * FROM cliente WHERE cpf = ?";
+		String sql = "SELECT * FROM cliente WHERE cpf like ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -83,7 +83,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			cliente = new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
-			cliente.setLogradouro(res.getString("nome"));
+			cliente.setLogradouro(res.getString("logradouro"));
 			cliente.setBairro(res.getString("bairro"));
 			cliente.setCidade(res.getString("cidade"));
 			cliente.setNumero(res.getInt("numero"));
@@ -121,7 +121,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			cliente = new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
-			cliente.setLogradouro(res.getString("nome"));
+			cliente.setLogradouro(res.getString("logradouro"));
 			cliente.setBairro(res.getString("bairro"));
 			cliente.setCidade(res.getString("cidade"));
 			cliente.setNumero(res.getInt("numero"));
@@ -150,7 +150,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			Cliente cliente = new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
-			cliente.setLogradouro(res.getString("nome"));
+			cliente.setLogradouro(res.getString("logradouro"));
 			cliente.setBairro(res.getString("bairro"));
 			cliente.setCidade(res.getString("cidade"));
 			cliente.setNumero(res.getInt("numero"));
@@ -167,7 +167,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	@Override
 	public Cliente get(Cliente id) throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM cliente WHERE cpf like '?'";
+		String sql = "SELECT * FROM cliente WHERE cpf like ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -175,9 +175,10 @@ public class ClienteDAO implements DAO<Cliente> {
 		ResultSet res = pstm.executeQuery();
 		Cliente cliente = null;
 		while (res.next()) {
+			cliente = new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
-			cliente.setLogradouro(res.getString("nome"));
+			cliente.setLogradouro(res.getString("logradouro"));
 			cliente.setBairro(res.getString("bairro"));
 			cliente.setCidade(res.getString("cidade"));
 			cliente.setNumero(res.getInt("numero"));

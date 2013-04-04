@@ -144,6 +144,7 @@ public class DVDDAO implements DAO<DVD> {
 			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
+			dvd.setDescricao("descricao");
 		}
 
 		sql = "SELECT * FROM midia WHERE id = ?";
@@ -184,6 +185,7 @@ public class DVDDAO implements DAO<DVD> {
 			dvd = new DVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
+			dvd.setDescricao("descricao");
 			dvds.add(dvd);
 		}
 

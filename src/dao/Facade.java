@@ -20,8 +20,10 @@ public class Facade {
 		TipoLocacao tipo = null;
 
 		tipo = Facade.getTipoLocacao(midia.getDescricao());
-		if(tipo == null) {System.out.print("************tipo nulado"); locacao.setValor(1000);} 
-		else locacao.setValor(tipo.getValor_locacao());
+		if (tipo == null)
+			return;
+		else
+			locacao.setValor(tipo.getValor_locacao());
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new java.util.Date(data.getYear(), data.getMonth(), tipo
@@ -47,9 +49,12 @@ public class Facade {
 			Multa multa) throws ClassNotFoundException, SQLException {
 
 		locacao.setValor(multa);
-		locacao.setDtDevolucao(new Date(System.currentTimeMillis()));
+		// locacao.setDtDevolucao(new Date(System.currentTimeMillis()));
 		// locacao.setMulta(multa);
 		new LocacaoDAO().update(locacao);
+
+		((DVD) locacao.getMidia()).setLocado(false);
+		Facade.update((DVD) locacao.getMidia());
 	}
 
 	public static void cadastrarFuncionario(String nome, String login,
@@ -246,8 +251,9 @@ public class Facade {
 			SQLException {
 		return new MultaDAO().get(id);
 	}
-	
-	public static Collection<Multa> getMultaPorNome(String nome) throws ClassNotFoundException, SQLException {
+
+	public static Collection<Multa> getMultaPorNome(String nome)
+			throws ClassNotFoundException, SQLException {
 		return new MultaDAO().getMultaPorNome(nome);
 	}
 
@@ -271,10 +277,15 @@ public class Facade {
 		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
 	}
 
-	public static ArrayList<Funcionario> getFuncionarioByNome(String nome)
+/*	public static ArrayList<Funcionario> getFuncionarioPorNome(String nome)
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Funcionario>) new FuncionarioDAO()
 				.getFuncionario(nome);
+	}*/
+
+	public static Funcionario getFuncionario(String cpf)
+			throws ClassNotFoundException, SQLException {
+		return new FuncionarioDAO().getFuncionario(cpf);
 	}
 
 	public static Funcionario getFuncionario(int funcionario)
