@@ -27,7 +27,7 @@ public class MultaDAO implements DAO<Multa> {
 
 	@Override
 	public void update(Multa obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE multa (nome, valor) SET (?, ?) WHERE id = ?";
+		String sql = "UPDATE multa set nome = ?, valor = ? WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
@@ -42,12 +42,13 @@ public class MultaDAO implements DAO<Multa> {
 
 	@Override
 	public void remove(Multa obj) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE FROM multa WHERE id = ?";
+		/*String sql = "DELETE FROM multa WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		BancoDeDados.desconectar();*/
+		remove(obj.getId());
 		
 	}
 	
@@ -60,7 +61,26 @@ public class MultaDAO implements DAO<Multa> {
 		BancoDeDados.desconectar();
 		
 	}
-
+	
+	@Override
+	public Multa get (Multa id) throws ClassNotFoundException, SQLException{
+/*		String sql = "SELECT * FROM multa WHERE id = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm.setInt(1, id.getId());
+		ResultSet res = pstm.executeQuery();
+		Multa multa =  null;
+		while (res.next()){
+			multa = new Multa();
+			multa.setId(res.getInt("id"));
+			multa.setNome(res.getString("nome"));
+			multa.setValor(res.getDouble("valor"));
+	
+		}
+		BancoDeDados.desconectar();*/
+		
+		return get(id.getId());
+	}
 	
 	public Multa get(int id) throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM multa WHERE id = ?";
@@ -80,27 +100,7 @@ public class MultaDAO implements DAO<Multa> {
 		
 		return multa;
 	}
-	
-	@Override
-	public Multa get (Multa id) throws ClassNotFoundException, SQLException{
-		String sql = "SELECT * FROM multa WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
-		pstm.setInt(1, id.getId());
-		ResultSet res = pstm.executeQuery();
-		Multa multa =  null;
-		while (res.next()){
-			multa = new Multa();
-			multa.setId(res.getInt("id"));
-			multa.setNome(res.getString("nome"));
-			multa.setValor(res.getDouble("valor"));
-	
-		}
-		BancoDeDados.desconectar();
 		
-		return multa;
-	}
-	
 	public Collection<Multa> getMultaPorNome(String nome) throws ClassNotFoundException, SQLException{
 		String sql = "SELECT * FROM multa WHERE nome like '"+nome+"%'";
 		return get(sql);
@@ -109,7 +109,7 @@ public class MultaDAO implements DAO<Multa> {
 	@Override
 	public Collection<Multa> get() throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM multa";
-		BancoDeDados.conecta();
+/*		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Multa> multas = new ArrayList<Multa>();
@@ -121,8 +121,8 @@ public class MultaDAO implements DAO<Multa> {
 			multas.add(multa);
 		}
 		BancoDeDados.desconectar();
-		
-		return multas;
+*/		
+		return get(sql);
 	}
 
 	@Override

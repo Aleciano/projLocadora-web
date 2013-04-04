@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import db.BancoDeDados;
 
+import entidades.DVD;
 import entidades.Multa;
 import entidades.TipoLocacao;
 
@@ -32,7 +33,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 	public void update(TipoLocacao obj) throws ClassNotFoundException,
 			SQLException {
 		BancoDeDados.conecta();
-		String sql = "UPDATE tipo_locacao (nome, valor_locacao, n_dias_locacao) SET (?, ?, ?) WHERE id = ?";
+		String sql = "UPDATE tipo_locacao SET nome = ?, valor_locacao = ?, n_dias_locacao = ? WHERE id = ?";
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
@@ -57,15 +58,29 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 	@Override
 	public TipoLocacao get(TipoLocacao id) throws ClassNotFoundException,
 			SQLException {
-		// TODO Auto-generated method stub
-		return null;
+/*		BancoDeDados.conecta();
+		String sql = "SELECT * FROM tipo_locacao WHERE id = ?";
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+
+		pstm.setInt(1, id.getId());
+		ResultSet res = pstm.executeQuery();
+		TipoLocacao tipo = null;
+		while (res.next()) {
+			tipo = new TipoLocacao();
+			tipo.setId(res.getInt("id"));
+			tipo.setNome(res.getString("nome"));
+			tipo.setnDiasLocacao(res.getInt("n_dias_locacao"));
+			tipo.setValor_locacao(res.getDouble("valor_locacao"));
+		}*/
+		return get(id.getId());
 	}
 
 	@Override
 	public Collection<TipoLocacao> get() throws ClassNotFoundException,
 			SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM tipo_locacao";
+		return get(sql);
 	}
 
 	public TipoLocacao get(int id) throws ClassNotFoundException, SQLException {
@@ -104,7 +119,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(regex);
-		System.out.print(regex);
+		//System.out.print(regex);
 		// pstm.setInt(1, id);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<TipoLocacao> tipos = new ArrayList<TipoLocacao>();

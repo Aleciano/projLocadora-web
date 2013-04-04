@@ -12,7 +12,7 @@ import entidades.Cliente;
 import entidades.Funcionario;
 
 public class FuncionarioDAO implements DAO<Funcionario> {
-	// TODO setar resto das coisas que herda de pessoa
+	
 	@Override
 	public void save(Funcionario obj) throws SQLException,
 			ClassNotFoundException {
@@ -113,7 +113,6 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
-		;
 		pstm.setInt(1, id);
 		ResultSet res = pstm.executeQuery();
 		Funcionario funcionario = null;
@@ -143,7 +142,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	public Collection<Funcionario> get() throws ClassNotFoundException,
 			SQLException {
 		String sql = "SELECT * FROM funcionario";
-		BancoDeDados.conecta();
+		/*BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
@@ -166,8 +165,8 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 			funcionarios.add(funcionario);
 		}
 		BancoDeDados.desconectar();
-
-		return funcionarios;
+*/
+		return get(sql);
 	}
 
 	@Override
