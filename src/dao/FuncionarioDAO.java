@@ -77,6 +77,37 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 
 	}
 
+	@Override
+	public Funcionario get(Funcionario id) throws ClassNotFoundException,
+			SQLException {
+		/*String sql = "SELECT * FROM funcionario WHERE matricula = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		pstm.setInt(1, id.getMatricula());
+		ResultSet res = pstm.executeQuery();
+		Funcionario funcionario = null;
+		while (res.next()) {
+			funcionario = new Funcionario();
+			funcionario.setMatricula(res.getInt("matricula"));
+			funcionario.setLogin(res.getString("login"));
+			funcionario.setSenha(res.getString("senha"));
+			funcionario.setNome(res.getString("nome"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
+		}
+		return funcionario;
+		*/
+		return get(id.getMatricula());
+	}
+
 	public Funcionario get(int id) throws SQLException, ClassNotFoundException {
 		String sql = "SELECT * FROM funcionario WHERE matricula = ?";
 		BancoDeDados.conecta();
@@ -171,9 +202,8 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		return funcionarios;
 	}
 
-
-	public Funcionario getFuncionario(String cpf) throws ClassNotFoundException,
-			SQLException {
+	public Funcionario getFuncionario(String cpf)
+			throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM funcionario WHERE cpf = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
@@ -201,35 +231,6 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		}
 		BancoDeDados.desconectar();
 
-		return funcionario;
-	}
-
-	@Override
-	public Funcionario get(Funcionario id) throws ClassNotFoundException,
-			SQLException {
-		String sql = "SELECT * FROM funcionario WHERE matricula = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
-				.prepareStatement(sql);
-		pstm.setInt(1, id.getMatricula());
-		ResultSet res = pstm.executeQuery();
-		Funcionario funcionario = null;
-		while (res.next()) {
-			funcionario = new Funcionario();
-			funcionario.setMatricula(res.getInt("matricula"));
-			funcionario.setLogin(res.getString("login"));
-			funcionario.setSenha(res.getString("senha"));
-			funcionario.setNome(res.getString("nome"));
-			funcionario.setNumero(res.getInt("numero"));
-			funcionario.setCep(res.getString("cep"));
-			funcionario.setEmail(res.getString("email"));
-			funcionario.setLogradouro(res.getString("logradouro"));
-			funcionario.setCidade(res.getString("cidade"));
-			funcionario.setBairro(res.getString("bairro"));
-			funcionario.setCpf(res.getString("cpf"));
-			funcionario.setCelular(res.getString("celular"));
-			funcionario.setFone(res.getString("fone"));
-		}
 		return funcionario;
 	}
 

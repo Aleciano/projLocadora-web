@@ -14,7 +14,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	@Override
 	public void save(Cliente obj) throws SQLException, ClassNotFoundException {
-		String sql = "INSERT INTO cliente (nome, logradouro, numero, bairro, cidade, cep, email, fone, celular) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO cliente (nome, logradouro, numero, bairro, cidade, cep, email, fone, celular, cpf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
@@ -28,6 +28,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		pstm.setString(7, obj.getEmail());
 		pstm.setString(8, obj.getFone());
 		pstm.setString(9, obj.getCelular());
+		pstm.setString(10, obj.getCpf());
 		pstm.execute();
 
 		BancoDeDados.desconectar();

@@ -73,14 +73,14 @@ public class Main {
 				System.out.println("----------------------------------");
 				System.out.println("Digite o nome do DVD: ");
 				dvd.setNome(new Scanner(System.in).next());
-				System.out.println("Digite o descrição do DVD: ");
-				dvd.setDescricao(new Scanner(System.in).next());
+				System.out.println("Digite o Classificação do DVD: ");
+				dvd.setDescricao(new Scanner(System.in).nextLine());
 				System.out.println("Digite a quantidade de mídias: ");
 				dvd.setQt(new Scanner(System.in).nextShort());
 				System.out.println("Digite a duração: ");
 				dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
 				System.out.println("Digite a sinopse: ");
-				dvd.setSinopse(new Scanner(System.in).next());
+				dvd.setSinopse(new Scanner(System.in).nextLine());
 				System.out.println("Digite a quantidade de cópias: ");
 				int qtd = new Scanner(System.in).nextInt();
 
@@ -100,21 +100,22 @@ public class Main {
 
 				System.out.println("Bem vindo a Pesquisa de DVD");
 				System.out.println("----------------------------------");
-				System.out.println("Digite o nome do DVD: ");
+				System.out
+						.println("Digite o nome do DVD: (T) para buscar todos da Locadora.");
 				d = new Scanner(System.in).next();
 
 				try {
 					listaDvd = (ArrayList<DVD>) Facade.getDVD(d);
 					if (listaDvd.size() > 0) {
-
 						System.out.println("Foram Encontrados "
 								+ listaDvd.size() + "DVD com a Descrição:");
-						System.out
-								.println("----------------------------------------------------------");
-						System.out.println(listaDvd.get(0).toString());
-					}
+						for (DVD auxdvd : listaDvd) {
 
-					else
+							System.out
+									.println("----------------------------------------------------------");
+							System.out.println(auxdvd.toString());
+						}
+					} else
 						System.out
 								.println("DVD não Consta na base de Dados!!!!");
 
@@ -266,29 +267,87 @@ public class Main {
 						rm = new Scanner(System.in).nextLine();
 					} else {
 						System.out.println("Digite o Nome do Filme: ");
-						d = new Scanner(System.in).next();
+						d = new Scanner(System.in).nextLine();
 
-						listaDvd = (ArrayList<DVD>) Facade.getDVD(d);
+						listaDvd = (ArrayList<DVD>) Facade.getDVDNaoLocados(d);
 						if (listaDvd.size() > 0) {
+							if (listaDvd.size() > 1) {
+								System.out
+										.printf("Existem %d cópias disponíveis deste DVD, quer locar quantas?",
+												listaDvd.size());
 
-							System.out.println("Foram Encontrados "
-									+ listaDvd.size() + "DVD com a Descrição:");}
-						dt = new Date(System.currentTimeMillis());
-						tipo = Facade.getTipoLocacao(1);
-						funcX = Facade.getFuncionario("4567");
-						
-						Facade.fazerLocacao(clienteaux, funcX, dt,
-								listaDvd.get(0), promocao);
-						/*Facade.fazerLocacao(clienteaux, funcX, dt,
-								listaDvd.get(0), null, tipo);*/
-						Calendar cal = Calendar.getInstance();
-						cal.setTime(new java.util.Date(dt.getYear(), dt
-								.getMonth(), tipo.getnDiasLocacao()
-								+ dt.getDate()));
-						dt = new Date(cal.getTime().getTime()); 
-						System.out
-								.printf("Empréstimo realizado com sucesso\nData de entrega: %s\nValor: %f",
-										dt.toString(),tipo.getValor_locacao());
+								entradaInt = new Scanner(System.in).nextInt();
+								if (entradaInt > listaDvd.size()) {
+
+									for (DVD auxdvd : listaDvd) {
+										dt = new Date(
+												System.currentTimeMillis());
+
+										funcX = Facade.getFuncionario("4567");
+
+										Facade.fazerLocacao(clienteaux, funcX,
+												dt, auxdvd, promocao);
+										tipo = (Facade.getTipoLocacao(listaDvd
+												.get(0).getDescricao())).get(0);
+										Calendar cal = Calendar.getInstance();
+										cal.setTime(new java.util.Date(dt
+												.getYear(), dt.getMonth(), tipo
+												.getnDiasLocacao()
+												+ dt.getDate()));
+										dt = new Date(cal.getTime().getTime());
+									}
+								} else {
+									tipo = (Facade.getTipoLocacao(listaDvd.get(
+											0).getDescricao())).get(0);
+									dt = new Date(System.currentTimeMillis());
+									Calendar cal = Calendar.getInstance();
+									cal.setTime(new java.util.Date(
+											dt.getYear(), dt.getMonth(), tipo
+													.getnDiasLocacao()
+													+ dt.getDate()));
+									dt = new Date(cal.getTime().getTime());
+									for (i = 0; i < entradaInt; i++) {
+
+										funcX = Facade.getFuncionario("4567");
+
+										Facade.fazerLocacao(clienteaux, funcX,
+												dt, listaDvd.get(i), promocao);
+										tipo = (Facade.getTipoLocacao(listaDvd
+												.get(0).getDescricao())).get(0);
+
+										System.out
+												.printf("\nEmpréstimo realizado com sucesso\nData de entrega: %s\nValor: %f",
+														dt.toString(),
+														tipo.getValor_locacao());
+									}
+								}
+							} else {
+								dt = new Date(System.currentTimeMillis());
+
+								funcX = Facade.getFuncionario("4567");
+
+								Facade.fazerLocacao(clienteaux,
+										Facade.getFuncionario("4567"), dt,
+										listaDvd.get(0), promocao);
+								tipo = (Facade.getTipoLocacao(listaDvd.get(0)
+										.getDescricao())).get(0);
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(new java.util.Date(dt.getYear(), dt
+										.getMonth(), tipo.getnDiasLocacao()
+										+ dt.getDate()));
+								dt = new Date(cal.getTime().getTime());
+								System.out
+										.printf("\nEmpréstimo realizado com sucesso\nData de entrega: %s\nValor: %f",
+												dt.toString(),
+												tipo.getValor_locacao());
+							}
+						} else {
+							System.out.println("Dvds não disponíveis..");
+
+							System.out
+									.print("Retornando ao menu inicial, APERTE ENTER");
+							rm = new Scanner(System.in).nextLine();
+						}
 
 					}
 				} catch (Exception e) {
@@ -331,11 +390,12 @@ public class Main {
 						funcX.setLogin(new Scanner(System.in).next());
 						System.out.println("Digite a senha: ");
 						funcX.setSenha(new Scanner(System.in).next());
-						
 
 						Facade.cadastrar(funcX);
-						System.out.println("Funcionario cadastrado com Sucesso!!");
-						System.out.println(Facade.getFuncionario(cpf).toString()); 
+						System.out
+								.println("Funcionario cadastrado com Sucesso!!");
+						System.out.println(Facade.getFuncionario(cpf)
+								.toString());
 					}
 
 				} catch (Exception e) {

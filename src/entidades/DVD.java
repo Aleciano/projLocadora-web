@@ -91,7 +91,7 @@ public class DVD extends Midia {
 
 	@Override
 	public String toString() {
-		return "DVD [duracaoMinutos=" + duracaoMinutos + ", locado=" + locado
+		return "DVD [nome = "+getNome()+", duracaoMinutos=" + duracaoMinutos + ", locado=" + locado
 				+ ", sinopse=" + sinopse + "]";
 	}
 

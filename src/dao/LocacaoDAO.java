@@ -65,9 +65,9 @@ public class LocacaoDAO implements DAO<Locacao> {
 	}
 
 	@Override
-	public Locacao get(Locacao id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Locacao get(Locacao id) throws ClassNotFoundException, SQLException {
+		
+		return get(id.getId());
 	}
 
 	public Locacao get(int id) throws ClassNotFoundException, SQLException {
@@ -169,15 +169,6 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 		return get(sql);
 	}
-
-	// esse bixo deve tá no lugar errado!
-	/*
-	 * public Collection<Locacao> getDvdPorNome(String nome) throws
-	 * ClassNotFoundException, SQLException { String sql =
-	 * "SELECT * FROM locacao WHERE nome LIKE '"+nome+"' ";
-	 * 
-	 * return get(sql); }
-	 */
 
 	public Collection<Locacao> getByCliente(String cliente)
 			throws ClassNotFoundException, SQLException {

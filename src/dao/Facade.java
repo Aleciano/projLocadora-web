@@ -19,7 +19,7 @@ public class Facade {
 		locacao.setDtLocacao(data);
 		TipoLocacao tipo = null;
 
-		tipo = Facade.getTipoLocacao(midia.getDescricao());
+		tipo = (Facade.getTipoLocacao(midia.getDescricao())).get(0);
 		if (tipo == null)
 			return;
 		else
@@ -50,7 +50,7 @@ public class Facade {
 
 		locacao.setValor(multa);
 		// locacao.setDtDevolucao(new Date(System.currentTimeMillis()));
-		// locacao.setMulta(multa);
+
 		new LocacaoDAO().update(locacao);
 
 		((DVD) locacao.getMidia()).setLocado(false);
@@ -236,7 +236,18 @@ public class Facade {
 	 */
 	public static Collection<DVD> getDVD(String nome) throws SQLException,
 			ClassNotFoundException {
-		return new DVDDAO().getDvdByNome(nome);
+		if (nome.equalsIgnoreCase("T") || nome == null)
+			return getDVD();
+		else
+			return new DVDDAO().getTodosDvds(nome);
+	}
+
+	public static Collection<DVD> getDVDNaoLocados(String nome) throws SQLException,
+			ClassNotFoundException {
+		if (nome.equalsIgnoreCase("T") || nome == null)
+			return getDVD();
+		else
+			return new DVDDAO().getDvdsNaoLocados(nome);
 	}
 
 	/*
@@ -277,11 +288,11 @@ public class Facade {
 		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
 	}
 
-/*	public static ArrayList<Funcionario> getFuncionarioPorNome(String nome)
-			throws ClassNotFoundException, SQLException {
-		return (ArrayList<Funcionario>) new FuncionarioDAO()
-				.getFuncionario(nome);
-	}*/
+	/*
+	 * public static ArrayList<Funcionario> getFuncionarioPorNome(String nome)
+	 * throws ClassNotFoundException, SQLException { return
+	 * (ArrayList<Funcionario>) new FuncionarioDAO() .getFuncionario(nome); }
+	 */
 
 	public static Funcionario getFuncionario(String cpf)
 			throws ClassNotFoundException, SQLException {
@@ -313,9 +324,9 @@ public class Facade {
 		return (ArrayList<TipoLocacao>) new TipoLocacaoDAO().get();
 	}
 
-	public static TipoLocacao getTipoLocacao(String descricao)
+	public static ArrayList<TipoLocacao> getTipoLocacao(String descricao)
 			throws ClassNotFoundException, SQLException {
 		return ((ArrayList<TipoLocacao>) (new TipoLocacaoDAO()
-				.getTipoByNome(descricao))).get(0);
+				.getTipoByNome(descricao)));
 	}
 }

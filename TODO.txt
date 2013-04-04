@@ -1,0 +1,7 @@
+Coisas que precisam ser feitas
+
+-Enxugar DAOs, em alguns casos funções fazem a mesma coisa só mudando o parâmetro que foi passado, fazer ajustes.
+
+-Veriricar TODO nas classes e DAOs.
+
+-Locar com promoção.

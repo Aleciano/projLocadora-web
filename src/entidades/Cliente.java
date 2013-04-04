@@ -40,12 +40,12 @@ public class Cliente extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "Cliente [getNome()=" + getNome() + ", getCpf()=" + getCpf()
-				+ ", getLogradouro()=" + getLogradouro() + ", getNumero()="
-				+ getNumero() + ", getBairro()=" + getBairro()
-				+ ", getCidade()=" + getCidade() + ", getCep()=" + getCep()
-				+ ", getEmail()=" + getEmail() + ", getFone()=" + getFone()
-				+ ", getCelular()=" + getCelular() /*+ ", getClass()="
+		return "Cliente [Nome()=" + getNome() + ", Cpf()=" + getCpf()
+				+ ", Logradouro()=" + getLogradouro() + ", Numero()="
+				+ getNumero() + ", Bairro()=" + getBairro()
+				+ ", Cidade()=" + getCidade() + ", Cep()=" + getCep()
+				+ ", Email()=" + getEmail() + ", Fone()=" + getFone()
+				+ ", Celular()=" + getCelular() /*+ ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + ", toString()="
 				+ super.toString() + "]";*/
 				;

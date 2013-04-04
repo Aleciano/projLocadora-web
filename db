@@ -60,7 +60,6 @@ CREATE TABLE `locacao` (
   `cpf_cliente` varchar(45) NOT NULL,
   `mat_funcionario` int(10) unsigned NOT NULL,
   `cod_midia` int(10) unsigned NOT NULL,
-  `cod_tipo_locacao` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_locacao_cliente` (`cpf_cliente`),
   KEY `FK_locacao_funcionario` (`mat_funcionario`),
@@ -68,7 +67,7 @@ CREATE TABLE `locacao` (
   CONSTRAINT `FK_locacao_cliente` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf`),
   CONSTRAINT `FK_locacao_funcionario` FOREIGN KEY (`mat_funcionario`) REFERENCES `funcionario` (`matricula`),
   CONSTRAINT `FK_locacao_midia` FOREIGN KEY (`cod_midia`) REFERENCES `midia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,6 +76,7 @@ CREATE TABLE `locacao` (
 
 LOCK TABLES `locacao` WRITE;
 /*!40000 ALTER TABLE `locacao` DISABLE KEYS */;
+INSERT INTO `locacao` VALUES (17,20,NULL,'2013-04-01 00:00:00','2013-04-16 00:00:00','2013-04-03 00:00:00','4545',6,3),(18,20,NULL,'2013-04-01 00:00:00','2013-04-16 00:00:00','2013-04-16 00:00:00','4545',6,4);
 /*!40000 ALTER TABLE `locacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ CREATE TABLE `dvd` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `duracao_minutos` int(10) unsigned DEFAULT NULL,
   `sinopse` varchar(200) DEFAULT NULL,
-  `locado` tinyint(4) DEFAULT '0',
+  `locado` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_dvd_1` FOREIGN KEY (`id`) REFERENCES `midia` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
@@ -103,7 +103,7 @@ CREATE TABLE `dvd` (
 
 LOCK TABLES `dvd` WRITE;
 /*!40000 ALTER TABLE `dvd` DISABLE KEYS */;
-INSERT INTO `dvd` VALUES (1,180,'Um filme aninador',NULL),(2,480,'Muito Bom',NULL),(3,200,'',NULL),(4,200,'',NULL);
+INSERT INTO `dvd` VALUES (1,180,'Um filme aninador','\0'),(2,480,'Muito Bom','\0'),(3,0,'Show','\0'),(4,0,'Show','\0');
 /*!40000 ALTER TABLE `dvd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `multa` (
   `nome` varchar(45) NOT NULL,
   `valor` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `multa` (
 
 LOCK TABLES `multa` WRITE;
 /*!40000 ALTER TABLE `multa` DISABLE KEYS */;
-INSERT INTO `multa` VALUES (11,'Branda',5);
+INSERT INTO `multa` VALUES (12,'Branda',5),(13,'Severa',10);
 /*!40000 ALTER TABLE `multa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +144,7 @@ CREATE TABLE `produto` (
   `nome` varchar(45) NOT NULL,
   `descricao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +153,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Dragao Azul',''),(2,'Matrix',''),(3,'Anjinhos',''),(4,'Anjinhos',''),(5,'Anjinhos','');
+INSERT INTO `produto` VALUES (1,'Dragao Azul','Infantil'),(2,'matrix2','filme'),(3,'YES','descricao'),(4,'YES','descricao');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +169,7 @@ CREATE TABLE `midia` (
   `qt` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_midia_1` FOREIGN KEY (`id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +178,7 @@ CREATE TABLE `midia` (
 
 LOCK TABLES `midia` WRITE;
 /*!40000 ALTER TABLE `midia` DISABLE KEYS */;
-INSERT INTO `midia` VALUES (1,2),(2,1),(3,5),(4,5),(5,5);
+INSERT INTO `midia` VALUES (1,2),(2,1),(3,1),(4,1);
 /*!40000 ALTER TABLE `midia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,10 +193,10 @@ CREATE TABLE `funcionario` (
   `matricula` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `login` varchar(45) NOT NULL,
+  `cpf` varchar(45) NOT NULL,
   `senha` varchar(45) NOT NULL,
-  `cpf` varchar(45) DEFAULT NULL,
   `logradouro` varchar(45) DEFAULT NULL,
-  `numero` varchar(45) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
   `bairro` varchar(45) DEFAULT NULL,
   `cidade` varchar(45) DEFAULT NULL,
   `cep` varchar(45) DEFAULT NULL,
@@ -214,7 +214,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (6,'Felipe','felipeadd','123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,'ricardo','ricardo','12345678',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(9,'ricardo','aleciano','qwerty',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(11,'ricardo','rick','qwerty',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(12,'abraao','Abraao','abraao',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `funcionario` VALUES (6,'Felipe','felipeadd','','123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(12,'abraao','Abraao','','abraao',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +231,7 @@ CREATE TABLE `tipo_locacao` (
   `valor_locacao` double NOT NULL,
   `n_dias_locacao` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ CREATE TABLE `tipo_locacao` (
 
 LOCK TABLES `tipo_locacao` WRITE;
 /*!40000 ALTER TABLE `tipo_locacao` DISABLE KEYS */;
-INSERT INTO `tipo_locacao` VALUES (1,'infantil',2,2);
+INSERT INTO `tipo_locacao` VALUES (1,'infantil',2,2),(2,'show',3,2),(3,'filme',5,2);
 /*!40000 ALTER TABLE `tipo_locacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +272,7 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-INSERT INTO `cliente` VALUES ('02536755772','Elias','',0,NULL,'',NULL,NULL,'',''),('06755772','Pedro','',0,NULL,'',NULL,NULL,'',''),('4545','Vidal','Rua',33,NULL,'Campina',NULL,NULL,'34343434',NULL),('873942342','Elano','Av. Floriano',39,'Palmeira','Campina Grande','58107448','elano@com','33332344',NULL);
+INSERT INTO `cliente` VALUES ('1212','Elias','',0,NULL,'',NULL,NULL,'',''),('3480','Elano','Av. Floriano',39,'Palmeira','Campina Grande','58107448','elano@com','33332344',NULL),('4545','Vidal','Rua',33,NULL,'Campina',NULL,NULL,'34343434',NULL),('7340','Pedro','',0,NULL,'',NULL,NULL,'','');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,4 +293,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-01 10:45:15
+-- Dump completed on 2013-04-03 23:16:45
