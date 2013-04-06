@@ -58,27 +58,24 @@ public class Facade {
 		Facade.update((DVD) locacao.getMidia());
 	}
 
-	/* Busca a última locação do cliente. */
-	public static Locacao getLocacaoMaxId(String cliente)
-			throws ClassNotFoundException, SQLException {
-		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente));
-
-	}
-
-	/* Busca a última locação do cliente. */
-	public static Double getValorUltimaLocacao(String cliente)
-			throws ClassNotFoundException, SQLException {
-		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente))
-				.getValor();
-
-	}
-
-	public static void cadastrarFuncionario(String nome, String login,
-			String senha) throws SQLException, ClassNotFoundException {
+	public static void cadastrarFuncionario(String nome, String cpf,
+			String logradouro, int numero, String bairro, String cidade,
+			String cep, String email, String fone, String celular,
+			String login, String senha) throws SQLException,
+			ClassNotFoundException {
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome(nome);
 		funcionario.setLogin(login);
 		funcionario.setSenha(senha);
+		funcionario.setBairro(bairro);
+		funcionario.setCelular(celular);
+		funcionario.setCep(cep);
+		funcionario.setCidade(cidade);
+		funcionario.setCpf(cpf);
+		funcionario.setEmail(email);
+		funcionario.setFone(fone);
+		funcionario.setLogradouro(logradouro);
+		funcionario.setNome(nome);
 		new FuncionarioDAO().save(funcionario);
 	}
 
@@ -99,6 +96,37 @@ public class Facade {
 		cliente.setCelular(celular);
 
 		new ClienteDAO().save(cliente);
+	}
+
+	/* Busca a última locação do cliente. */
+	public static Locacao getLocacaoMaxId(String cliente)
+			throws ClassNotFoundException, SQLException {
+		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente));
+
+	}
+
+	/* Busca a última locação do cliente. */
+	public static Double getValorUltimaLocacao(String cliente)
+			throws ClassNotFoundException, SQLException {
+		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente))
+				.getValor();
+
+	}
+
+	public static void remove(String cpf) throws SQLException,
+			ClassNotFoundException {
+		Cliente cliente = new Cliente();
+		cliente.setCpf(cpf);
+		new ClienteDAO().remove(cliente);
+	}
+
+	public static void cadastrarFuncionario(String nome, String login,
+			String senha) throws SQLException, ClassNotFoundException {
+		Funcionario funcionario = new Funcionario();
+		funcionario.setNome(nome);
+		funcionario.setLogin(login);
+		funcionario.setSenha(senha);
+		new FuncionarioDAO().save(funcionario);
 	}
 
 	public static void cadastrar(Funcionario funcionario) throws SQLException,
@@ -207,9 +235,9 @@ public class Facade {
 		new TipoLocacaoDAO().remove(tipo);
 	}
 
-	public static Funcionario getFuncionarioPorLoginESenha(String login, String senha) throws SQLException,
-			ClassNotFoundException {
-		return new FuncionarioDAO().getFuncionarioPorLogin(login,senha);
+	public static Funcionario getFuncionarioPorLoginESenha(String login,
+			String senha) throws SQLException, ClassNotFoundException {
+		return new FuncionarioDAO().getFuncionarioPorLogin(login, senha);
 	}
 
 	public static Locacao getLocacao(int id) throws ClassNotFoundException,
@@ -309,12 +337,6 @@ public class Facade {
 		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
 	}
 
-	/*
-	 * public static ArrayList<Funcionario> getFuncionarioPorNome(String nome)
-	 * throws ClassNotFoundException, SQLException { return
-	 * (ArrayList<Funcionario>) new FuncionarioDAO() .getFuncionario(nome); }
-	 */
-
 	public static Funcionario getFuncionario(String cpf)
 			throws ClassNotFoundException, SQLException {
 		return new FuncionarioDAO().getFuncionario(cpf);
@@ -328,11 +350,6 @@ public class Facade {
 	public static ArrayList<Locacao> getLocacao()
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Locacao>) new LocacaoDAO().get();
-	}
-
-	public static ArrayList<Cliente> getCliente()
-			throws ClassNotFoundException, SQLException {
-		return (ArrayList<Cliente>) new ClienteDAO().get();
 	}
 
 	public static ArrayList<Promocao> getPromocao()
@@ -349,5 +366,38 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return ((ArrayList<TipoLocacao>) (new TipoLocacaoDAO()
 				.getTipoByNome(descricao)));
+	}
+
+	public static boolean validarLogin(String login, String Senha) {
+
+		FuncionarioDAO f = new FuncionarioDAO();
+		try {
+			ArrayList<Funcionario> funcionarios = (ArrayList<Funcionario>) f
+					.get();
+			for (Funcionario f1 : funcionarios) {
+				if (f1.getLogin().equals(login) && f1.getSenha().equals(Senha))
+					return true;
+			}
+
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
+	public static ArrayList<String> getCliente() throws ClassNotFoundException,
+			SQLException {
+		ArrayList<Cliente> cs = (ArrayList<Cliente>) new ClienteDAO().get();
+		ArrayList<String> clientes = new ArrayList<String>();
+		for (Cliente c : cs) {
+			clientes.add("Nome: " + c.getNome() + "\nCPF: " + c.getCpf() + "\n");
+		}
+		return clientes;
 	}
 }
