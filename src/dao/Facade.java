@@ -143,6 +143,14 @@ public class Facade {
 			ClassNotFoundException {
 		new DVDDAO().save(dvd);
 	}
+	
+	public static void cadastrarDvd(String nome, String descricao, short qt,
+			int duracaoMinutos, String sinopse) throws SQLException,
+			ClassNotFoundException {
+		DVD dvd = new DVD(nome, descricao, qt, duracaoMinutos, sinopse);
+		new DVDDAO().save(dvd);
+	}
+
 
 	public static void cadastrar(Multa multa) throws SQLException,
 			ClassNotFoundException {
@@ -210,6 +218,14 @@ public class Facade {
 		new DVDDAO().remove(dvd);
 	}
 
+	public static void removeDVD(int id) throws SQLException,
+		ClassNotFoundException {
+			DVD dvd = new DVD();
+			dvd.setId(id);
+			new DVDDAO().remove(dvd);
+	}
+
+	
 	public static void remove(Multa multa) throws SQLException,
 			ClassNotFoundException {
 		new MultaDAO().remove(multa);
