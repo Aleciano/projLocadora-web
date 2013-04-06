@@ -67,7 +67,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 	@Override
 	public void remove(Funcionario obj) throws ClassNotFoundException,
 			SQLException {
-		String sql = "DELETE funcionario WHERE matricula = ?";
+		String sql = "DELETE from funcionario WHERE matricula = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);

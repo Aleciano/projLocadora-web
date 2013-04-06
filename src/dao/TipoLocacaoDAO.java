@@ -48,7 +48,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 	@Override
 	public void remove(TipoLocacao obj) throws ClassNotFoundException,
 			SQLException {
-		String sql = "DELETE tipo_locacao WHERE id = ?";
+		String sql = "DELETE from tipo_locacao WHERE id = ?";
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getId());

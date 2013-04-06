@@ -58,7 +58,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	@Override
 	public void remove(Cliente obj) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE cliente WHERE cpf like ? ";
+		String sql = "DELETE from cliente WHERE cpf like ? ";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);

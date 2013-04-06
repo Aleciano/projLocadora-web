@@ -51,7 +51,7 @@ public class PromocaoDAO implements DAO<Promocao> {
 	@Override
 	public void remove(Promocao obj) throws ClassNotFoundException,
 			SQLException {
-		String sql = "DELETE promocao WHERE id = ?";
+		String sql = "DELETE from promocao WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
