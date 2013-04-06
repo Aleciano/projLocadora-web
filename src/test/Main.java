@@ -1,5 +1,6 @@
 package test;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class Main {
 
 	int exibirMenu() {
 		System.out.println("\n\n");
-		System.out.println("----Projeto Locadora de V√≠deo----");
+		System.out.println("----Projeto Locadora de VÌ≠deo----");
 		System.out.println("1. Cadastrar DVD");
 		System.out.println("2. Pesquisar DVD");
 		System.out.println("3. Remover DVD");
@@ -30,18 +31,18 @@ public class Main {
 		System.out.println("6. Remover Cliente");
 		System.out.println("7. Realizar Emprestimo");
 		System.out.println("8. Remover Emprestimo");
-		System.out.println("9. Devolu√ß√£o de Emprestimo");
-		System.out.println("10. Tarifar Promo√ß√£o");
-		System.out.println("11. Cadastrar Funcionario");
+		System.out.println("9. DevoluÁ„o de Emprestimo");
+		System.out.println("10. Tarifar PromoÁ„o£o");
+		System.out.println("11. Cadastrar Funcion·rio");
 		System.out.println("12. Sair");
 		System.out.println("-------------------------------");
-		System.out.print("Digite uma Op√ß√£o: ");
+		System.out.print("Digite uma OpÁ„o: ");
 		try {
 			int resultado = s.nextInt();
 			return resultado;
 
 		} catch (InputMismatchException e) {
-			System.out.println("Entrada de dados invalida. Tente novamente");
+			System.out.println("Entrada de dados inv·lida. Tente novamente");
 
 		}
 		return 0;
@@ -50,19 +51,48 @@ public class Main {
 	public static void main(String[] args) {
 
 		Main m = new Main();
+		boolean login = true;
 		int entradaInt;
 		ArrayList<DVD> listaDvd;
 		ArrayList<Cliente> listacls;
 		DVD dvd = new DVD();
 		Cliente cliente = new Cliente();
-		Funcionario funcionario = new Funcionario();
+		// Funcionario funcionario = new Funcionario();
 		TipoLocacao tipo;
-		Funcionario funcX;
+		Funcionario funcX = null;
 		Cliente clienteaux = null;
 		Promocao promocao = null;
 		int opcao, i;
-		String d;
+		String dado, aux1, aux2;
+		aux2 ="";
 		Date dt = null;
+		do {
+			try {
+				Runtime.getRuntime().exec("clear");
+			} catch (IOException e1) {
+
+				e1.printStackTrace();
+			}
+			System.out.println("Login de Funcionario");
+			System.out.println("\nEntre com o login: ");
+			aux1 = (new Scanner(System.in).next());
+			System.out.println("\nDigite a sua senha: ");
+			aux2 = (new Scanner(System.in).next());
+			try {
+				funcX = Facade.getFuncionarioPorLoginESenha(aux1, aux2);
+				if (funcX != null) {
+					System.out.println("\t\nAUTENTICADO\n");
+					System.out.printf("\t\tLogando com %s ...\n",funcX.getNome());
+					login = false;
+				} else
+					System.out
+							.println("\n\tErro nos dados, tente outra vez.\n");
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+		} while (login);
+
 		do {
 			opcao = m.exibirMenu();
 			switch (opcao) {
@@ -73,15 +103,15 @@ public class Main {
 				System.out.println("----------------------------------");
 				System.out.println("Digite o nome do DVD: ");
 				dvd.setNome(new Scanner(System.in).next());
-				System.out.println("Digite o Classifica√ß√£o do DVD: ");
+				System.out.println("Digite o ClassificaÁ„o do DVD: ");
 				dvd.setDescricao(new Scanner(System.in).nextLine());
-				System.out.println("Digite a quantidade de m√≠dias: ");
+				System.out.println("Digite a quantidade de mÌ≠dias: ");
 				dvd.setQt(new Scanner(System.in).nextShort());
-				System.out.println("Digite a dura√ß√£o: ");
+				System.out.println("Digite a duraÁ„o: ");
 				dvd.setDuracaoMinutos(new Scanner(System.in).nextInt());
 				System.out.println("Digite a sinopse: ");
 				dvd.setSinopse(new Scanner(System.in).nextLine());
-				System.out.println("Digite a quantidade de c√≥pias: ");
+				System.out.println("Digite a quantidade de cÛpias: ");
 				int qtd = new Scanner(System.in).nextInt();
 
 				try {
@@ -102,10 +132,10 @@ public class Main {
 				System.out.println("----------------------------------");
 				System.out
 						.println("Digite o nome do DVD: (T) para buscar todos da Locadora.");
-				d = new Scanner(System.in).next();
+				dado = new Scanner(System.in).next();
 
 				try {
-					listaDvd = (ArrayList<DVD>) Facade.getDVD(d);
+					listaDvd = (ArrayList<DVD>) Facade.getDVD(dado);
 					if (listaDvd.size() > 0) {
 						System.out.println("Foram Encontrados "
 								+ listaDvd.size() + "DVD com a Descri√ß√£o:");
@@ -190,7 +220,7 @@ public class Main {
 					clienteaux = Facade.getClienteByCpf(cpf);
 
 					if (clienteaux != null) {
-						System.out.println("Cliente j√° cadastrado!");
+						System.out.println("Cliente j· cadastrado!");
 						System.out
 								.print("Retornando ao menu inicial, APERTE ENTER");
 						rm = new Scanner(System.in).nextLine();
@@ -214,7 +244,7 @@ public class Main {
 					}
 
 				} catch (Exception e) {
-					System.out.println("Erro: Cliente n√£o cadastrado!");
+					System.out.println("Erro: Cliente n„o cadastrado!");
 					e.printStackTrace();
 				}
 
@@ -233,17 +263,17 @@ public class Main {
 						System.out.println(clienteaux.toString());
 					} else {
 						System.out
-								.println("Cliente n√£o consta na base de dados!!");
+								.println("Cliente n„o consta na base de dados!!");
 						System.out
 								.print("Retornando ao menu inicial, APERTE ENTER");
 						rm = new Scanner(System.in).nextLine();
 					}
 
 				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+
 					e.printStackTrace();
 				}
 
@@ -253,7 +283,7 @@ public class Main {
 				break;
 
 			case 7:
-				System.out.println("Bem vindo ao Empr√©stimo de DVD");
+				System.out.println("Bem vindo ao EmprÈstimo de DVD");
 				System.out.println("----------------------------------");
 				System.out.println("Digite o CPF do Cliente: ");
 				cpf2 = new Scanner(System.in).next();
@@ -261,19 +291,20 @@ public class Main {
 					clienteaux = Facade.getClienteByCpf(cpf2);
 					if (clienteaux == null) {
 						System.out
-								.println("Cliente n√£o consta na base de dados!! \nCadastre anteriormente o cliente para fazer a loca√ß√£o.");
+								.println("Cliente n„o consta na base de dados!! \nCadastre anteriormente o cliente para fazer a locaÁ„o.");
 						System.out
 								.print("Retornando ao menu inicial, APERTE ENTER");
 						rm = new Scanner(System.in).nextLine();
 					} else {
 						System.out.println("Digite o Nome do Filme: ");
-						d = new Scanner(System.in).nextLine();
+						dado = new Scanner(System.in).nextLine();
 
-						listaDvd = (ArrayList<DVD>) Facade.getDVDNaoLocados(d);
+						listaDvd = (ArrayList<DVD>) Facade
+								.getDVDNaoLocados(dado);
 						if (listaDvd.size() > 0) {
 							if (listaDvd.size() > 1) {
 								System.out
-										.printf("Existem %d c√≥pias dispon√≠veis deste DVD, quer locar quantas?",
+										.printf("Existem %d cÛpias disponÌveis deste DVD, quer locar quantas?",
 												listaDvd.size());
 
 								entradaInt = new Scanner(System.in).nextInt();
@@ -286,7 +317,7 @@ public class Main {
 										funcX = Facade.getFuncionario("4567");
 
 										Facade.fazerLocacao(clienteaux, funcX,
-												dt, auxdvd, promocao);
+												dt, auxdvd);
 										tipo = (Facade.getTipoLocacao(listaDvd
 												.get(0).getDescricao())).get(0);
 										Calendar cal = Calendar.getInstance();
@@ -303,32 +334,28 @@ public class Main {
 									Calendar cal = Calendar.getInstance();
 									cal.setTime(new java.util.Date(
 											dt.getYear(), dt.getMonth(), tipo
-													.getnDiasLocacao()
-													+ dt.getDate()));
+
+											.getnDiasLocacao() + dt.getDate()));
 									dt = new Date(cal.getTime().getTime());
 									for (i = 0; i < entradaInt; i++) {
 
-										funcX = Facade.getFuncionario("4567");
-
 										Facade.fazerLocacao(clienteaux, funcX,
-												dt, listaDvd.get(i), promocao);
+												dt, listaDvd.get(i));
 										tipo = (Facade.getTipoLocacao(listaDvd
 												.get(0).getDescricao())).get(0);
 
 										System.out
-												.printf("\nEmpr√©stimo realizado com sucesso\nData de entrega: %s\nValor: %f",
+												.printf("\nEmprÈstimo realizado com sucesso\nData de entrega: %s\nValor: %f",
 														dt.toString(),
-														tipo.getValor_locacao());
+														Facade.getValorUltimaLocacao(clienteaux
+																.getCpf()));
 									}
 								}
 							} else {
 								dt = new Date(System.currentTimeMillis());
 
-								funcX = Facade.getFuncionario("4567");
-
-								Facade.fazerLocacao(clienteaux,
-										Facade.getFuncionario("4567"), dt,
-										listaDvd.get(0), promocao);
+								Facade.fazerLocacao(clienteaux, funcX, dt,
+										listaDvd.get(0));
 								tipo = (Facade.getTipoLocacao(listaDvd.get(0)
 										.getDescricao())).get(0);
 								Calendar cal = Calendar.getInstance();
@@ -337,12 +364,12 @@ public class Main {
 										+ dt.getDate()));
 								dt = new Date(cal.getTime().getTime());
 								System.out
-										.printf("\nEmpr√©stimo realizado com sucesso\nData de entrega: %s\nValor: %f",
+										.printf("\nEmprÈstimo realizado com sucesso\nData de entrega: %s\nValor: %f",
 												dt.toString(),
 												tipo.getValor_locacao());
 							}
 						} else {
-							System.out.println("Dvds n√£o dispon√≠veis..");
+							System.out.println("Dvds n„o disponÌ≠veis..");
 
 							System.out
 									.print("Retornando ao menu inicial, APERTE ENTER");

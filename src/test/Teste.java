@@ -21,15 +21,51 @@ public class Teste {
 			SQLException {
 		Scanner input = new Scanner(System.in);
 		int i = 0, opcao = -1;
+		Double valor;
 		Multa multa = null;
 		Calendar cal = null;
+		String entrada;
+		String nomeCliente = "Vidal";
+		
+/*		Promocao promo = new Promocao();
+		System.out.println(":: Cadastro de Promoçãoo");
+		System.out.print(": Digite o nome: ");
+		entrada = new Scanner(System.in).nextLine();
+		
+		promo.setNome(entrada);
+		System.out.print(": Digite o valor em Reais: ");
+		valor = input.nextDouble();
+
+		promo.setValor(valor);
+		System.out.print(": Em quantos dias ela entrará em vigor? (Digite 0 para de imediato.)");
+		opcao = input.nextInt();
+		
+	
+		Calendar datePromocaoInit = Calendar.getInstance();
+		
+		
+		datePromocaoInit.set(datePromocaoInit.get(1), datePromocaoInit.get(2), datePromocaoInit.get(5) + opcao);
+		System.out.print(": Qual a duração em dias da Promoção? ");
+		opcao = input.nextInt();
+		Calendar datePromocaoFim = Calendar.getInstance();
+		datePromocaoFim.set(datePromocaoFim.get(1), datePromocaoFim.get(2), datePromocaoInit.get(5) + opcao);
+		promo.setDuracaoInit(new java.sql.Date(datePromocaoInit.getTime().getTime()));
+		promo.setDuracaoFinal(new java.sql.Date(datePromocaoFim.getTime().getTime()));
+		Facade.cadastrar(promo);
+		ArrayList<Promocao> pesquisaPromos = Facade.getPromocao();
+		System.out.println("Listando promoções cadastradas....");
+		for(Promocao promo2: pesquisaPromos){
+			System.out.println(promo2.toString());
+			System.out.println("*");
+		}*/
+		
 		/*
-		 * TipoLocacao tipo_crianÃ§a = new TipoLocacao(0, "infantil",
+		 * TipoLocacao tipo_crianca = new TipoLocacao(0, "infantil",
 		 * "Menores de 14 anos", 2, 2); Facade.cadastrar(tipo_crianÃ§a);
 		 */
 		/*
 		 * Date dt = new Date(System.currentTimeMillis()); // passar a hora
-		 * certa // tambÃ©m!! Midia midia_escolhida = (Midia) ((ArrayList<DVD>)
+		 * certa // tambem!! Midia midia_escolhida = (Midia) ((ArrayList<DVD>)
 		 * Facade .getDVD("Matrix2")).get(0); Funcionario funcX =
 		 * Facade.getFuncionarioByNome("Felipe").get(0); Cliente clienteX =
 		 * Facade.getClienteByCpf("4545");
@@ -38,14 +74,14 @@ public class Teste {
 		 */
 		ArrayList<Locacao> locacoes_do_cliente = (ArrayList<Locacao>) Facade
 				.getLocacoesAbertas(((ArrayList<Cliente>) Facade
-						.getCliente("Vidal")).get(0).getCpf());
+						.getCliente(nomeCliente)).get(0).getCpf());
 /*		ArrayList<Locacao> locacoes_do_cliente = (ArrayList<Locacao>) Facade
 				.getLocacoes(((ArrayList<Cliente>) Facade
 						.getCliente("Vidal")).get(0).getCpf());*/
 		for (i = 0; i < locacoes_do_cliente.size(); i++) {
 			System.out.println(locacoes_do_cliente.get(i).toString());
 		}
-		System.out.printf("\nEncerrar qual locaÃ§Ã£o? Digite %d para todas!",
+		System.out.printf("\nEncerrar qual locaçãoo? Digite %d para todas!",
 				locacoes_do_cliente.size());
 		opcao = input.nextInt();
 		cal = Calendar.getInstance();
@@ -60,11 +96,6 @@ public class Teste {
 						.getDtLocacao().getYear(), fimLocacao.getDtLocacao()
 						.getMonth(), 15+fimLocacao.getDtLocacao().getDate()));
 				fimLocacao.setDtDevolucao(new Date(cal.getTime().getTime()));
-				
-/*				fimLocacao.setDtDevolucao(cal.setTime(new java.util.Date(fimLocacao
-						.getDtLocacao().getYear(), fimLocacao.getDtLocacao()
-						.getMonth(), 15+fimLocacao.getDtLocacao().getDate(1))));
-*/			
 
 				if ((cal.get(6) - dateLocacao.get(6)) > 2) {
 					System.out.println("Multa Branda!!");
@@ -99,9 +130,9 @@ public class Teste {
 			locacoes_do_cliente.get(opcao - 1).setDtDevolucao(new Date(cal.getTime().getTime()));
 			Facade.FinalizarLocao(locacoes_do_cliente.get(opcao - 1), multa);
 		}
-		System.out.print("\n:: Lista de locaÃ§Ãµes do cliente atualizada ::");
+		System.out.print("\n:: Lista de locações do cliente atualizada ::");
 		locacoes_do_cliente = (ArrayList<Locacao>) Facade.getLocacoes(((ArrayList<Cliente>) Facade
-						.getCliente("Vidal")).get(0).getCpf());
+						.getCliente(nomeCliente)).get(0).getCpf());
 		for (Locacao locacoes : locacoes_do_cliente){
 			System.out.println(locacoes.toString());
 		}

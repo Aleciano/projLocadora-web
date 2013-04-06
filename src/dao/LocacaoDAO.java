@@ -186,4 +186,20 @@ public class LocacaoDAO implements DAO<Locacao> {
 		return get(sql);
 	}
 
+	public static int getLocacaoMaxId(String cliente) throws SQLException, ClassNotFoundException{
+		String sql = "SELECT Max(id) FROM locacao where cpf_cliente like ?";
+		int id = 0;
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+		pstm.setString(1, cliente);
+		ResultSet res = pstm.executeQuery();
+		while (res.next()) {
+			
+			id = res.getInt(1);
+//			System.out.printf("Achamos %d",id);
+		}
+		BancoDeDados.desconectar();
+		return id;
+	}
 }

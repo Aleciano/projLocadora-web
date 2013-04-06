@@ -9,9 +9,9 @@ import java.util.Collection;
 import entidades.*;
 
 public class Facade {
-	// TODO alterar para receber promoÃ§Ãµes
-	public static void fazerLocacao(Cliente cliente, Funcionario funcionario,
-			Date data, Midia midia, Promocao promocao/* , TipoLocacao tipo */)
+	// TODO alterar para receber promocoes
+	public static int fazerLocacao(Cliente cliente, Funcionario funcionario,
+			Date data, Midia midia/* , Promocao promocao , TipoLocacao tipo */)
 			throws SQLException, ClassNotFoundException {
 		Locacao locacao = new Locacao();
 		locacao.setCliente(cliente);
@@ -21,7 +21,7 @@ public class Facade {
 
 		tipo = (Facade.getTipoLocacao(midia.getDescricao())).get(0);
 		if (tipo == null)
-			return;
+			return 0;
 		else
 			locacao.setValor(tipo.getValor_locacao());
 
@@ -31,12 +31,13 @@ public class Facade {
 		locacao.setDtDevolucaoAgendada(new Date(cal.getTime().getTime()));
 
 		locacao.setMidia(midia);
-		locacao.setValor(promocao);
+		locacao.setValor(Facade.getPromocaoAberta());
 		// locacao.setTipoLocacao(tipo);
 
 		new LocacaoDAO().save(locacao);
 		((DVD) midia).setLocado(true);
 		Facade.update((DVD) midia);
+		return Facade.getLocacaoMaxId(cliente.getCpf()).getId();
 
 	}
 
@@ -55,6 +56,21 @@ public class Facade {
 
 		((DVD) locacao.getMidia()).setLocado(false);
 		Facade.update((DVD) locacao.getMidia());
+	}
+
+	/* Busca a última locação do cliente. */
+	public static Locacao getLocacaoMaxId(String cliente)
+			throws ClassNotFoundException, SQLException {
+		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente));
+
+	}
+
+	/* Busca a última locação do cliente. */
+	public static Double getValorUltimaLocacao(String cliente)
+			throws ClassNotFoundException, SQLException {
+		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente))
+				.getValor();
+
 	}
 
 	public static void cadastrarFuncionario(String nome, String login,
@@ -191,9 +207,9 @@ public class Facade {
 		new TipoLocacaoDAO().remove(tipo);
 	}
 
-	public static Funcionario getClienteByCpf(int id) throws SQLException,
+	public static Funcionario getFuncionarioPorLoginESenha(String login, String senha) throws SQLException,
 			ClassNotFoundException {
-		return new FuncionarioDAO().get(id);
+		return new FuncionarioDAO().getFuncionarioPorLogin(login,senha);
 	}
 
 	public static Locacao getLocacao(int id) throws ClassNotFoundException,
@@ -232,7 +248,7 @@ public class Facade {
 	}
 
 	/*
-	 * RetornarÃ¡ um array vazio se nÃ£o encontrar o DVD.
+	 * Retornará¡ um array vazio se não encontrar o DVD.
 	 */
 	public static Collection<DVD> getDVD(String nome) throws SQLException,
 			ClassNotFoundException {
@@ -242,8 +258,8 @@ public class Facade {
 			return new DVDDAO().getTodosDvds(nome);
 	}
 
-	public static Collection<DVD> getDVDNaoLocados(String nome) throws SQLException,
-			ClassNotFoundException {
+	public static Collection<DVD> getDVDNaoLocados(String nome)
+			throws SQLException, ClassNotFoundException {
 		if (nome.equalsIgnoreCase("T") || nome == null)
 			return getDVD();
 		else
@@ -251,7 +267,7 @@ public class Facade {
 	}
 
 	/*
-	 * RetornarÃ¡ um array vazio se nÃ£o encontrar o DVD.
+	 * Retornará um array vazio se não encontrar o DVD.
 	 */
 	public static ArrayList<DVD> getDVD() throws SQLException,
 			ClassNotFoundException {
@@ -271,6 +287,11 @@ public class Facade {
 	public static ArrayList<Multa> getMulta() throws ClassNotFoundException,
 			SQLException {
 		return (ArrayList<Multa>) new MultaDAO().get();
+	}
+
+	public static Promocao getPromocaoAberta() throws ClassNotFoundException,
+			SQLException {
+		return new PromocaoDAO().getAbertas();
 	}
 
 	public static Promocao getPromocao(int id) throws ClassNotFoundException,

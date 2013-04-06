@@ -31,7 +31,7 @@ CREATE TABLE `promocao` (
   `dt_init` datetime NOT NULL,
   `dt_final` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=big5;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=big5;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `promocao` (
 
 LOCK TABLES `promocao` WRITE;
 /*!40000 ALTER TABLE `promocao` DISABLE KEYS */;
+INSERT INTO `promocao` VALUES (3,'Semana do Oscar',1,'2013-04-05 00:00:00','2013-04-07 00:00:00');
 /*!40000 ALTER TABLE `promocao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +68,7 @@ CREATE TABLE `locacao` (
   CONSTRAINT `FK_locacao_cliente` FOREIGN KEY (`cpf_cliente`) REFERENCES `cliente` (`cpf`),
   CONSTRAINT `FK_locacao_funcionario` FOREIGN KEY (`mat_funcionario`) REFERENCES `funcionario` (`matricula`),
   CONSTRAINT `FK_locacao_midia` FOREIGN KEY (`cod_midia`) REFERENCES `midia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -76,7 +77,7 @@ CREATE TABLE `locacao` (
 
 LOCK TABLES `locacao` WRITE;
 /*!40000 ALTER TABLE `locacao` DISABLE KEYS */;
-INSERT INTO `locacao` VALUES (28,3,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00',NULL,'1212',6,11),(29,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','1212',6,12),(30,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','1212',6,13),(31,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','1212',6,14),(32,3,NULL,'2013-04-04 00:00:00','2013-04-06 00:00:00',NULL,'1212',6,15),(33,3,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00',NULL,'7340',6,12),(34,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','4545',6,13),(35,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','4545',6,14),(36,2,NULL,'2013-04-04 00:00:00','2013-04-06 00:00:00',NULL,'7676',6,1);
+INSERT INTO `locacao` VALUES (29,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','1212',6,12),(30,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','1212',6,13),(31,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','1212',6,14),(32,8,NULL,'2013-04-04 00:00:00','2013-04-06 00:00:00','2013-04-19 00:00:00','1212',6,15),(33,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','7340',6,12),(34,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-16 00:00:00','4545',6,13),(35,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','4545',6,14),(36,7,NULL,'2013-04-04 00:00:00','2013-04-06 00:00:00','2013-04-19 00:00:00','7676',6,1),(37,10,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','7340',6,2),(38,8,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00','2013-04-23 00:00:00','1212',6,12),(39,7,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','7676',6,1),(40,8,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','7676',6,10),(41,8,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00','2013-04-23 00:00:00','7676',6,11),(42,10,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','7676',6,2),(43,7,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00','2013-04-21 00:00:00','7676',6,1),(44,8,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00','2013-04-23 00:00:00','4545',6,12),(45,8,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00','2013-04-23 00:00:00','4545',6,11),(46,8,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00','2013-04-23 00:00:00','4545',6,12),(47,5,NULL,'2013-04-06 00:00:00','2013-04-08 00:00:00',NULL,'7676',6,2),(48,8,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00','2013-04-18 00:00:00','4545',6,11),(49,2,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00',NULL,'7676',6,12),(50,4,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00',NULL,'4545',6,16),(51,4,NULL,'2013-04-08 00:00:00','2013-04-10 00:00:00',NULL,'4545',6,17);
 /*!40000 ALTER TABLE `locacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +95,7 @@ CREATE TABLE `dvd` (
   `locado` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_dvd_1` FOREIGN KEY (`id`) REFERENCES `midia` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +104,7 @@ CREATE TABLE `dvd` (
 
 LOCK TABLES `dvd` WRITE;
 /*!40000 ALTER TABLE `dvd` DISABLE KEYS */;
-INSERT INTO `dvd` VALUES (1,180,'Um filme aninador',''),(2,480,'Muito Bom','\0'),(10,199,'França, o lugar.','\0'),(11,170,'Show classico!',''),(12,170,'Show classico!',''),(13,170,'Show classico!','\0'),(14,170,'Show classico!','\0'),(15,170,'Show classico!','');
+INSERT INTO `dvd` VALUES (1,180,'Um filme aninador','\0'),(2,480,'Muito Bom',''),(10,199,'França, o lugar.','\0'),(11,170,'Show classico!','\0'),(12,170,'Show classico!',''),(13,170,'Show classico!','\0'),(14,170,'Show classico!','\0'),(15,170,'Show classico!','\0'),(16,199,'Corrida, a??o!',''),(17,199,'Corrida, a??o!','');
 /*!40000 ALTER TABLE `dvd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,7 +145,7 @@ CREATE TABLE `produto` (
   `nome` varchar(45) NOT NULL,
   `descricao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -153,7 +154,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Dragao Azul','Infantil'),(2,'matrix2','filme'),(10,'France','Show'),(11,'Yessongs','Show'),(12,'Yessongs','Show'),(13,'Yessongs','Show'),(14,'Yessongs','Show'),(15,'Yessongs','Show');
+INSERT INTO `produto` VALUES (1,'Dragao Azul','Infantil'),(2,'matrix2','filme'),(10,'France','Show'),(11,'Yessongs','Show'),(12,'Yessongs','Show'),(13,'Yessongs','Show'),(14,'Yessongs','Show'),(15,'Yessongs','Show'),(16,'vef','Filme'),(17,'vef','Filme');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -169,7 +170,7 @@ CREATE TABLE `midia` (
   `qt` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_midia_1` FOREIGN KEY (`id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +179,7 @@ CREATE TABLE `midia` (
 
 LOCK TABLES `midia` WRITE;
 /*!40000 ALTER TABLE `midia` DISABLE KEYS */;
-INSERT INTO `midia` VALUES (1,2),(2,1),(10,2),(11,1),(12,1),(13,1),(14,1),(15,1);
+INSERT INTO `midia` VALUES (1,2),(2,1),(10,2),(11,1),(12,1),(13,1),(14,1),(15,1),(16,2),(17,2);
 /*!40000 ALTER TABLE `midia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,4 +294,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-04 16:17:38
+-- Dump completed on 2013-04-06  1:58:33
