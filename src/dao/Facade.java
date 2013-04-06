@@ -226,6 +226,18 @@ public class Facade {
 	}
 
 	
+	public static ArrayList<String> getDVDs() throws SQLException,
+			ClassNotFoundException {
+		ArrayList<String> dvds = new ArrayList<String>();
+		ArrayList<DVD> aux = (ArrayList<DVD>) new DVDDAO().get();
+		for (DVD d : aux) {
+			dvds.add(new String("Classificacao: " + d.getDescricao()
+					+ "\ntitulo: " + d.getNome()));
+
+		}
+		return dvds;
+	}
+	
 	public static void remove(Multa multa) throws SQLException,
 			ClassNotFoundException {
 		new MultaDAO().remove(multa);
