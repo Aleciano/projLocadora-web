@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import db.BancoDeDados;
-
 import entidades.Cliente;
 
 public class ClienteDAO implements DAO<Cliente> {
@@ -58,7 +56,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	@Override
 	public void remove(Cliente obj) throws ClassNotFoundException, SQLException {
-		String sql = "DELETE from cliente WHERE cpf like ? ";
+		String sql = "DELETE FROM cliente WHERE cpf like ? ";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
