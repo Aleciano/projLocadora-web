@@ -18,12 +18,15 @@
 		<form action="ClienteServlet" method="post">
 			<br>
 			<br>
-			<br> Digite o CPF do Cliente <input type="text" maxlength=11
-				name="cpf"> <input type="submit" name="botaoPesqcpf"
-				value="Pesquisar..."> <input type="reset" value="Limpar" /><br>
-			OU<br> Digite o nome do Cliente <input type="text" size="50"
-				name="nome"> <input type="submit" name="botaoPesqNome"
-				value="Pesquisar..."> <input type="reset" value="Limpar" />
+			<br> Digite o CPF do Cliente 
+				<select name="indicador">
+						<option  value="CPF" > CPF</option>
+						<option  value="Nome" > NOME</option>
+				</select>
+				<input type="text" maxlength=11 name="arg" value="Pesquisar..." onclick="this.value= '';">
+				<input type="reset" value="Limpar"  />
+				<input type="submit"> <br>
+
 			<input type="hidden" name="flag" value="pesquisar">
 
 		</form>

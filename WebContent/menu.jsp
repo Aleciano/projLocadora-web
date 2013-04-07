@@ -20,12 +20,12 @@
 
 		1 - <a href="cadDVD.jsp"> Cadastrar DVD </a> 2 - <a
 			href="pesqDVD.jsp"> Pequisar DVD</a> 3 - <a href="removDVD.jsp">
-			Remover DVD</a> 4 - <a href="listarDVD.jsp"> Listar DVD's</a><br>
+			Remover DVD</a> 4 - <a href="DvdServlet"> Listar DVD's</a><br>
 		<br>
 		<br> 5 - <a href="cadCliente.jsp"> Cadastrar Cliente</a> 6 - <a
 			href="pesqCliente.jsp"> Pesquisar Cliente</a> 7 - <a
 			href="removCliente.jsp"> Remover Cliente</a> 8 - <a
-			href="listarClientes.jsp"> Listar Clientes</a><br>
+			href="ClienteServlet"  > Listar Clientes</a><br>
 		<br>
 		<br> 9 - <a href="locar.jsp"> Realizar Locação</a> 10 - <a
 			href="removLocar.jsp"> Remover Locação</a> 11 - <a
@@ -34,7 +34,7 @@
 		<br>
 		<br> 13 - <a href="cadPromocao.jsp"> Cadastrar Promoção</a><br>
 		<br>
-		<br> 14 - <a href="cadFunc.jsp"> Cadastrar Funcionário</a> 15 -
+		<br> 14 - <a href="cadFunc.jsp" > Cadastrar Funcionário</a> 15 -
 		<a href="ListarFunc.jsp"> Listar Funcionários</a><br>
 		<br>
 		<br> <br>
@@ -44,7 +44,7 @@
 		<br>
 		<hr>
 		<br>
-		<a href="index.html" title="index"><h3>Sair e logar com outro
+		<a href="index.jsp" title="index"><h3>Sair e logar com outro
 				usuário</h3></a>
 	</center>
 

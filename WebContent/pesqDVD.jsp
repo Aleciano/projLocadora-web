@@ -14,7 +14,7 @@
 	<center>
 		<h1>Bem vindo a Pesquisa de DVD</h1>
 		<hr>
-		<form action="nome do servlet" method="post">
+		<form action="DvdServlet" method="post">
 			<br> <br> <br> Digite o Título do DVD <input
 				type="text" name="nome"> <input type="submit"
 				name="botaoPesq" value="Pesquisar..."> <input type="reset"
