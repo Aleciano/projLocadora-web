@@ -32,9 +32,16 @@
 		</form>
 
 
-		<br>
+		
+	<%
+		if(request.getAttribute("cad") != null){
+	%>
+	<h4><font color="red"> <%=request.getAttribute("cad") %> </font></h4>
+	
+	<% }%>
+		
 		<br> <br>
-		<a href="menu.html" title="index">Voltar ao Menu</a><br>
+		<a href="menu.jsp" title="index">Voltar ao Menu</a><br>
 	</center>
 </body>
 </html>

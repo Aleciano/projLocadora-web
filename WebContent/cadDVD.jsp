@@ -15,11 +15,17 @@
 		<h1>Bem vindo ao Cadastro de DVD</h1>
 		<hr>
 
+<% 
+ 	 String msg = (String) request.getAttribute("cadastro");
+	if( msg != null ){
 
+%>
+<h2><font color="red"> <%=msg %> </font></h2>
+<% } %>
 		<form action="DvdServlet" method="post">
 			<br>Título <input type="text" name="titulo"><br>
 			<br>
-			<br> Gênero <input type="text" name="genero"><br>
+			<br> Classificacao <input type="text" name="genero"><br>
 			<br>
 			<br> Qde Disc <select name="qt">
 				<option value="">---</option>
@@ -32,7 +38,7 @@
 			<br> Duração(Minutos) <input type="text" name="duracao"><br>
 			<br>
 			<br> Sinopse
-			<textarea name="sinopse">Resumo do dvd....</textarea>
+			<textarea name="sinopse" onclick="this.value= '';">Resumo do dvd....</textarea>
 			<br>
 			<br>
 			<br> Qde de Cópias <select name="qtcopias">
@@ -47,7 +53,7 @@
 			<input type="reset" value="Limpar" /> <br>
 			<br>
 			<br> <br>
-			<a href="menu.html" title="index">Voltar ao Menu</a><br>
+			<a href="menu.jsp" title="index">Voltar ao Menu</a><br>
 			<input type="hidden" name="flag" value="cadastrar">
 	</center>
 	</form>

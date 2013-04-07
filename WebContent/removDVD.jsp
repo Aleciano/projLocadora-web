@@ -27,6 +27,11 @@
 		<br>
 		<br>
 		<br>
+ 	<% String msg = (String)request.getAttribute("dvd");		
+		if ( msg != null ) 	{
+	%>
+	<h2><font color="red"> <%=msg %> </font></h2>
+	<%} %>
 		<br>
 		<br>
 		<br>
@@ -34,7 +39,7 @@
 		<br>
 		<br>
 		<br> <br>
-		<a href="menu.html" title="index">Voltar ao Menu</a><br>
+		<a href="menu.jsp" title="index">Voltar ao Menu</a><br>
 	</center>
 </body>
 </html>

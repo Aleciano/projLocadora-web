@@ -30,6 +30,11 @@
 		<br>
 		<br>
 		<br>
+	<%
+		if(request.getAttribute("remv") != null){	
+	%>
+		<h3>  <font color="red"> <%=request.getAttribute("remv") %> </font> </h3>
+	<% } %>	
 		<br>
 		<br>
 		<br>
@@ -45,7 +50,7 @@
 		<br>
 		<br>
 		<br> <br>
-		<a href="menu.html" title="index">Voltar ao Menu</a><br>
+		<a href="menu.jsp" title="index">Voltar ao Menu</a><br>
 	</center>
 
 

@@ -48,7 +48,7 @@
 		<br>
 		<br>
 		<br>
-		<a href="menu.html" title="index">Voltar ao Menu</a><br>
+		<a href="menu.jsp" title="index">Voltar ao Menu</a><br>
 	</center>
 
 </body>
