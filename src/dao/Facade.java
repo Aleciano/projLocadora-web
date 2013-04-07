@@ -364,6 +364,17 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
 	}
+	
+	public static ArrayList<String> getFuncionarios()
+			throws ClassNotFoundException, SQLException {
+		ArrayList<String> aux = new ArrayList<>();
+		ArrayList<Funcionario> fun = (ArrayList<Funcionario>) new FuncionarioDAO().get();
+		for(Funcionario f : fun){
+			aux.add(new String("Nome: " + f.getNome() + "\nMatricula: "+ f.getMatricula()));
+			
+		}
+		return aux;
+	}
 
 	public static Funcionario getFuncionario(String cpf)
 			throws ClassNotFoundException, SQLException {
