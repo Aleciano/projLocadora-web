@@ -5,8 +5,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-
-import entidades.*;
+import entidades.Cliente;
+import entidades.DVD;
+import entidades.Funcionario;
+import entidades.Locacao;
+import entidades.Midia;
+import entidades.Multa;
+import entidades.Promocao;
+import entidades.TipoLocacao;
 
 public class Facade {
 	// TODO alterar para receber promocoes
@@ -39,6 +45,25 @@ public class Facade {
 		Facade.update((DVD) midia);
 		return Facade.getLocacaoMaxId(cliente.getCpf()).getId();
 
+	}
+	
+	public static int locarProduto(String cpf, String mat, Date data, short id) throws ClassNotFoundException, SQLException{
+		
+		
+		if( getClienteByCpf(cpf) != null){
+			if(getFuncionarioPorMatricula(mat) != null){
+				System.out.println("chegou aqui");
+				if (!getDVD(id).isLocado()) {
+					Cliente c = getClienteByCpf(cpf); System.out.println(c.toString());
+					Funcionario f = getFuncionarioPorMatricula(mat);
+					Midia m = getDVD(id);
+					return fazerLocacao(c, f, data, m);
+				}
+			}
+		}
+		
+		return 0;
+		
 	}
 
 	public static void fazerLocacao(Locacao locacao) throws SQLException,
@@ -161,11 +186,32 @@ public class Facade {
 			ClassNotFoundException {
 		new PromocaoDAO().save(promocao);
 	}
+	
+	public static void cadastrarPromocao(String nome, double valor, int dia, int mes, int ano) throws SQLException,
+			ClassNotFoundException {
+		Calendar dfim = Calendar.getInstance();
+		dfim.set(ano, mes, dia);
+		Date d = new Date(dfim.getTimeInMillis());		
+		Promocao promocao = new Promocao();
+		promocao.setDuracaoFinal(d);
+		promocao.setNome(nome);
+		promocao.setValor(valor);
+		promocao.setDuracaoInit(new Date(Calendar.getInstance().getTimeInMillis()));
+		new PromocaoDAO().save(promocao);
+	}
+
 
 	public static void cadastrar(Cliente cliente) throws SQLException,
 			ClassNotFoundException {
 
 		new ClienteDAO().save(cliente);
+	}
+	
+	public static boolean isCliente( String cpf ) throws ClassNotFoundException, SQLException{
+		ClienteDAO c = new ClienteDAO();
+		if ( c.getByCpf(cpf)!= null)
+			return true;
+		return false;
 	}
 
 	public static void update(Funcionario funcionario) throws SQLException,
@@ -256,6 +302,17 @@ public class Facade {
 	public static void remove(Locacao locacao) throws SQLException,
 			ClassNotFoundException {
 		new LocacaoDAO().remove(locacao);
+	}
+	
+	public static boolean removeLocacao(int id) throws SQLException,
+			ClassNotFoundException {
+		if(getLocacao(id)!= null){
+			Locacao locacao = new Locacao();
+			locacao.setId(id);
+			new LocacaoDAO().remove(locacao);
+			return true;
+		}
+		return false;
 	}
 
 	public static void remove(TipoLocacao tipo) throws SQLException,
@@ -380,6 +437,11 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return new FuncionarioDAO().getFuncionario(cpf);
 	}
+	
+	public static Funcionario getFuncionarioPorMatricula(String matricula)
+			throws ClassNotFoundException, SQLException {
+		return new FuncionarioDAO().getFuncionarioPorMatricula(matricula);
+	}
 
 	public static Funcionario getFuncionario(int funcionario)
 			throws ClassNotFoundException, SQLException {
@@ -389,6 +451,18 @@ public class Facade {
 	public static ArrayList<Locacao> getLocacao()
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Locacao>) new LocacaoDAO().get();
+	}
+	
+	public static ArrayList<String> getLocacoes()
+			throws ClassNotFoundException, SQLException {
+		ArrayList<Locacao> locacoes = getLocacao();
+		ArrayList<String> laux = new ArrayList<String>();
+		for(Locacao l : locacoes){
+			laux.add(new String("ID: " + l.getId()) + "\nCliente: "+ l.getCliente().getNome() + "\nFuncionario: " + l.getFuncionario().getNome()
+					+ l.getCliente().getNome() + "\nID Produto: " + l.getMidia().getId() + "\nClassificacao: "
+					+ l.getMidia().getDescricao() + "\nTitulo: " + l.getMidia().getNome());
+		}
+		return laux;
 	}
 
 	public static ArrayList<Promocao> getPromocao()
@@ -439,4 +513,33 @@ public class Facade {
 		}
 		return clientes;
 	}
+	
+	public static String Extrato(String cpf, int idMulta) throws ClassNotFoundException, SQLException{
+		
+		final String fimDeLinha = System.getProperty("line.separator");
+		String resultado = "Registro de Alugueis de " + new ClienteDAO().getByCpf(cpf).getNome() + fimDeLinha;
+		ArrayList<Locacao> loc = (ArrayList<Locacao>) getLocacoes(cpf);
+		Calendar c = Calendar.getInstance();
+		Calendar d = Calendar.getInstance();
+		int id_multa = idMulta;
+		double valor_total = 0;
+		for(Locacao l : loc){
+			resultado += "Classificacao: " + l.getMidia().getDescricao() + ", Titulo: " + l.getMidia().getNome()
+					+ "Valor: " + l.getValor() + fimDeLinha;
+			d.setTime(l.getDtDevolucaoAgendada());
+			if(id_multa > 0) {
+				int dias = (int)((c.getTimeInMillis() - d.getTimeInMillis())/1000*60*60*24);
+				if (dias > 2 && dias < 10) 
+					id_multa = 12;
+				if( dias >=10 )
+					id_multa = 13;
+				}
+				resultado += "multa: " + getMulta(id_multa).getNome() + "valor: " +  getMulta(id_multa) + fimDeLinha;
+				valor_total += (l.getValor() + getMulta(id_multa).getValor());
+			
+			}
+		return resultado + fimDeLinha + "Divida Total: " + valor_total + fimDeLinha;
+	}
+		
+	
 }
