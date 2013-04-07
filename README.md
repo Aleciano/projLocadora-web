@@ -25,3 +25,5 @@ Funcionalidades OK
 -Fazendo devoluÃ§Ã£o de DVD com multa calculada atravÃ©s dos dias que se passaram.
 
 -Buscando vÃ¡rias entidades pelo nome, ou pelo id quando Ã© o caso.
+
+os links que vidal tinha criado as paginas estão funcionando, só que com jsps, esqueçam os html.Também já esta usando sessão e não se consegue acessar as paginas sem estar logado.
