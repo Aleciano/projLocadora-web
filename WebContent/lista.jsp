@@ -20,5 +20,7 @@
 		</h4>
 	</center>
 	<%} %>
+	
+	<center> <a href="menu.jsp"><font color="green" >VOLTAR AO MENU</font> </a> </center>
 </body>
 </html>
