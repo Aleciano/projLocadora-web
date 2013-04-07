@@ -18,23 +18,23 @@
 		<hr>
 		<h2>Escolha uma opção...</h2>
 
-		1 - <a href="cadDVD.html"> Cadastrar DVD </a> 2 - <a
-			href="pesqDVD.html"> Pequisar DVD</a> 3 - <a href="removDVD.html">
+		1 - <a href="cadDVD.jsp"> Cadastrar DVD </a> 2 - <a
+			href="pesqDVD.jsp"> Pequisar DVD</a> 3 - <a href="removDVD.html">
 			Remover DVD</a> 4 - <a href="listarDVD.jsp"> Listar DVD's</a><br>
 		<br>
-		<br> 5 - <a href="cadCliente2.html"> Cadastrar Cliente</a> 6 - <a
-			href="pesqCliente.html"> Pesquisar Cliente</a> 7 - <a
-			href="removCliente.html"> Remover Cliente</a> 8 - <a
+		<br> 5 - <a href="cadCliente.jsp"> Cadastrar Cliente</a> 6 - <a
+			href="pesqCliente.jsp"> Pesquisar Cliente</a> 7 - <a
+			href="removCliente.jsp"> Remover Cliente</a> 8 - <a
 			href="listarClientes.jsp"> Listar Clientes</a><br>
 		<br>
-		<br> 9 - <a href="locar.html"> Realizar Locação</a> 10 - <a
-			href="removLocar.html"> Remover Locação</a> 11 - <a
-			href="devolver.html"> Devolução de Locação</a> 12 - <a
+		<br> 9 - <a href="locar.jsp"> Realizar Locação</a> 10 - <a
+			href="removLocar.jsp"> Remover Locação</a> 11 - <a
+			href="devolver.jsp"> Devolução de Locação</a> 12 - <a
 			href="ListarLocar.jsp"> Listar Locações</a><br>
 		<br>
-		<br> 13 - <a href="cadPromocao.html"> Cadastrar Promoção</a><br>
+		<br> 13 - <a href="cadPromocao.jsp"> Cadastrar Promoção</a><br>
 		<br>
-		<br> 14 - <a href="cadFunc.html"> Cadastrar Funcionário</a> 15 -
+		<br> 14 - <a href="cadFunc.jsp"> Cadastrar Funcionário</a> 15 -
 		<a href="ListarFunc.jsp"> Listar Funcionários</a><br>
 		<br>
 		<br> <br>
