@@ -21,6 +21,6 @@
 	</center>
 	<%} %>
 	
-	<center> <a href="menu.jsp"><font color="green" >VOLTAR AO MENU</font> </a> </center>
+	<center> <a href="menu.jsp"><font color="green" face="Georgia, Arial">VOLTAR AO MENU</font> </a> </center>
 </body>
 </html>
