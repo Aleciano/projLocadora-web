@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import dao.Facade;
 
 /**
@@ -59,10 +61,13 @@ public class ClienteServlet extends HttpServlet {
 
 	private boolean removeCliente(HttpServletRequest request,
 			HttpServletResponse response) {
-
-		String cpf = request.getParameter("cpf");
+		
 		try {
-			Facade.remove(cpf);
+			String cpf = request.getParameter("cpf");
+			if(Facade.isCliente(cpf)){
+			   Facade.remove(cpf);
+			   return true;
+			}
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +91,6 @@ public class ClienteServlet extends HttpServlet {
 				clientes = Facade.getCliente();
 				for (String cliente : clientes) {
 					if ( cliente.toUpperCase().contains((ind +": " + arg).toUpperCase())) {
-						System.out.println(cliente.toString());
 						aux.add(cliente);
 					}
 				}
@@ -120,11 +124,15 @@ public class ClienteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login")!=null) {
 		request.setAttribute("lista", getClientes());
 		request.setAttribute("tipo", "Clientes");
 		request.getRequestDispatcher("lista.jsp")
-				.forward(request, response);
-		
+				.forward(request, response); 
+		}
+		else
+			response.sendRedirect("index.jsp?erro=1");
 		
 		
 	
