@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Facade;
 
@@ -49,6 +50,8 @@ public class FuncionarioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login")!=null) {
 		try {
 			ArrayList<String> funcionarios = Facade.getFuncionarios();
 			request.setAttribute("lista", funcionarios);
@@ -61,7 +64,9 @@ public class FuncionarioServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+		else
+			response.sendRedirect("index.jsp?erro=1");
 		
 	}
 
