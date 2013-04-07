@@ -257,5 +257,37 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 
 		return funcionario;
 	}
+	
+	public Funcionario getFuncionarioPorMatricula(String matricula)
+			throws ClassNotFoundException, SQLException {
+		String sql = "SELECT * FROM funcionario WHERE matricula = ?";
+		BancoDeDados.conecta();
+		PreparedStatement pstm = BancoDeDados.getConexao()
+				.prepareStatement(sql);
+
+		pstm.setString(1, matricula);
+		ResultSet res = pstm.executeQuery();
+		Funcionario funcionario = null;
+		while (res.next()) {
+
+			funcionario = new Funcionario();
+			funcionario.setCpf(res.getString("cpf"));
+			funcionario.setMatricula(res.getInt("matricula"));
+			funcionario.setLogin(res.getString("login"));
+			funcionario.setSenha(res.getString("senha"));
+			funcionario.setNome(res.getString("nome"));
+			funcionario.setLogradouro(res.getString("logradouro"));
+			funcionario.setBairro(res.getString("bairro"));
+			funcionario.setCidade(res.getString("cidade"));
+			funcionario.setNumero(res.getInt("numero"));
+			funcionario.setCep(res.getString("cep"));
+			funcionario.setEmail(res.getString("email"));
+			funcionario.setCelular(res.getString("celular"));
+			funcionario.setFone(res.getString("fone"));
+		}
+		BancoDeDados.desconectar();
+
+		return funcionario;
+	}
 
 }
