@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,12 +44,32 @@ public class FuncionarioServlet extends HttpServlet {
 
 		return false;
 	}
+	
+	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			ArrayList<String> funcionarios = Facade.getFuncionarios();
+			request.setAttribute("lista", funcionarios);
+			request.setAttribute("tipo", "Funcionarios");
+			request.getRequestDispatcher("lista.jsp").forward(request, response);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		if (cadastra(request, response))
-			request.getRequestDispatcher("WEB-INF/menu.html").forward(request, response);
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
 
