@@ -64,12 +64,14 @@ public class ClienteServlet extends HttpServlet {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
 
-		return false;
+	
 	}
 
 	private ArrayList<String> pesquisaCliente(HttpServletRequest request,
@@ -83,7 +85,7 @@ public class ClienteServlet extends HttpServlet {
 			if ((botaoPesq = request.getParameter("botaoPesqcpf")) == null) 
 				botaoPesq = request.getParameter("botaoPesqNome");
 			for( String cliente : clientes ){
-				if(!cliente.contains(botaoPesq))
+				if(!cliente.toLowerCase().contains(botaoPesq.toLowerCase()))
 					clientes.remove(cliente);
 			}
 			
@@ -124,11 +126,11 @@ public class ClienteServlet extends HttpServlet {
 		}
 			
 		
-		if (flag.equalsIgnoreCase("remover")){
+		if (flag.equals("remover")){
 			if(removeCliente(request, response)){
 				System.out.println("entrou");
 				request.setAttribute("cliente", "removido");
-				response.sendRedirect("WEB-INF/menu.html");
+				response.sendRedirect("removCliente.html");
 			}
 //			else {
 //				request.setAttribute("erro","cliente nao existe");
