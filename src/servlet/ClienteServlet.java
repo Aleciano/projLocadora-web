@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import dao.Facade;
 
-
 /**
  * Servlet implementation class ClienteServlet
  */
@@ -34,55 +33,63 @@ public class ClienteServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String fone = request.getParameter("fone");
 		String cel = request.getParameter("cel");
-		
-			
+
 		try {
 			Facade.cadastrarCliente(cpf, nome, logradouro,
-						Integer.parseInt(numero), bairro, cidade, cep, email, fone,
-						cel);
-			if(Facade.getClienteByCpf(cpf) != null)	
+					Integer.parseInt(numero), bairro, cidade, cep, email, fone,
+					cel);
+			if (Facade.getClienteByCpf(cpf) != null)
 				return true;
 		} catch (NumberFormatException e) {
 
 			e.printStackTrace();
 			return false;
 		} catch (ClassNotFoundException e) {
-			
+
 			e.printStackTrace();
 			return false;
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return false;
 		}
 		return false;
-		
+
 	}
 
 	private boolean removeCliente(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		    String cpf = request.getParameter("cpf");
-			try {
-				Facade.remove(cpf);
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			return false;
+		String cpf = request.getParameter("cpf");
+		try {
+			Facade.remove(cpf);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
 	}
 
 	private ArrayList<String> pesquisaCliente(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		ArrayList<String> clientes = new ArrayList<>();
-				
+
+			ArrayList<String> clientes = new ArrayList<>();
+			ArrayList<String> aux = new ArrayList<>();
+			String arg = request.getParameter("arg");
+			String ind = request.getParameter("indicador");
 			try {
 				clientes = Facade.getCliente();
+				for (String cliente : clientes) {
+					if ( cliente.toUpperCase().contains((ind +": " + arg).toUpperCase())) {
+						System.out.println(cliente.toString());
+						aux.add(cliente);
+					}
+				}
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -90,32 +97,37 @@ public class ClienteServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String botaoPesq = null;
-			if ((botaoPesq = request.getParameter("botaoPesqcpf")) == null) 
-				botaoPesq = request.getParameter("botaoPesqNome");
-			for( String cliente : clientes ){
-				if(!cliente.toLowerCase().contains(botaoPesq.toLowerCase()))
-					clientes.remove(cliente);
-			}
-			
-			return clientes;
-		
+						
+			return aux;
+
+	}
+
+	private ArrayList<String> getClientes() {
+
+		try {
+			return Facade.getCliente();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 	
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		
+		request.setAttribute("lista", getClientes());
+		request.setAttribute("tipo", "Clientes");
+		request.getRequestDispatcher("lista.jsp")
+				.forward(request, response);
+		
+		
+		
 	
-	private ArrayList<String> getClientes(){
-			
-			try {
-				return Facade.getCliente();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return null;
-
 	}
 
 	/**
@@ -125,33 +137,32 @@ public class ClienteServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String flag = request.getParameter("flag");
-		if(flag.equalsIgnoreCase("cadastrar")){
-			
-			if(cadastrarCliente(request, response))
+		if (flag.equalsIgnoreCase("cadastrar")) {
+
+			if (cadastrarCliente(request, response))
 				request.setAttribute("cad", "cliente cadastrado com sucesso");
-			else 
-				request.setAttribute("cad", "erro ao tentar cadastrar cliente");				
-			request.getRequestDispatcher("cadCliente.jsp").forward(request, response);
-		}		
-		
-		if (flag.equals("remover")){
-			if(removeCliente(request, response))
-				request.setAttribute("remv", "cliente removido com sucesso");	
-			else 
-				request.setAttribute("remv","erro ao tentar remover cliente");
-			request.getRequestDispatcher("removCliente.jsp").forward(request, response);	
+			else
+				request.setAttribute("cad", "erro ao tentar cadastrar cliente");
+			request.getRequestDispatcher("cadCliente.jsp").forward(request,
+					response);
 		}
-	
-		if (flag.equalsIgnoreCase("pesquisar")){
+
+		if (flag.equals("remover")) {
+			if (removeCliente(request, response))
+				request.setAttribute("remv", "cliente removido com sucesso");
+			else
+				request.setAttribute("remv", "erro ao tentar remover cliente");
+			request.getRequestDispatcher("removCliente.jsp").forward(request,
+					response);
+		}
+
+		if (flag.equalsIgnoreCase("pesquisar")) {
 			ArrayList<String> clientes = pesquisaCliente(request, response);
-			request.setAttribute("clientes", clientes);
-			request.getRequestDispatcher("lista.jsp").forward(request, response);
+			request.setAttribute("lista", clientes);
+			request.setAttribute("tipo", "Clientes");
+			request.getRequestDispatcher("lista.jsp")
+					.forward(request, response);
 		}
-		
-		if (flag.equalsIgnoreCase("listar")){
-			request.setAttribute("lista", getClientes());
-			request.getRequestDispatcher("lista.jsp").forward(request, response);
-		}
-		
+
 	}
 }

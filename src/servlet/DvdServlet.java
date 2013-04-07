@@ -90,11 +90,14 @@ public class DvdServlet extends HttpServlet {
 		String nome  = request.getParameter("nome");
 		try {
 			ArrayList<String> dvds = Facade.getDVDs();
+			System.out.println(dvds.toString());
+			ArrayList<String> aux = new ArrayList<>();
 			for(String s : dvds){
-				if(!s.toLowerCase().contains(nome.toLowerCase()))
-					dvds.remove(s);
+				if(s.toLowerCase().contains(nome.toLowerCase()))
+					aux.add(s);
 			}
-			request.setAttribute("dvds", dvds);
+			request.setAttribute("lista", aux);
+			request.setAttribute("tipo", "DVDS");
 			request.getRequestDispatcher("lista.jsp").forward(request, response);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -109,20 +112,34 @@ public class DvdServlet extends HttpServlet {
 	
 private void listar(HttpServletRequest request,	HttpServletResponse response) throws ServletException, IOException{
 			
-		try {
-			ArrayList<String> dvds = Facade.getDVDs();
-			request.setAttribute("dvds", dvds);
-			request.getRequestDispatcher("lista.jsp").forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	try {
+		ArrayList<String> dvds = Facade.getDVDs();
+		request.setAttribute("lista", dvds);
+		request.setAttribute("tipo", "DVDS");
+		request.getRequestDispatcher("lista.jsp").forward(request, response);
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 		
 		
 	}
+
+
+	protected void doGet(HttpServletRequest request,
+		HttpServletResponse response) throws ServletException, IOException {
+		
+		listar(request, response);
+		
+	}
+
+
+
+
+
 	
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -156,13 +173,6 @@ private void listar(HttpServletRequest request,	HttpServletResponse response) th
 		case "pesquisar":
 			
 			pesquisar(request, response);
-			
-			break;
-			
-		case "listar":
-			
-			listar(request, response);
-			
 			
 			break;
 			
