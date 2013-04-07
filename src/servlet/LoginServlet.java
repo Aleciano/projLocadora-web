@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.Facade;
 
@@ -24,14 +25,18 @@ public class LoginServlet extends HttpServlet {
 		
 		String login = request.getParameter("login");
 		String pass = request.getParameter("pass");
+		String pagina = "index.jsp?erro=1";
 		
-		if (Facade.validarLogin(login, pass))
-			request.getRequestDispatcher("WEB-INF/menu.html").forward(request, response);
-		else
-			response.sendRedirect("index.html");
+		if (Facade.validarLogin(login, pass)) {
+			HttpSession session = request.getSession();
+			session.setAttribute("login", login);
+			pagina = "menu.jsp";
+		}
+		else {
+			 request.getSession().invalidate();
+			}
 		
-		
-		
+		response.sendRedirect(pagina);	
 	}
 
 }
