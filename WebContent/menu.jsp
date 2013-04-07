@@ -19,7 +19,7 @@
 		<h2>Escolha uma opção...</h2>
 
 		1 - <a href="cadDVD.jsp"> Cadastrar DVD </a> 2 - <a
-			href="pesqDVD.jsp"> Pequisar DVD</a> 3 - <a href="removDVD.html">
+			href="pesqDVD.jsp"> Pequisar DVD</a> 3 - <a href="removDVD.jsp">
 			Remover DVD</a> 4 - <a href="listarDVD.jsp"> Listar DVD's</a><br>
 		<br>
 		<br> 5 - <a href="cadCliente.jsp"> Cadastrar Cliente</a> 6 - <a
