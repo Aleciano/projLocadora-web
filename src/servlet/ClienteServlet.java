@@ -34,53 +34,62 @@ public class ClienteServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String fone = request.getParameter("fone");
 		String cel = request.getParameter("cel");
+		
+			
 		try {
 			Facade.cadastrarCliente(cpf, nome, logradouro,
-					Integer.parseInt(numero), bairro, cidade, cep, email, fone,
-					cel);
-			return true;
+						Integer.parseInt(numero), bairro, cidade, cep, email, fone,
+						cel);
+			if(Facade.getClienteByCpf(cpf) != null)	
+				return true;
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
+			e.printStackTrace();
+			return false;
+		} catch (ClassNotFoundException e) {
+			
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+		}
 		return false;
+		
 	}
 
 	private boolean removeCliente(HttpServletRequest request,
 			HttpServletResponse response) {
 
-		String cpf = request.getParameter("cpf");
-
-		try {
-			Facade.remove(cpf);
-			return true;
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		    String cpf = request.getParameter("cpf");
+			try {
+				Facade.remove(cpf);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return false;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-
-	
 	}
 
 	private ArrayList<String> pesquisaCliente(HttpServletRequest request,
 			HttpServletResponse response) {
 
 		ArrayList<String> clientes = new ArrayList<>();
-		try {
-			
-			clientes = Facade.getCliente();
+				
+			try {
+				clientes = Facade.getCliente();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			String botaoPesq = null;
 			if ((botaoPesq = request.getParameter("botaoPesqcpf")) == null) 
 				botaoPesq = request.getParameter("botaoPesqNome");
@@ -90,22 +99,23 @@ public class ClienteServlet extends HttpServlet {
 			}
 			
 			return clientes;
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+		
 	}
+	
 	
 	private ArrayList<String> getClientes(){
 			
-		try {
-			return Facade.getCliente();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+			try {
+				return Facade.getCliente();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+
 	}
 
 	/**
@@ -116,39 +126,32 @@ public class ClienteServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String flag = request.getParameter("flag");
 		if(flag.equalsIgnoreCase("cadastrar")){
-			if(cadastrarCliente(request, response))
-				request.setAttribute("cadastro", "sucesso");
-				response.sendRedirect("cadCliente2.html");
-//			else {
-//				request.setAttribute("erro", "cliente já cadastrado");
-//				request.getRequestDispatcher("erro.jsp").forward(request, response);
-//			}
-		}
 			
+			if(cadastrarCliente(request, response))
+				request.setAttribute("cad", "cliente cadastrado com sucesso");
+			else 
+				request.setAttribute("cad", "erro ao tentar cadastrar cliente");				
+			request.getRequestDispatcher("cadCliente.jsp").forward(request, response);
+		}		
 		
 		if (flag.equals("remover")){
-			if(removeCliente(request, response)){
-				System.out.println("entrou");
-				request.setAttribute("cliente", "removido");
-				response.sendRedirect("removCliente.html");
-			}
-//			else {
-//				request.setAttribute("erro","cliente nao existe");
-//				request.getRequestDispatcher("erro.jsp").forward(request, response);
-//			}
+			if(removeCliente(request, response))
+				request.setAttribute("remv", "cliente removido com sucesso");	
+			else 
+				request.setAttribute("remv","erro ao tentar remover cliente");
+			request.getRequestDispatcher("removCliente.jsp").forward(request, response);	
 		}
-		
+	
 		if (flag.equalsIgnoreCase("pesquisar")){
 			ArrayList<String> clientes = pesquisaCliente(request, response);
 			request.setAttribute("clientes", clientes);
-			request.getRequestDispatcher("WEB-INF/listaClientes.jsp").forward(request, response);
+			request.getRequestDispatcher("lista.jsp").forward(request, response);
 		}
 		
 		if (flag.equalsIgnoreCase("listar")){
 			request.setAttribute("lista", getClientes());
-			request.getRequestDispatcher("WEB-INF/listaClientes.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("lista.jsp").forward(request, response);
 		}
+		
 	}
-
 }

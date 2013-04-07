@@ -43,16 +43,18 @@ public class DvdServlet extends HttpServlet {
 					}
 				return true;
 			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
+				return false;
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+			
 				e.printStackTrace();
+				return false;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				return false;
 			}
-			return false;
+			
 		
 		
 	}
@@ -61,21 +63,26 @@ public class DvdServlet extends HttpServlet {
 		
 		String id = request.getParameter("cod");
 		try {
-			Facade.removeDVD(Integer.parseInt(id));
-			return true;
+			    if(Facade.getDVD(Integer.parseInt(id)) == null)
+			    	return false;
+				Facade.removeDVD(Integer.parseInt(id));
+				return true;
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return false;
+			
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return false;
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return false;
 		}
 		
-		
-		return false;
 	}
 	
 	private void pesquisar(HttpServletRequest request,	HttpServletResponse response) throws ServletException, IOException{
@@ -126,17 +133,24 @@ private void listar(HttpServletRequest request,	HttpServletResponse response) th
 		case "cadastrar":
 			
 		if ( cadastrar(request, response ) ){
-			request.setAttribute("cadastro", "sucesso");
-			response.sendRedirect("cadDVD.html");
+			request.setAttribute("cadastro", "cadastrado com sucesso");
+			
 		}
+		else request.setAttribute
+			("cadastro", "falha ao tentar cadastrar");
+		
+		request.getRequestDispatcher("cadDVD.jsp").forward(request, response);
 			break;
 
 		case "remover":
 			
 			if(remover(request, response)){
-				request.setAttribute("DVD", "removido com sucesso");
-				response.sendRedirect("removDVD.html");
+				request.setAttribute("dvd", "DVD removido com sucesso");
 			}
+			else
+				request.setAttribute("dvd", "falha ao tentar remover DVD");
+			
+			request.getRequestDispatcher("removDVD.jsp").forward(request, response);
 			break;
 			
 		case "pesquisar":
