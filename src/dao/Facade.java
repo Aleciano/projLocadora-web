@@ -232,7 +232,7 @@ public class Facade {
 		ArrayList<DVD> aux = (ArrayList<DVD>) new DVDDAO().get();
 		for (DVD d : aux) {
 			dvds.add(new String("Classificacao: " + d.getDescricao()
-					+ "\ntitulo: " + d.getNome()));
+					+ "\ntitulo: " + d.getNome())  + "\nCodigo: " + d.getId());
 
 		}
 		return dvds;
