@@ -35,7 +35,7 @@
 		<br> 13 - <a href="cadPromocao.jsp"> Cadastrar Promoção</a><br>
 		<br>
 		<br> 14 - <a href="cadFunc.jsp" > Cadastrar Funcionário</a> 15 -
-		<a href="ListarFunc.jsp"> Listar Funcionários</a><br>
+		<a href="FuncionarioServlet"> Listar Funcionários</a><br>
 		<br>
 		<br> <br>
 		<br>
