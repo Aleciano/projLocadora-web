@@ -24,7 +24,6 @@ public class ClienteServlet extends HttpServlet {
 
 	}
 
-	
 	private boolean cadastrarCliente(HttpServletRequest request,
 			HttpServletResponse response) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
