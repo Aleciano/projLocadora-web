@@ -79,7 +79,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		Cliente cliente = null;
 		while (res.next()) {
 
-			cliente = new Cliente();
+			cliente =  new Cliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
 			cliente.setLogradouro(res.getString("logradouro"));
