@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import dao.Facade;
  */
 public class ClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Facade facade = Facade.getIstance();
 
 	public ClienteServlet() {
 		super();
@@ -23,8 +25,8 @@ public class ClienteServlet extends HttpServlet {
 	}
 
 	private boolean cadastrarCliente(HttpServletRequest request,
-			HttpServletResponse response) {
-
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
 		String nome = request.getParameter("nome");
 		String cpf = request.getParameter("cpf");
 		String logradouro = request.getParameter("logradouro");
@@ -37,10 +39,10 @@ public class ClienteServlet extends HttpServlet {
 		String cel = request.getParameter("cel");
 
 		try {
-			Facade.cadastrarCliente(cpf, nome, logradouro,
+			facade.cadastrarCliente(cpf, nome, logradouro,
 					Integer.parseInt(numero), bairro, cidade, cep, email, fone,
 					cel);
-			if (Facade.getClienteByCpf(cpf) != null)
+			if (facade.getClienteByCpf(cpf) != null)
 				return true;
 		} catch (NumberFormatException e) {
 
@@ -64,8 +66,8 @@ public class ClienteServlet extends HttpServlet {
 		
 		try {
 			String cpf = request.getParameter("cpf");
-			if(Facade.isCliente(cpf)){
-			   Facade.remove(cpf);
+			if(facade.isCliente(cpf)){
+			   facade.remove(cpf);
 			   return true;
 			}
 		} catch (ClassNotFoundException e) {
@@ -88,7 +90,7 @@ public class ClienteServlet extends HttpServlet {
 			String arg = request.getParameter("arg");
 			String ind = request.getParameter("indicador");
 			try {
-				clientes = Facade.getCliente();
+				clientes = facade.getCliente();
 				for (String cliente : clientes) {
 					if ( cliente.toUpperCase().contains((ind +": " + arg).toUpperCase())) {
 						aux.add(cliente);
@@ -109,7 +111,7 @@ public class ClienteServlet extends HttpServlet {
 	private ArrayList<String> getClientes() {
 
 		try {
-			return Facade.getCliente();
+			return facade.getCliente();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
