@@ -19,7 +19,7 @@ public class Facade {
 	public static int fazerLocacao(Cliente cliente, Funcionario funcionario,
 			Date data, Midia midia/* , Promocao promocao , TipoLocacao tipo */)
 			throws SQLException, ClassNotFoundException {
-		Locacao locacao = new Locacao();
+		Locacao locacao = LocadoraFactory.getLocacao();
 		locacao.setCliente(cliente);
 		locacao.setFuncionario(funcionario);
 		locacao.setDtLocacao(data);
@@ -117,7 +117,7 @@ public class Facade {
 			String logradouro, int numero, String bairro, String cidade,
 			String cep, String email, String fone, String celular)
 			throws SQLException, ClassNotFoundException {
-		Cliente cliente = new Cliente();
+		Cliente cliente = LocadoraFactory.getCliente();
 		cliente.setCpf(cpf);
 		cliente.setNome(nome);
 		cliente.setLogradouro(logradouro);
@@ -149,7 +149,7 @@ public class Facade {
 
 	public static void remove(String cpf) throws SQLException,
 			ClassNotFoundException {
-		Cliente cliente = new Cliente();
+		Cliente cliente = LocadoraFactory.getCliente();
 		cliente.setCpf(cpf);
 		new ClienteDAO().remove(cliente);
 	}
@@ -181,7 +181,7 @@ public class Facade {
 	public static void cadastrarDvd(String nome, String descricao, short qt,
 			int duracaoMinutos, String sinopse) throws SQLException,
 			ClassNotFoundException {
-		DVD dvd = new DVD(nome, descricao, qt, duracaoMinutos, sinopse);
+		DVD dvd = LocadoraFactory.getDVD(nome, descricao, qt, duracaoMinutos, sinopse);
 		new DVDDAO().save(dvd);
 	}
 
@@ -198,14 +198,7 @@ public class Facade {
 	
 	public static void cadastrarPromocao(String nome, double valor, int dia, int mes, int ano) throws SQLException,
 			ClassNotFoundException {
-		Calendar dfim = Calendar.getInstance();
-		dfim.set(ano, mes -1, dia);
-		Date d = new Date(dfim.getTimeInMillis());		
-		Promocao promocao = new Promocao();
-		promocao.setDuracaoFinal(d);
-		promocao.setNome(nome);
-		promocao.setValor(valor);
-		promocao.setDuracaoInit(new Date(Calendar.getInstance().getTimeInMillis()));
+		Promocao promocao = LocadoraFactory.getPromocao(nome, valor, dia, mes, ano);
 		new PromocaoDAO().save(promocao);
 	}
 
@@ -275,7 +268,7 @@ public class Facade {
 
 	public static void removeDVD(int id) throws SQLException,
 		ClassNotFoundException {
-			DVD dvd = new DVD();
+			DVD dvd = LocadoraFactory.getDVD();
 			dvd.setId(id);
 			new DVDDAO().remove(dvd);
 	}
@@ -320,7 +313,7 @@ public class Facade {
 			 DVD d = (DVD)Facade.getLocacao(id).getMidia();
 				d.setLocado(false);
 				Facade.update(d);
-			Locacao locacao = new Locacao();
+			Locacao locacao = LocadoraFactory.getLocacao();
 			locacao.setId(id);
 			new LocacaoDAO().remove(locacao);
 			return true;

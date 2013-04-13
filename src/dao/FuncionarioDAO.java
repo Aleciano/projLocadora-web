@@ -82,7 +82,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		 * BancoDeDados.getConexao() .prepareStatement(sql); pstm.setInt(1,
 		 * id.getMatricula()); ResultSet res = pstm.executeQuery(); Funcionario
 		 * funcionario = null; while (res.next()) { funcionario = new
-		 * Funcionario(); funcionario.setMatricula(res.getInt("matricula"));
+		 * LocadoraFactory.getFuncionario(); funcionario.setMatricula(res.getInt("matricula"));
 		 * funcionario.setLogin(res.getString("login"));
 		 * funcionario.setSenha(res.getString("senha"));
 		 * funcionario.setNome(res.getString("nome"));
@@ -108,7 +108,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		ResultSet res = pstm.executeQuery();
 		Funcionario funcionario = null;
 		while (res.next()) {
-			funcionario = new Funcionario();
+			funcionario = LocadoraFactory.getFuncionario();
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
 			funcionario.setSenha(res.getString("senha"));
@@ -138,7 +138,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		 * bd.getConexao() .prepareStatement(sql); ResultSet res =
 		 * pstm.executeQuery(); ArrayList<Funcionario> funcionarios = new
 		 * ArrayList<Funcionario>(); while (res.next()) { Funcionario
-		 * funcionario = new Funcionario();
+		 * funcionario = LocadoraFactory.getFuncionario();
 		 * funcionario.setMatricula(res.getInt("matricula"));
 		 * funcionario.setLogin(res.getString("login"));
 		 * funcionario.setSenha(res.getString("senha"));
@@ -167,7 +167,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
 		while (res.next()) {
-			Funcionario funcionario = new Funcionario();
+			Funcionario funcionario = LocadoraFactory.getFuncionario();
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
 			funcionario.setSenha(res.getString("senha"));
@@ -201,7 +201,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		Funcionario funcionario = null;
 		while (res.next()) {
 
-			funcionario = new Funcionario();
+			funcionario = LocadoraFactory.getFuncionario();
 			funcionario.setCpf(res.getString("cpf"));
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
@@ -234,7 +234,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		Funcionario funcionario = null;
 		while (res.next()) {
 
-			funcionario = new Funcionario();
+			funcionario = LocadoraFactory.getFuncionario();
 			funcionario.setCpf(res.getString("cpf"));
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));
@@ -266,7 +266,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		Funcionario funcionario = null;
 		while (res.next()) {
 
-			funcionario = new Funcionario();
+			funcionario = LocadoraFactory.getFuncionario();
 			funcionario.setCpf(res.getString("cpf"));
 			funcionario.setMatricula(res.getInt("matricula"));
 			funcionario.setLogin(res.getString("login"));

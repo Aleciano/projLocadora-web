@@ -3,9 +3,6 @@ package dao;
 import java.sql.SQLException;
 import java.util.Collection;
 
-import entidades.Cliente;
-import entidades.Funcionario;
-
 public interface DAO <T>{
 	
 	void save(T obj) throws SQLException, ClassNotFoundException;

@@ -65,7 +65,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 		ResultSet res = pstm.executeQuery();
 		TipoLocacao tipo = null;
 		while (res.next()) {
-			tipo = new TipoLocacao();
+			tipo = LocadoraFactory.getTipoDeLocacao();
 			tipo.setId(res.getInt("id"));
 			tipo.setNome(res.getString("nome"));
 			tipo.setnDiasLocacao(res.getInt("n_dias_locacao"));
@@ -90,7 +90,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 		ResultSet res = pstm.executeQuery();
 		TipoLocacao tipo = null;
 		while (res.next()) {
-			tipo = new TipoLocacao();
+			tipo = LocadoraFactory.getTipoLocacao();
 			tipo.setId(res.getInt("id"));
 			tipo.setNome(res.getString("nome"));
 			tipo.setValor_locacao(res.getDouble("valor_locacao"));
@@ -121,7 +121,7 @@ public class TipoLocacaoDAO implements DAO<TipoLocacao> {
 		ArrayList<TipoLocacao> tipos = new ArrayList<TipoLocacao>();
 		TipoLocacao tipo = null;
 		while (res.next()) {
-			tipo = new TipoLocacao();
+			tipo = LocadoraFactory.getTipoLocacao();
 			tipo.setId(res.getInt("id"));
 			tipo.setNome(res.getString("nome"));
 			tipo.setValor_locacao(res.getDouble("valor_locacao"));

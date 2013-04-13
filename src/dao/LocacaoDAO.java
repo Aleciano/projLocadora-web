@@ -80,7 +80,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 		ResultSet res = pstm.executeQuery();
 		Locacao locacao = null;
 		while (res.next()) {
-			locacao = new Locacao();
+			locacao = LocadoraFactory.getLocacao();
 			locacao.setCliente(Facade.getClienteByCpf(res
 					.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
@@ -111,7 +111,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
-			Locacao locacao = new Locacao();
+			Locacao locacao = LocadoraFactory.getLocacao();
 			locacao.setCliente(Facade.getClienteByCpf(res
 					.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res
@@ -141,7 +141,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
-			Locacao locacao = new Locacao();
+			Locacao locacao = LocadoraFactory.getLocacao();
 			locacao.setCliente(Facade.getClienteByCpf(res
 					.getString("cpf_cliente")));
 			locacao.setFuncionario(Facade.getFuncionario(res

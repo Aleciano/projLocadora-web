@@ -125,7 +125,7 @@ public class DVDDAO implements DAO<DVD> {
 		ResultSet res = pstm.executeQuery();
 		DVD dvd = null;
 		while (res.next()) {
-			dvd = new DVD();
+			dvd = LocadoraFactory.getDVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 			dvd.setDescricao(res.getString("descricao"));
@@ -167,7 +167,7 @@ public class DVDDAO implements DAO<DVD> {
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
 		DVD dvd = null;
 		while (res.next()) {
-			dvd = new DVD();
+			dvd = LocadoraFactory.getDVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 			dvd.setDescricao(res.getString("descricao"));
@@ -211,7 +211,7 @@ public class DVDDAO implements DAO<DVD> {
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
 		DVD dvd = null;
 		while (res.next()) {
-			dvd = new DVD();
+			dvd = LocadoraFactory.getDVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 			dvd.setDescricao(res.getString("descricao"));
@@ -264,7 +264,7 @@ public class DVDDAO implements DAO<DVD> {
 		ArrayList<DVD> dvdsNLocados = new ArrayList<DVD>(); // efetivamente retornado
 		DVD dvd = null;
 		while (res.next()) {
-			dvd = new DVD();
+			dvd = LocadoraFactory.getDVD();
 			dvd.setId(res.getInt("id"));
 			dvd.setNome(res.getString("nome"));
 			dvd.setDescricao(res.getString("descricao"));

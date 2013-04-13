@@ -73,7 +73,7 @@ public class MultaDAO implements DAO<Multa> {
 		ResultSet res = pstm.executeQuery();
 		Multa multa =  null;
 		while (res.next()){
-			multa = new Multa();
+			multa = LocadoraFactory.getMulta();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
 			multa.setValor(res.getDouble("valor"));
@@ -92,7 +92,7 @@ public class MultaDAO implements DAO<Multa> {
 		ResultSet res = pstm.executeQuery();
 		Multa multa =  null;
 		while (res.next()){
-			multa = new Multa();
+			multa = LocadoraFactory.getMulta();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
 			multa.setValor(res.getDouble("valor"));
@@ -116,7 +116,7 @@ public class MultaDAO implements DAO<Multa> {
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Multa> multas = new ArrayList<Multa>();
 		while (res.next()){
-			Multa multa = new Multa();
+			Multa multa = LocadoraFactory.getMulta();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
 			multa.setValor(res.getDouble("valor"));
@@ -135,7 +135,7 @@ public class MultaDAO implements DAO<Multa> {
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Multa> multas = new ArrayList<Multa>();
 		while (res.next()){
-			Multa multa = new Multa();
+			Multa multa = LocadoraFactory.getMulta();
 			multa.setId(res.getInt("id"));
 			multa.setNome(res.getString("nome"));
 			multa.setValor(res.getDouble("valor"));

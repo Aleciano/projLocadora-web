@@ -81,7 +81,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		Cliente cliente = null;
 		while (res.next()) {
 
-			cliente =  new Cliente();
+			cliente =  LocadoraFactory.getCliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
 			cliente.setLogradouro(res.getString("logradouro"));
@@ -119,7 +119,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		while (res.next()) {
 			Cliente cliente = null;
-			cliente = new Cliente();
+			cliente = LocadoraFactory.getCliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
 			cliente.setLogradouro(res.getString("logradouro"));
@@ -147,7 +147,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		while (res.next()) {
-			Cliente cliente = new Cliente();
+			Cliente cliente = LocadoraFactory.getCliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
 			cliente.setLogradouro(res.getString("logradouro"));
@@ -175,7 +175,7 @@ public class ClienteDAO implements DAO<Cliente> {
 		ResultSet res = pstm.executeQuery();
 		Cliente cliente = null;
 		while (res.next()) {
-			cliente = new Cliente();
+			cliente = LocadoraFactory.getCliente();
 			cliente.setCpf(res.getString("cpf"));
 			cliente.setNome(res.getString("nome"));
 			cliente.setLogradouro(res.getString("logradouro"));

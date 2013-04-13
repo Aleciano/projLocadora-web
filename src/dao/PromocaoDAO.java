@@ -76,7 +76,7 @@ public class PromocaoDAO implements DAO<Promocao> {
 		ResultSet res = pstm.executeQuery();
 		Promocao promocao = null;
 		while (res.next()) {
-			promocao = new Promocao();
+			promocao = LocadoraFactory.getPromocao();
 			promocao.setId(res.getInt("id"));
 			promocao.setNome(res.getString("nome"));
 			promocao.setValor(res.getDouble("valor"));
@@ -98,7 +98,7 @@ public class PromocaoDAO implements DAO<Promocao> {
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Promocao> promocoes = new ArrayList<Promocao>();
 		while (res.next()) {
-			Promocao promocao = new Promocao();
+			Promocao promocao = LocadoraFactory.getPromocao();
 			promocao.setId(res.getInt("id"));
 			promocao.setNome(res.getString("nome"));
 			promocao.setValor(res.getDouble("valor"));
@@ -120,7 +120,7 @@ public class PromocaoDAO implements DAO<Promocao> {
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Promocao> promocoes = new ArrayList<Promocao>();
 		while (res.next()) {
-			Promocao promocao = new Promocao();
+			Promocao promocao = LocadoraFactory.getPromocao();
 			promocao.setId(res.getInt("id"));
 			promocao.setNome(res.getString("nome"));
 			promocao.setValor(res.getDouble("valor"));
@@ -145,7 +145,7 @@ public class PromocaoDAO implements DAO<Promocao> {
 		ResultSet res = pstm.executeQuery();
 		Promocao promocao = null;
 		while (res.next()) {
-			promocao = new Promocao();
+			promocao = LocadoraFactory.getPromocao();
 			promocao.setId(res.getInt("id"));
 			promocao.setNome(res.getString("nome"));
 			promocao.setValor(res.getDouble("valor"));
