@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pesquisar DVD</title>
+<title>Locadora de video: Pesquisar DVD </title>
 </head>
 <body>
 

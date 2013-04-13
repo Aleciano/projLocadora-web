@@ -7,10 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-
 import db.BancoDeDados;
-
-import entidades.Multa;
 import entidades.Promocao;
 
 public class PromocaoDAO implements DAO<Promocao> {

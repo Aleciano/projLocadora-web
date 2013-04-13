@@ -142,7 +142,6 @@ public class ClienteDAO implements DAO<Cliente> {
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
-		// System.out.print(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		while (res.next()) {

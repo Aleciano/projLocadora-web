@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Cadastro de Promoção</title>
+<title>Locadora de video: Cadastro de Promoção</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
 			<br>
 			<br>
 			<br>
-			Digite o nome da Promoção <input type="text" size="30" maxlength=20 name="nome"><br><br> 
+			Digite o nome da Promoção <input type="text" size="30" name="nome"><br><br> 
 			Valor R$ <input	type="text" size="5" name="valor"> <br><br>
 			Dia <input type="text" size="2" maxlength="2" name="dia"> 
 			mes <input type="text" size="2" maxlength="2" name="mes">

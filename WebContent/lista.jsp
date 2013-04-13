@@ -9,7 +9,7 @@
 %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Lista</title>
+<title>Locadora de video: Lista </title>
 </head>
 <body>
 <h2>Lista de <%=tlista %></h2><br>

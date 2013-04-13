@@ -7,19 +7,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Devolver Locacao</title>
+<title>Locadora de video: Devolver Locação</title>
 </head>
 <body>
 	<center>
-		<h1>BEM VINDO A DEVOLUCAO DE LOCACAO</h1>
+		<h1>BEM VINDO A DEVOLUCAO DE LOCAÇÃO</h1>
 		<hr>
-		<form action="DvdServlet" method="post">
+		<form action="LocacaoServlet" method="post">
 			<br> <br> <br>
 				 DIGITE O CPF DO CLIENTE <input type="text" name="cod"> <br><br>
 					 <select name="multa">
-				 			<option > SEM MULTA </option>
-				 			<option > MULTA BRANDA </option>
-				 			<option > MULTA SEVERA </option>
+					 		<option value="0" > AUTOMÁTICO </option>
+				 			<option value="1" > SEM MULTA </option>
+				 			<option value="2"> MULTA BRANDA </option>
+				 			<option value="3"> MULTA SEVERA </option>
 					 </select>
 				 <input type="submit">
 				 <input type="reset" value="Limpar" />

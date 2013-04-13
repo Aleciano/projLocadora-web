@@ -27,7 +27,7 @@ public class Locacao {
 	private Midia midia;
 	private double valor; // valor já existe dentro do tipo da locação.
 //	private Multa multa; // não precimos carregar o objeto, só o valor. Usaremos em um "setvalor"
-//	private double valorPago; pode ser obtido com o valor do tipo de locação e a adição/subtração de promoção/multa.
+	private double valorPago; 
 //	private Promocao promocao; // não precimos carregar o objeto, só o valor. Usaremos em um "setvalor"
 	private Date dtLocacao;
 	private Date dtDevolucaoAgendada;
@@ -275,6 +275,14 @@ public class Locacao {
 				+ funcionario + ", cliente=" + cliente /*+ ", getClass()=" + getClass() + ", hashCode()="
 				+ hashCode() + ", toString()=" + super.toString() + "]";*/
 				;
+	}
+
+	public double getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(double valorPago) {
+		this.valorPago = valorPago;
 	}
 
 }

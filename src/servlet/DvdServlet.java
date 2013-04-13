@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -22,12 +23,11 @@ public class DvdServlet extends HttpServlet {
 	 */
 	public DvdServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private boolean cadastrar(HttpServletRequest request,
-			HttpServletResponse response)  {
-
+			HttpServletResponse response) throws UnsupportedEncodingException  {
+		request.setCharacterEncoding("UTF-8");
 		String titulo = request.getParameter("titulo");
 		String genero = request.getParameter("genero");
 		String qtm = request.getParameter("qt");
@@ -43,16 +43,8 @@ public class DvdServlet extends HttpServlet {
 					System.out.println("passou");
 					}
 				return true;
-			} catch (NumberFormatException e) {
-				
-				e.printStackTrace();
-				return false;
-			} catch (ClassNotFoundException e) {
-			
-				e.printStackTrace();
-				return false;
-			} catch (SQLException e) {
-				
+			} catch (Exception e) {
+				e.printStackTrace();			
 				return false;
 			}
 			
@@ -100,11 +92,7 @@ public class DvdServlet extends HttpServlet {
 			request.setAttribute("lista", aux);
 			request.setAttribute("tipo", "DVDS");
 			request.getRequestDispatcher("lista.jsp").forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -118,11 +106,7 @@ private void listar(HttpServletRequest request,	HttpServletResponse response) th
 		request.setAttribute("lista", dvds);
 		request.setAttribute("tipo", "DVDS");
 		request.getRequestDispatcher("lista.jsp").forward(request, response);
-	} catch (ClassNotFoundException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
+	} catch (Exception e) {
 		e.printStackTrace();
 	}
 		

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import db.BancoDeDados;
-import entidades.Cliente;
 import entidades.Locacao;
 
 public class LocacaoDAO implements DAO<Locacao> {
@@ -34,20 +33,19 @@ public class LocacaoDAO implements DAO<Locacao> {
 	// salvar, e não fazer cálculos.
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
-		String sql = "UPDATE locacao SET valor=?, dt_locacao=?, dt_devolucao_agendada=?, dt_devolucao=?, cpf_cliente=?, mat_funcionario=?, cod_midia=? WHERE id = ?";
+		String sql = "UPDATE locacao SET valor=?, valor_pago=?, dt_locacao=?, dt_devolucao_agendada=?, dt_devolucao=?, cpf_cliente=?, mat_funcionario=?, cod_midia=? WHERE id = ?";
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
-		// pstm.setDouble(2, obj.getValorPago());
-		pstm.setDate(2, obj.getDtLocacao());
-		pstm.setDate(3, obj.getDtDevolucaoAgendada());
-		pstm.setDate(4, obj.getDtDevolucao());
-		pstm.setString(5, obj.getCliente().getCpf());
-		pstm.setInt(6, obj.getFuncionario().getMatricula());
-		pstm.setInt(7, obj.getMidia().getId());
-		// pstm.setInt(9, obj.getTipoLocacao().getId());
-		pstm.setInt(8, obj.getId());
+		 pstm.setDouble(2, obj.getValorPago());
+		pstm.setDate(3, obj.getDtLocacao());
+		pstm.setDate(4, obj.getDtDevolucaoAgendada());
+		pstm.setDate(5, obj.getDtDevolucao());
+		pstm.setString(6, obj.getCliente().getCpf());
+		pstm.setInt(7, obj.getFuncionario().getMatricula());
+		pstm.setInt(8, obj.getMidia().getId());
+		pstm.setInt(9, obj.getId());
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
@@ -137,12 +135,10 @@ public class LocacaoDAO implements DAO<Locacao> {
 		BancoDeDados.conecta();
 		PreparedStatement pstm = BancoDeDados.getConexao()
 				.prepareStatement(sql);
-		System.out.print("\n" + sql);
 		ResultSet res = pstm.executeQuery();
 
 		ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
 		while (res.next()) {
-			System.out.print("*\n");
 			Locacao locacao = new Locacao();
 			locacao.setCliente(Facade.getClienteByCpf(res
 					.getString("cpf_cliente")));
@@ -197,7 +193,6 @@ public class LocacaoDAO implements DAO<Locacao> {
 		while (res.next()) {
 			
 			id = res.getInt(1);
-//			System.out.printf("Achamos %d",id);
 		}
 		BancoDeDados.desconectar();
 		return id;

@@ -1,9 +1,9 @@
 Coisas que precisam ser feitas
 
--Retirar tipo de buscas no BD onde uma parte do nome já retorna o resultad. O correto é passar o nome inteiro corretamente.
+-Javadoc
 
--Veriricar TODO nas classes e DAOs.
+-Javascript para pegar dados e validá-los antes de enviar ao servlet.
 
--Cadastrar Multa e Promoção via código!
+-Tercio Fazer a locação!!
 
--Criar um extrato de clientes (de locações em aberto).
+-Ajeitar as sessões.

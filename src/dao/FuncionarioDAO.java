@@ -5,10 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import db.BancoDeDados;
-
-import entidades.Cliente;
 import entidades.Funcionario;
 
 public class FuncionarioDAO implements DAO<Funcionario> {
@@ -24,7 +21,6 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		pstm.setString(2, obj.getLogin());
 		pstm.setString(3, obj.getCpf());
 		pstm.setString(4, obj.getSenha());
-
 		pstm.setString(5, obj.getLogradouro());
 		pstm.setInt(6, obj.getNumero());
 		pstm.setString(7, obj.getBairro());
@@ -33,11 +29,10 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		pstm.setString(10, obj.getEmail());
 		pstm.setString(11, obj.getFone());
 		pstm.setString(12, obj.getCelular());
-
 		pstm.execute();
 		BancoDeDados.desconectar();
 	}
-
+	
 	@Override
 	public void update(Funcionario obj) throws ClassNotFoundException,
 			SQLException {
@@ -49,7 +44,6 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 		pstm.setString(2, obj.getLogin());
 		pstm.setString(3, obj.getCpf());
 		pstm.setString(4, obj.getSenha());
-
 		pstm.setString(5, obj.getLogradouro());
 		pstm.setInt(6, obj.getNumero());
 		pstm.setString(7, obj.getBairro());

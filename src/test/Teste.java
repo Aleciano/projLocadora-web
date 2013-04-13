@@ -108,7 +108,7 @@ public class Teste {
 				}
 				input.nextLine();
 				
-				Facade.FinalizarLocao(fimLocacao, multa);
+				Facade.FinalizarLocacao(fimLocacao, multa);
 			
 	//			Facade.remove(fimLocacao);
 			}
@@ -128,7 +128,7 @@ public class Teste {
 				
 			}
 			locacoes_do_cliente.get(opcao - 1).setDtDevolucao(new Date(cal.getTime().getTime()));
-			Facade.FinalizarLocao(locacoes_do_cliente.get(opcao - 1), multa);
+			Facade.FinalizarLocacao(locacoes_do_cliente.get(opcao - 1), multa);
 		}
 		System.out.print("\n:: Lista de locações do cliente atualizada ::");
 		locacoes_do_cliente = (ArrayList<Locacao>) Facade.getLocacoes(((ArrayList<Cliente>) Facade

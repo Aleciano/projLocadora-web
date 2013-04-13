@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Remover dvd</title>
+<title>Locadora de video: Remover DVD </title>
 </head>
 <body>
 	<center>

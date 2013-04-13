@@ -1,9 +1,8 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,9 +17,9 @@ import dao.Facade;
 public class FuncionarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private boolean cadastra(HttpServletRequest request,
-			HttpServletResponse response) {
-
+	private boolean cadastrar(HttpServletRequest request,
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
 		String nome = request.getParameter("nome");
 		String cpf = request.getParameter("cpf");
 		String logradouro = request.getParameter("logradouro");
@@ -38,12 +37,14 @@ public class FuncionarioServlet extends HttpServlet {
 			Facade.cadastrarFuncionario(nome, cpf, logradouro,
 					Integer.parseInt(numero), bairro, cidade, cep, email, fone,
 					cel, login, senha);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				return true;
+		} catch (Exception e) {
 
-		return false;
+			e.printStackTrace();
+			return false;
+		}
+	
+
 	}
 	
 	
@@ -57,11 +58,7 @@ public class FuncionarioServlet extends HttpServlet {
 			request.setAttribute("lista", funcionarios);
 			request.setAttribute("tipo", "Funcionarios");
 			request.getRequestDispatcher("lista.jsp").forward(request, response);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -73,9 +70,16 @@ public class FuncionarioServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		if (cadastra(request, response))
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+		if (cadastrar(request, response)) {
+			request.setAttribute("cadastro", "funcionario cadastrado com sucesso");
+			request.getRequestDispatcher("cadFunc.jsp").forward(request, response);
+		}
 		
+		else{ 
+			request.setAttribute("cadastro", "erro ao tentar cadastrar funcionario");
+			request.getRequestDispatcher("cadFunc.jsp").forward(request, response);
+		}
+			
 	}
 
 }

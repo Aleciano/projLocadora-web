@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Cadastro de DVD</title>
+<title>Locadora de video: Cadastro de DVDs</title>
 </head>
 <body>
 	<center>
@@ -25,8 +25,12 @@
 		<form action="DvdServlet" method="post">
 			<br>Título <input type="text" name="titulo"><br>
 			<br>
-			<br> Classificacao <input type="text" name="genero"><br>
-			<br>
+			 Classificacao  <select name="genero">
+			 <option value="filme">Filme</option>
+				<option value="show">Show</option>
+				<option value="infantil">Infantil</option>
+				</select>
+			<br>	
 			<br> Qde Disc <select name="qt">
 				<option value="">---</option>
 				<option value="1">1</option>
@@ -34,7 +38,7 @@
 				<option value="3">3</option>
 				<option value="4">4</option>
 				<option value="5">5</option>
-			</select><br> <br>
+			</select><br> 
 			<br> Duração(Minutos) <input type="text" name="duracao"><br>
 			<br>
 			<br> Sinopse

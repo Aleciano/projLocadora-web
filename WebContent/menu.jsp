@@ -10,7 +10,31 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Menu Locadora</title>
+<title>Locadora de video: Menu</title>
+<style type="text/css">
+#popup {
+	position: fixed;
+	top: 76%;
+	left: 75%;
+	margin: -75px 0 0 -150px;
+	width: 300px;
+	height: 170px;
+	padding: 15px;
+	border: solid 1px #331;
+	background: #ffffd0;
+	display: none;
+}
+</style>
+<script type="text/javascript">
+	function fechar() {
+		document.getElementById('popup').style.display = 'none';
+	}
+
+	function abrir() {
+		document.getElementById('popup').style.display = 'block';
+		setTimeout("fechar()", 10000);
+	}
+</script>
 </head>
 <body>
 
@@ -29,23 +53,24 @@
 		    7 - <a	href="removCliente.jsp"> Remover Cliente</a>
 		    8 - <a	href="ClienteServlet"  > Listar Clientes</a><br><br><br>
 		    9 - <a href="cadlocacao.jsp"> Realizar Locação</a>
-		    10 - <a	href="removLocacao.jsp"> Remover Locação</a>
-		    11 - <a	href="dvLocacao.jsp"> Devolução de Locação</a> 
-		    12 - <a	href="LocacaoServlet"> Listar Locações</a><br><br><br>
-		    13 - <a href="cadPromocao.jsp"> Cadastrar Promoção</a><br><br><br>
-		    14 - <a href="cadFunc.jsp" > Cadastrar Funcionário</a>
-		    15 - <a href="FuncionarioServlet"> Listar Funcionários</a>
+		    10 - <a	href="dvLocacao.jsp"> Devolução de Locação</a> 
+		    11 - <a	href="LocacaoServlet"> Listar Locações</a><br><br><br>
+		    12 - <a href="cadPromocao.jsp"> Cadastrar Promoção</a><br><br><br>
+		    13 - <a href="cadFunc.jsp" > Cadastrar Funcionário</a>
+		    14 - <a href="FuncionarioServlet"> Listar Funcionários</a>
 		<br>
 		<br>
 		<br>
 		<br>
 		<hr>
 		<br>
-		<a href="index.jsp" title="index" ><h3>Sair e logar com outro
-				usuário</h3></a>
+		<h3><a href="LoginServlet" title="index" >Sair e logar com outro usuário</a></h3>
 	</center>
+	
 
-
+	<div align="right"><a href="javascript:abrir();">Sobre o sistema</a></div>
+	<DIV id="popup" class="popup">Desenvolvido entre Março e Abril de 2013 com o objetivo de obter nota parcial na disciplina de Desenvolvimento Web, Prof. Cesar Rocha.<br><br><b>Leonardo Vidal<br>Tercio Barbosa<br>Aleciano Júnior</b></DIV>
+	
 </body>
 </html>
 
