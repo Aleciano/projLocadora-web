@@ -2,8 +2,6 @@ package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -14,23 +12,34 @@ import java.sql.Statement;
  *  */
 public class BancoDeDados {
 
-	private static String driverJDBC = "com.mysql.jdbc.Driver";
-	private static String domain = "jdbc:mysql://localhost/locadora_video";
-	private static String user = "guest";
-	private static String pass = "123";
-	private static Connection con;
-	private static Statement stm;
+	private  String driverJDBC = "com.mysql.jdbc.Driver";
+	private  String domain = "jdbc:mysql://localhost/locadora_video";
+	private  String user = "guest";
+	private  String pass = "123";
+	private  Connection con;
+	private  Statement stm;
+	private static final BancoDeDados bancoDeDados = new BancoDeDados();
+	
+	
 
-	public static void conecta() throws ClassNotFoundException, SQLException {
+	private BancoDeDados() {
+		super();
+	}
+	
+	public static BancoDeDados getInstance(){
+		return bancoDeDados;
+	}
+
+	public  void conecta() throws ClassNotFoundException, SQLException {
 		Class.forName(driverJDBC);
 		con = DriverManager.getConnection(domain, user, pass);
 	}
 
-	public static void desconectar() throws SQLException {
+	public  void desconectar() throws SQLException {
 		con.close();
 	}
 
-	public static void setParametros(String driver, String url, String login,
+	public  void setParametros(String driver, String url, String login,
 			String senha) {
 		driverJDBC = driver;
 		domain = url;
@@ -38,51 +47,51 @@ public class BancoDeDados {
 		pass = senha;
 	}
 
-	public static String getDriverJDBC() {
+	public  String getDriverJDBC() {
 		return driverJDBC;
 	}
 
-	public static void setDriverJDBC(String driverJDBC) {
-		BancoDeDados.driverJDBC = driverJDBC;
+	public  void setDriverJDBC(String driverJDBC) {
+		this.driverJDBC = driverJDBC;
 	}
 
-	public static String getUrl() {
+	public  String getUrl() {
 		return domain;
 	}
 
-	public static void setUrl(String url) {
-		BancoDeDados.domain = url;
+	public  void setUrl(String url) {
+		this.domain = url;
 	}
 
-	public static String getLogin() {
+	public  String getLogin() {
 		return user;
 	}
 
-	public static void setLogin(String login) {
-		BancoDeDados.user = login;
+	public  void setLogin(String login) {
+		this.user = login;
 	}
 
-	public static String getSenha() {
+	public  String getSenha() {
 		return pass;
 	}
 
-	public static void setSenha(String senha) {
-		BancoDeDados.pass = senha;
+	public  void setSenha(String senha) {
+		this.pass = senha;
 	}
 
-	public static Connection getConexao() {
+	public  Connection getConexao() {
 		return con;
 	}
 
-	public static void setCon(Connection con) {
-		BancoDeDados.con = con;
+	public  void setCon(Connection con) {
+		this.con = con;
 	}
 
-	public static Statement getStm() {
+	public  Statement getStm() {
 		return stm;
 	}
 
-	public static void setStm(Statement stm) {
-		BancoDeDados.stm = stm;
+	public  void setStm(Statement stm) {
+		this.stm = stm;
 	}
 }

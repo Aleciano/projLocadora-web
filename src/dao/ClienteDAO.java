@@ -9,12 +9,14 @@ import db.BancoDeDados;
 import entidades.Cliente;
 
 public class ClienteDAO implements DAO<Cliente> {
+	
+	BancoDeDados bd = BancoDeDados.getInstance();
 
 	@Override
 	public void save(Cliente obj) throws SQLException, ClassNotFoundException {
 		String sql = "INSERT INTO cliente (nome, logradouro, numero, bairro, cidade, cep, email, fone, celular, cpf) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		// pstm.setString(1, obj.getCpf());
 		pstm.setString(1, obj.getNome());
@@ -29,14 +31,14 @@ public class ClienteDAO implements DAO<Cliente> {
 		pstm.setString(10, obj.getCpf());
 		pstm.execute();
 
-		BancoDeDados.desconectar();
+		bd.desconectar();
 	}
 
 	@Override
 	public void update(Cliente obj) throws ClassNotFoundException, SQLException {
 		String sql = "UPDATE cliente SET nome=?, logradouro=?, numero=?, bairro=?, cidade=?, cep=?, email=?, fone=?, celular=?  WHERE cpf = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 
 		pstm.setString(1, obj.getNome());
@@ -50,28 +52,28 @@ public class ClienteDAO implements DAO<Cliente> {
 		pstm.setString(9, obj.getCelular());
 		pstm.setString(10, obj.getCpf());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 	}
 
 	@Override
 	public void remove(Cliente obj) throws ClassNotFoundException, SQLException {
 		String sql = "DELETE FROM cliente WHERE cpf like ? ";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		pstm.setString(1, obj.getCpf());
 
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 	}
 
 	public Cliente getByCpf(String cpf) throws ClassNotFoundException,
 			SQLException {
 		String sql = "SELECT * FROM cliente WHERE cpf like ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 
 		pstm.setString(1, cpf);
@@ -91,7 +93,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			cliente.setCelular(res.getString("celular"));
 			cliente.setFone(res.getString("fone"));
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return cliente;
 	}
@@ -109,8 +111,8 @@ public class ClienteDAO implements DAO<Cliente> {
 	public Collection<Cliente> get() throws ClassNotFoundException,
 			SQLException {
 		String sql = "SELECT * FROM cliente";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 
 		ResultSet res = pstm.executeQuery();
@@ -130,7 +132,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			cliente.setFone(res.getString("fone"));
 			clientes.add(cliente);
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return clientes;
 	}
@@ -139,8 +141,8 @@ public class ClienteDAO implements DAO<Cliente> {
 	public Collection<Cliente> get(String regex) throws ClassNotFoundException,
 			SQLException {
 		String sql = regex;
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
@@ -158,7 +160,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			cliente.setFone(res.getString("fone"));
 			clientes.add(cliente);
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return clientes;
 	}
@@ -166,8 +168,8 @@ public class ClienteDAO implements DAO<Cliente> {
 	@Override
 	public Cliente get(Cliente id) throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM cliente WHERE cpf like ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		pstm.setString(1, id.getCpf());
 		ResultSet res = pstm.executeQuery();
@@ -186,7 +188,7 @@ public class ClienteDAO implements DAO<Cliente> {
 			cliente.setFone(res.getString("fone"));
 		}
 		
-		BancoDeDados.desconectar();
+		bd.desconectar();
 		
 		return cliente;
 

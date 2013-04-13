@@ -11,14 +11,16 @@ import entidades.DVD;
 
 public class DVDDAO implements DAO<DVD> {
 
+	BancoDeDados bd = BancoDeDados.getInstance();
+	
 	@Override
 	public void save(DVD obj) throws SQLException, ClassNotFoundException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		int id = 0;
 		/* Busca o maior ID de Produto para cadastrar no próximo (+1) */
 		String sql = "SELECT MAX(id) FROM produto";
 
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		while (res.next()) {
@@ -27,35 +29,35 @@ public class DVDDAO implements DAO<DVD> {
 		id++;
 
 		sql = "INSERT INTO produto (id, nome, descricao) VALUES (?, ?, ?)";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setString(2, obj.getNome());
 		pstm.setString(3, obj.getDescricao());
 		pstm.execute();
 
 		sql = "INSERT INTO midia (id, qt) VALUES (?, ?)";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setInt(2, obj.getQt());
 		pstm.execute();
 
 		sql = "INSERT INTO dvd (id, duracao_minutos, sinopse, locado) VALUES (?, ?, ?, ?)";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		pstm.setInt(2, obj.getDuracaoMinutos());
 		pstm.setString(3, obj.getSinopse());
 		pstm.setBoolean(4, (false));
 		pstm.execute();
 
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 	}
 
 	@Override
 	public void update(DVD obj) throws ClassNotFoundException, SQLException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		String sql = "UPDATE produto SET nome = ?, descricao = ? WHERE id = ?";
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 
 		pstm.setInt(3, obj.getId());
@@ -64,14 +66,14 @@ public class DVDDAO implements DAO<DVD> {
 		pstm.execute();
 
 		sql = "UPDATE midia SET qt = ? WHERE id = ?";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 
 		pstm.setInt(2, obj.getId());
 		pstm.setInt(1, obj.getQt());
 		pstm.execute();
 
 		sql = "UPDATE dvd SET duracao_minutos = ?, sinopse = ?, locado = ? WHERE id = ?";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		;
 		pstm.setInt(4, obj.getId());
 		pstm.setInt(1, obj.getDuracaoMinutos());
@@ -79,31 +81,31 @@ public class DVDDAO implements DAO<DVD> {
 		pstm.setBoolean(3, obj.isLocado());
 		pstm.execute();
 
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 	}
 
 	@Override
 	public void remove(DVD obj) throws ClassNotFoundException, SQLException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		String sql = "DELETE FROM dvd WHERE id = ?";
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 
 		pstm.setInt(1, obj.getId());
 		pstm.execute();
 
 		sql = "DELETE FROM midia WHERE id = ?";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
 
 		pstm.execute();
 
 		sql = "DELETE FROM produto WHERE id = ?";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 	}
 
@@ -114,9 +116,9 @@ public class DVDDAO implements DAO<DVD> {
 	}
 
 	public DVD get(int id) throws SQLException, ClassNotFoundException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		String sql = "SELECT * FROM produto WHERE id = ?";
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 
 		pstm.setInt(1, id);
@@ -130,7 +132,7 @@ public class DVDDAO implements DAO<DVD> {
 		}
 
 		sql = "SELECT * FROM midia WHERE id = ?";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 
 		pstm.setInt(1, id);
 		res = pstm.executeQuery();
@@ -140,7 +142,7 @@ public class DVDDAO implements DAO<DVD> {
 		}
 
 		sql = "SELECT * FROM dvd WHERE id = ?";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		;
 		pstm.setInt(1, id);
 		res = pstm.executeQuery();
@@ -150,16 +152,16 @@ public class DVDDAO implements DAO<DVD> {
 			dvd.setDuracaoMinutos(res.getInt("duracao_minutos"));
 		}
 
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return dvd;
 	}
 
 	@Override
 	public Collection<DVD> get() throws SQLException, ClassNotFoundException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		String sql = "SELECT * FROM produto";
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
@@ -173,7 +175,7 @@ public class DVDDAO implements DAO<DVD> {
 		}
 
 		sql = "SELECT * FROM midia";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		int index = 0;
 		while (res.next()) {
@@ -182,7 +184,7 @@ public class DVDDAO implements DAO<DVD> {
 		}
 
 		sql = "SELECT * FROM dvd";
-		pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		pstm = bd.getConexao().prepareStatement(sql);
 		res = pstm.executeQuery();
 		index = 0;
 		while (res.next()) {
@@ -192,7 +194,7 @@ public class DVDDAO implements DAO<DVD> {
 			index++;
 		}
 
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return dvds;
 	}
@@ -200,10 +202,10 @@ public class DVDDAO implements DAO<DVD> {
 	@Override
 	public Collection<DVD> get(String regex) throws ClassNotFoundException,
 			SQLException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		String sql = regex.replaceAll("dvd", "produto");
 
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> dvds = new ArrayList<DVD>();
@@ -218,14 +220,14 @@ public class DVDDAO implements DAO<DVD> {
 
 		for (DVD dvd2 : dvds) {
 			String sql2 = "SELECT * FROM midia WHERE id = ?";
-			pstm = BancoDeDados.getConexao().prepareStatement(sql2);
+			pstm = bd.getConexao().prepareStatement(sql2);
 			pstm.setInt(1, dvd2.getId());
 			res = pstm.executeQuery();
 			while (res.next()) {
 				dvd2.setQt(res.getShort("qt"));
 			}
 			sql2 = "SELECT * FROM dvd WHERE id = ?";
-			pstm = BancoDeDados.getConexao().prepareStatement(sql2);
+			pstm = bd.getConexao().prepareStatement(sql2);
 			pstm.setInt(1, dvd2.getId());
 			res = pstm.executeQuery();
 
@@ -252,10 +254,10 @@ public class DVDDAO implements DAO<DVD> {
 
 		String sql = "SELECT * FROM dvd WHERE nome LIKE '" + nome + "' ";
 		String subsql = "AND locado = false";
-		BancoDeDados.conecta();
+		bd.conecta();
 		sql = sql.replaceAll("dvd", "produto");
 
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 		ArrayList<DVD> auxDvds = new ArrayList<DVD>(); // auxiliar
@@ -271,14 +273,14 @@ public class DVDDAO implements DAO<DVD> {
 
 		for (DVD dvd2 : auxDvds) {
 			String sql2 = "SELECT * FROM midia WHERE id = ?";
-			pstm = BancoDeDados.getConexao().prepareStatement(sql2);
+			pstm = bd.getConexao().prepareStatement(sql2);
 			pstm.setInt(1, dvd2.getId());
 			res = pstm.executeQuery();
 			while (res.next()) {
 				dvd2.setQt(res.getShort("qt"));
 			}
 			sql2 = "SELECT * FROM dvd WHERE id = ? " + subsql;
-			pstm = BancoDeDados.getConexao().prepareStatement(sql2);
+			pstm = bd.getConexao().prepareStatement(sql2);
 			pstm.setInt(1, dvd2.getId());
 			res = pstm.executeQuery();
 			int results = 0;

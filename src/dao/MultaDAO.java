@@ -10,63 +10,65 @@ import db.BancoDeDados;
 import entidades.Multa;
 
 public class MultaDAO implements DAO<Multa> {
+	
+	BancoDeDados bd = BancoDeDados.getInstance();
 
 	@Override
 	public void save(Multa obj) throws SQLException, ClassNotFoundException {
-		BancoDeDados.conecta();
+		bd.conecta();
 		String sql = "INSERT INTO multa (nome, valor) VALUES (?, ?)";
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);
 		
 		pstm.setString(1, obj.getNome());
 
 		pstm.setDouble(2, obj.getValor());
 
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 	}
 
 	@Override
 	public void update(Multa obj) throws ClassNotFoundException, SQLException {
 		String sql = "UPDATE multa set nome = ?, valor = ? WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setString(1, obj.getNome());
 
 		pstm.setDouble(2, obj.getValor());
 
 		pstm.setInt(3, obj.getId());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 		
 	}
 
 	@Override
 	public void remove(Multa obj) throws ClassNotFoundException, SQLException {
 		/*String sql = "DELETE FROM multa WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
 		pstm.execute();
-		BancoDeDados.desconectar();*/
+		bd.desconectar();*/
 		remove(obj.getId());
 		
 	}
 	
 	public void remove(int multa) throws ClassNotFoundException, SQLException {
 		String sql = "DELETE FROM multa WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, multa);
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 		
 	}
 	
 	@Override
 	public Multa get (Multa id) throws ClassNotFoundException, SQLException{
 /*		String sql = "SELECT * FROM multa WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id.getId());
 		ResultSet res = pstm.executeQuery();
 		Multa multa =  null;
@@ -77,15 +79,15 @@ public class MultaDAO implements DAO<Multa> {
 			multa.setValor(res.getDouble("valor"));
 	
 		}
-		BancoDeDados.desconectar();*/
+		bd.desconectar();*/
 		
 		return get(id.getId());
 	}
 	
 	public Multa get(int id) throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM multa WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);
 		pstm.setInt(1, id);
 		ResultSet res = pstm.executeQuery();
 		Multa multa =  null;
@@ -96,7 +98,7 @@ public class MultaDAO implements DAO<Multa> {
 			multa.setValor(res.getDouble("valor"));
 			
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 		
 		return multa;
 	}
@@ -109,8 +111,8 @@ public class MultaDAO implements DAO<Multa> {
 	@Override
 	public Collection<Multa> get() throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM multa";
-/*		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(sql);;
+/*		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(sql);;
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Multa> multas = new ArrayList<Multa>();
 		while (res.next()){
@@ -120,7 +122,7 @@ public class MultaDAO implements DAO<Multa> {
 			multa.setValor(res.getDouble("valor"));
 			multas.add(multa);
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 */		
 		return get(sql);
 	}
@@ -128,8 +130,8 @@ public class MultaDAO implements DAO<Multa> {
 	@Override
 	public Collection<Multa> get(String regex) throws ClassNotFoundException,
 			SQLException {
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao().prepareStatement(regex);;
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao().prepareStatement(regex);;
 		ResultSet res = pstm.executeQuery();
 		ArrayList<Multa> multas = new ArrayList<Multa>();
 		while (res.next()){
@@ -139,7 +141,7 @@ public class MultaDAO implements DAO<Multa> {
 			multa.setValor(res.getDouble("valor"));
 			multas.add(multa);
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 		
 		return multas;
 		

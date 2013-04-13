@@ -188,8 +188,6 @@ public class LocacaoServlet extends HttpServlet {
 				double valor1 = Double.parseDouble(locacao[i].split("Valor: ")[1].split(",")[0]);
 				double valor2 = Double.parseDouble(locacao[i].split("valor: ")[1].split(",")[0]);
 				
-				System.out.println(id);
-				System.out.println(valor1+valor2);
 				try {
 					
 					Facade.FinalizarLocacao(Integer.parseInt(id), valor1+valor2);

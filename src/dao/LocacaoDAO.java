@@ -9,12 +9,14 @@ import db.BancoDeDados;
 import entidades.Locacao;
 
 public class LocacaoDAO implements DAO<Locacao> {
+	
+	BancoDeDados bd = BancoDeDados.getInstance();
 
 	@Override
 	public void save(Locacao obj) throws SQLException, ClassNotFoundException {
 		String sql = "INSERT INTO locacao (valor, dt_locacao, dt_devolucao_agendada, dt_devolucao, cpf_cliente, mat_funcionario, cod_midia) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
 		// pstm.setDouble(2, obj.getValorPago());
@@ -26,7 +28,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 		pstm.setInt(7, obj.getMidia().getId());
 		// pstm.setInt(9, obj.getTipoLocacao().getId());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 	}
 
 	// Se tiver multa ela já vem embutida no valor, já que aqui o interesse é só
@@ -34,8 +36,8 @@ public class LocacaoDAO implements DAO<Locacao> {
 	@Override
 	public void update(Locacao obj) throws ClassNotFoundException, SQLException {
 		String sql = "UPDATE locacao SET valor=?, valor_pago=?, dt_locacao=?, dt_devolucao_agendada=?, dt_devolucao=?, cpf_cliente=?, mat_funcionario=?, cod_midia=? WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		pstm.setDouble(1, obj.getValor());
 		 pstm.setDouble(2, obj.getValorPago());
@@ -47,18 +49,18 @@ public class LocacaoDAO implements DAO<Locacao> {
 		pstm.setInt(8, obj.getMidia().getId());
 		pstm.setInt(9, obj.getId());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 	}
 
 	@Override
 	public void remove(Locacao obj) throws ClassNotFoundException, SQLException {
 		String sql = "DELETE from locacao WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		pstm.setInt(1, obj.getId());
 		pstm.execute();
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 	}
 
@@ -70,8 +72,8 @@ public class LocacaoDAO implements DAO<Locacao> {
 
 	public Locacao get(int id) throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM locacao WHERE id = ?";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		;
 		pstm.setInt(1, id);
@@ -92,7 +94,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setValor(res.getDouble("valor"));
 			// locacao.setValorPago(res.getDouble("valor_pago"));
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return locacao;
 	}
@@ -101,8 +103,8 @@ public class LocacaoDAO implements DAO<Locacao> {
 	public Collection<Locacao> get() throws ClassNotFoundException,
 			SQLException {
 		String sql = "SELECT * FROM locacao";
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		;
 		ResultSet res = pstm.executeQuery();
@@ -120,10 +122,10 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacao.setDtLocacao(res.getDate("dt_devolucao_agendada"));
 			locacao.setId(res.getInt("id"));
 			locacao.setValor(res.getDouble("valor"));
-			// locacao.setValorPago(res.getDouble("valor_pago"));
+			locacao.setValorPago(res.getDouble("valor_pago"));
 			locacoes.add(locacao);
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return locacoes;
 	}
@@ -132,8 +134,8 @@ public class LocacaoDAO implements DAO<Locacao> {
 	public Collection<Locacao> get(String regex) throws ClassNotFoundException,
 			SQLException {
 		String sql = regex;
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		ResultSet res = pstm.executeQuery();
 
@@ -154,7 +156,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			locacoes.add(locacao);
 			locacao.toString();
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 
 		return locacoes;
 	}
@@ -183,10 +185,11 @@ public class LocacaoDAO implements DAO<Locacao> {
 	}
 
 	public static int getLocacaoMaxId(String cliente) throws SQLException, ClassNotFoundException{
+		BancoDeDados bd = BancoDeDados.getInstance();
 		String sql = "SELECT Max(id) FROM locacao where cpf_cliente like ?";
 		int id = 0;
-		BancoDeDados.conecta();
-		PreparedStatement pstm = BancoDeDados.getConexao()
+		bd.conecta();
+		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
 		pstm.setString(1, cliente);
 		ResultSet res = pstm.executeQuery();
@@ -194,7 +197,7 @@ public class LocacaoDAO implements DAO<Locacao> {
 			
 			id = res.getInt(1);
 		}
-		BancoDeDados.desconectar();
+		bd.desconectar();
 		return id;
 	}
 }

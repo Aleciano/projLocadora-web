@@ -40,7 +40,6 @@ public class DvdServlet extends HttpServlet {
 				for (int i = 1; i <= Integer.parseInt(qtcopias); i++){
 					Facade.cadastrarDvd(titulo, genero, (short) Integer.parseInt(qtm),
 						Integer.parseInt(duracao), sinopse); 
-					System.out.println("passou");
 					}
 				return true;
 			} catch (Exception e) {
@@ -83,7 +82,6 @@ public class DvdServlet extends HttpServlet {
 		String nome  = request.getParameter("nome");
 		try {
 			ArrayList<String> dvds = Facade.getDVDs();
-			System.out.println(dvds.toString());
 			ArrayList<String> aux = new ArrayList<>();
 			for(String s : dvds){
 				if(s.toLowerCase().contains(nome.toLowerCase()))

@@ -86,8 +86,6 @@ public class Facade {
 			Multa multa) throws ClassNotFoundException, SQLException {
 
 		locacao.setValor(multa);
-		// locacao.setDtDevolucao(new Date(System.currentTimeMillis()));
-
 		new LocacaoDAO().update(locacao);
 
 		((DVD) locacao.getMidia()).setLocado(false);
@@ -475,8 +473,11 @@ public class Facade {
 		ArrayList<String> laux = new ArrayList<String>();
 		String estado = "em aberto";
 		for(Locacao l : locacoes){
-			if (l.getDtDevolucao()!=null)
+			if (l.getValorPago() > 0)
 				estado = "finalizada";
+			else {
+				estado ="em aberto";
+			}
 			laux.add(new String("ID: " + l.getId()) + "\nCliente: "+ l.getCliente().getNome() + "\nFuncionario: " + l.getFuncionario().getNome()
 					+ l.getCliente().getNome() + "\nID Produto: " + l.getMidia().getId() + "\nClassificacao: "
 					+ l.getMidia().getDescricao() + "\nTitulo: " + l.getMidia().getNome() + ", Situação: " + estado);
@@ -568,8 +569,5 @@ public class Facade {
 		return aux ;
 	}
 		
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		System.out.println(Extrato("5050", 0));
-	}
 	
 }
