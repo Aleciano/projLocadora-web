@@ -7,13 +7,18 @@
                    
      tercio, leonardo e aleciano.                                                               
      ====================================================================== -->
-<project name="LocadoraVideo" default="compilar">
+<project name="LocadoraVideo" default="war">
 	<description>
-            description
-    </description>
+            Projeto da Locadora de Video da disciplina de Desenvolvimento Web do Curso Tecnologia em Telemática do IFPB Campus Campina Grande.
+    	</description>
 	<property name="src.dir" location="src" />
-	<property name="bin.dir" location="bin" />
+	<property name="bin.dir" location="build/classes" />
 	<property name="dist.dir" location="dist" />
+	<path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
 	<!-- Deletes the existing build and dist directory-->
 	<target name="clean">
 		<delete dir="${bin.dir}" />
@@ -27,24 +32,22 @@
 
 		<!-- Creates the  build and dist directory-->
 		<target name="init" depends="clean">
-			<mkdir dir="${bin.dir}" />
-
+			<mkdir dir="${bin.dir}"/>
 			<mkdir dir="${dist.dir}" />
 		</target>
 
 	<!-- ================================= 
-	          target: compilar              
+	          target: compile              
 	         ================================= -->
 
-		<target name="compilar" depends="clean, init">
-
-			<javac srcdir="."  classpath="${src.dir}" destdir="${bin.dir}" includeantruntime="false">
-			</javac>
-
-		</target>
+	<target name="compile" depends="init" >
+		<javac destdir="${bin.dir}" srcdir="${src.dir}" includeantruntime = "false">
+			<classpath refid="compile.classpath"/>
+		</javac>
+	</target>
 	
 	<!-- gera o arquivo .jar-->
-		<target name="gerarjar" depends="compilar">
+		<target name="gerarjar" depends="compile">
 			
 			<jar destfile="${dist.dir}/app.jar" basedir="${bin.dir}">
 				<manifest>
@@ -55,10 +58,18 @@
 		</target>
 	
 	<!-- gera o javadoc-->
+
+	<target name="war" depends="compile">
+		<war destfile="dist/locadoravideo.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="${bin.dir}"/>
+		</war>
+	</target>
 	
 	<target name="javadoc">
 			<javadoc
-					sourcepath="."
+					sourcepath="${src.dir}"
 					destdir="javadoc"
 					author="true">
 				<link href="./javadoc"/>

@@ -54,7 +54,7 @@ public class Facade {
 					Cliente c = getClienteByCpf(cpf); 
 					Funcionario f = getFuncionarioPorMatricula(mat);
 					Midia m = getDVD(id);
-					if(getLocacoesAbertas(cpf).size() < 3)
+					if(getLocacoesAbertas(cpf).size() < 3 && m!=null)
 					  return fazerLocacao(c, f, data, m);
 				}
 			}
@@ -92,11 +92,18 @@ public class Facade {
 		Facade.update((DVD) locacao.getMidia());
 	}
 
-	public static void cadastrarFuncionario(String nome, String cpf,
+	public static boolean cadastrarFuncionario(String nome, String cpf,
 			String logradouro, int numero, String bairro, String cidade,
 			String cep, String email, String fone, String celular,
 			String login, String senha) throws SQLException,
 			ClassNotFoundException {
+		
+		Funcionario funcionarioAux = null;
+		funcionarioAux = getFuncionarioPorLoginESenha(login, senha);
+		if(funcionarioAux!=null) return false;
+		
+		if(Facade.isFuncionario(cpf)) return false;
+		
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome(nome);
 		funcionario.setLogin(login);
@@ -111,12 +118,15 @@ public class Facade {
 		funcionario.setLogradouro(logradouro);
 		funcionario.setNumero(numero);
 		new FuncionarioDAO().save(funcionario);
+		return true;
 	}
 
-	public static void cadastrarCliente(String cpf, String nome,
+	public static boolean cadastrarCliente(String cpf, String nome,
 			String logradouro, int numero, String bairro, String cidade,
 			String cep, String email, String fone, String celular)
 			throws SQLException, ClassNotFoundException {
+		if(Facade.isCliente(cpf)) return false;
+		
 		Cliente cliente = LocadoraFactory.getCliente();
 		cliente.setCpf(cpf);
 		cliente.setNome(nome);
@@ -128,18 +138,19 @@ public class Facade {
 		cliente.setEmail(email);
 		cliente.setFone(fone);
 		cliente.setCelular(celular);
-
+				
 		new ClienteDAO().save(cliente);
+		return true;
 	}
 
-	/* Busca a última locação do cliente. */
+	/* Busca a ultima locacao do cliente. */
 	public static Locacao getLocacaoMaxId(String cliente)
 			throws ClassNotFoundException, SQLException {
 		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente));
 
 	}
 
-	/* Busca a última locação do cliente. */
+	/* Busca a ultima locacao do cliente. */
 	public static Double getValorUltimaLocacao(String cliente)
 			throws ClassNotFoundException, SQLException {
 		return Facade.getLocacao(LocacaoDAO.getLocacaoMaxId(cliente))
@@ -211,11 +222,19 @@ public class Facade {
 	
 	public static boolean isCliente( String cpf ) throws ClassNotFoundException, SQLException{
 		ClienteDAO c = new ClienteDAO();
-		if ( c.getByCpf(cpf)!= null)
+		
+		if ( c.getCliente(cpf)!= null)
 			return true;
 		return false;
 	}
 
+	public static boolean isFuncionario( String cpf ) throws ClassNotFoundException, SQLException{
+		FuncionarioDAO f = new FuncionarioDAO();
+		
+		if (cpf.equalsIgnoreCase("") || f.getFuncionario(cpf)!= null)
+			return true;
+		return false;
+	}
 	public static void update(Funcionario funcionario) throws SQLException,
 			ClassNotFoundException {
 		new FuncionarioDAO().update(funcionario);
@@ -280,8 +299,8 @@ public class Facade {
 		ArrayList<DVD> aux = (ArrayList<DVD>) new DVDDAO().get();
 		for (DVD d : aux) {
 			
-			dvds.add(new String("Classificação: " + d.getDescricao()
-					+ ",\nTítulo: " + d.getNome())  + ",\nCódigo: " + d.getId() + ",\nLocado: " + d.isLocado());
+			dvds.add(new String("Classificacaoo: " + d.getDescricao()
+					+ ",\nTitulo: " + d.getNome())  + ",\nCodigo: " + d.getId() + ",\nLocado: " + d.isLocado());
 
 		}
 		return dvds;
@@ -354,7 +373,7 @@ public class Facade {
 
 	public static Cliente getClienteByCpf(String cpf)
 			throws ClassNotFoundException, SQLException {
-		return new ClienteDAO().getByCpf(cpf);
+		return new ClienteDAO().getCliente(cpf);
 	}
 
 	public static Collection<Cliente> getCliente(String nome)
@@ -368,7 +387,7 @@ public class Facade {
 	}
 
 	/*
-	 * Retornará¡ um array vazio se não encontrar o DVD.
+	 * Retornara um array vazio se nao encontrar o DVD.
 	 */
 	public static Collection<DVD> getDVD(String nome) throws SQLException,
 			ClassNotFoundException {
@@ -387,7 +406,7 @@ public class Facade {
 	}
 
 	/*
-	 * Retornará um array vazio se não encontrar o DVD.
+	 * Retornara um array vazio se na encontrar o DVD.
 	 */
 	public static ArrayList<DVD> getDVD() throws SQLException,
 			ClassNotFoundException {
@@ -473,7 +492,7 @@ public class Facade {
 			}
 			laux.add(new String("ID: " + l.getId()) + "\nCliente: "+ l.getCliente().getNome() + "\nFuncionario: " + l.getFuncionario().getNome()
 					+ l.getCliente().getNome() + "\nID Produto: " + l.getMidia().getId() + "\nClassificacao: "
-					+ l.getMidia().getDescricao() + "\nTitulo: " + l.getMidia().getNome() + ", Situação: " + estado);
+					+ l.getMidia().getDescricao() + "\nTitulo: " + l.getMidia().getNome() + ", Situacao: " + estado);
 		}
 		return laux;
 	}
@@ -530,7 +549,7 @@ public class Facade {
 	public static ArrayList<String> Extrato(String cpf, int idMulta) throws ClassNotFoundException, SQLException{
 		
 		ArrayList<String> aux = new ArrayList<String>();
-		String resultado = "Registro de Alugueis de " + new ClienteDAO().getByCpf(cpf).getNome();
+		String resultado = "Registro de Alugueis de " + new ClienteDAO().getCliente(cpf).getNome();
 		aux.add(resultado);
 		ArrayList<Locacao> loc = (ArrayList<Locacao>) getLocacoes(cpf);
 		Calendar c = Calendar.getInstance();

@@ -1,4 +1,5 @@
 package servlet;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -36,29 +37,30 @@ public class ClienteServlet extends HttpServlet {
 		String cel = request.getParameter("cel");
 
 		try {
-			Facade.cadastrarCliente(cpf, nome, logradouro,
+			if (Facade.cadastrarCliente(cpf, nome, logradouro,
 					Integer.parseInt(numero), bairro, cidade, cep, email, fone,
-					cel);
+					cel))
 				return true;
-			
+			else
+				return false;
+
 		} catch (Exception e) {
 
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 
 	private boolean removeCliente(HttpServletRequest request,
 			HttpServletResponse response) {
-		
+
 		try {
 			String cpf = request.getParameter("cpf");
-			if(Facade.isCliente(cpf)){
-			   Facade.remove(cpf);
-			   return true;
-			}
-			else 
+			if (Facade.isCliente(cpf)) {
+				Facade.remove(cpf);
+				return true;
+			} else
 				return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,23 +71,23 @@ public class ClienteServlet extends HttpServlet {
 	private ArrayList<String> pesquisaCliente(HttpServletRequest request,
 			HttpServletResponse response) {
 
-
-			ArrayList<String> clientes = new ArrayList<>();
-			ArrayList<String> aux = new ArrayList<>();
-			String arg = request.getParameter("arg");
-			String ind = request.getParameter("indicador");
-			try {
-				clientes = Facade.getCliente();
-				for (String cliente : clientes) {
-					if ( cliente.toUpperCase().contains((ind +": " + arg).toUpperCase())) {
-						aux.add(cliente);
-					}
+		ArrayList<String> clientes = new ArrayList<>();
+		ArrayList<String> aux = new ArrayList<>();
+		String arg = request.getParameter("arg");
+		String ind = request.getParameter("indicador");
+		try {
+			clientes = Facade.getCliente();
+			for (String cliente : clientes) {
+				if (cliente.toUpperCase().contains(
+						(ind + ": " + arg).toUpperCase())) {
+					aux.add(cliente);
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
-						
-			return aux;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return aux;
 
 	}
 
@@ -99,22 +101,19 @@ public class ClienteServlet extends HttpServlet {
 		return null;
 
 	}
-	
+
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
-		if(session.getAttribute("login")!=null) {
-		request.setAttribute("lista", getClientes());
-		request.setAttribute("tipo", "Clientes");
-		request.getRequestDispatcher("lista.jsp")
-				.forward(request, response); 
-		}
-		else
+		if (session.getAttribute("login") != null) {
+			request.setAttribute("lista", getClientes());
+			request.setAttribute("tipo", "Clientes");
+			request.getRequestDispatcher("lista.jsp")
+					.forward(request, response);
+		} else
 			response.sendRedirect("index.jsp?erro=1");
-		
-		
-	
+
 	}
 
 	/**
@@ -129,7 +128,7 @@ public class ClienteServlet extends HttpServlet {
 			if (cadastrarCliente(request, response))
 				request.setAttribute("cad", "cliente cadastrado com sucesso");
 			else
-				request.setAttribute("cad", "erro ao tentar cadastrar cliente");
+				request.setAttribute("cad", "Erro ao tentar cadastrar cliente. CPF já está cadastrado no sistema.");
 			request.getRequestDispatcher("cadCliente.jsp").forward(request,
 					response);
 		}

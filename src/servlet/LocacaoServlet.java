@@ -143,7 +143,7 @@ public class LocacaoServlet extends HttpServlet {
 					request.getRequestDispatcher("cadlocacao.jsp").forward(request, response);
 				}
 				else{
-					request.setAttribute("locacao", "erro ao tentar locar produto");
+					request.setAttribute("locacao", "Erro ao tentar locar produto! Verifique se os dados estão corretos e se o produto está disponível.");
 					request.getRequestDispatcher("cadlocacao.jsp").forward(request, response);
 				}
 		

@@ -2,8 +2,4 @@ Coisas que precisam ser feitas
 
 -Javadoc
 
--Javascript para pegar dados e validá-los antes de enviar ao servlet.
-
--Tercio Fazer a locação!!
-
--Ajeitar as sessões.
+-Obrigar a fazer a checagem se um certo campo esta vazio.

@@ -191,7 +191,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 
 	public Funcionario getFuncionario(String cpf)
 			throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM funcionario WHERE cpf = ?";
+		String sql = "SELECT * FROM funcionario WHERE cpf like ?";
 		bd.conecta();
 		PreparedStatement pstm = bd.getConexao()
 				.prepareStatement(sql);
@@ -229,7 +229,7 @@ public class FuncionarioDAO implements DAO<Funcionario> {
 				.prepareStatement(sql);
 
 		pstm.setString(1, login);
-		pstm.setString(2, senha);
+		pstm.setString(2, (senha=="")? "*" : senha);
 		ResultSet res = pstm.executeQuery();
 		Funcionario funcionario = null;
 		while (res.next()) {

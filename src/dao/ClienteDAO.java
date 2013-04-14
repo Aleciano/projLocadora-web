@@ -69,7 +69,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 	}
 
-	public Cliente getByCpf(String cpf) throws ClassNotFoundException,
+	public Cliente getCliente(String cpf) throws ClassNotFoundException,
 			SQLException {
 		String sql = "SELECT * FROM cliente WHERE cpf like ?";
 		bd.conecta();
@@ -78,6 +78,7 @@ public class ClienteDAO implements DAO<Cliente> {
 
 		pstm.setString(1, cpf);
 		ResultSet res = pstm.executeQuery();
+		
 		Cliente cliente = null;
 		while (res.next()) {
 

@@ -34,10 +34,10 @@ public class FuncionarioServlet extends HttpServlet {
 		String senha = request.getParameter("senha");
 
 		try {
-			Facade.cadastrarFuncionario(nome, cpf, logradouro,
+			if(Facade.cadastrarFuncionario(nome, cpf, logradouro,
 					Integer.parseInt(numero), bairro, cidade, cep, email, fone,
-					cel, login, senha);
-				return true;
+					cel, login, senha)) return true;
+			else return false;
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -76,7 +76,7 @@ public class FuncionarioServlet extends HttpServlet {
 		}
 		
 		else{ 
-			request.setAttribute("cadastro", "erro ao tentar cadastrar funcionario");
+			request.setAttribute("cadastro", "Erro ao tentar cadastrar funcionario, login ou CPF já existentes no sistema..");
 			request.getRequestDispatcher("cadFunc.jsp").forward(request, response);
 		}
 			

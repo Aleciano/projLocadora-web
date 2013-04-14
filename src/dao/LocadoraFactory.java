@@ -8,7 +8,7 @@ import entidades.*;
 public abstract class LocadoraFactory {
 
 	public static Cliente getCliente(String cpf) throws ClassNotFoundException, SQLException{
-		return new ClienteDAO().getByCpf(cpf);
+		return new ClienteDAO().getCliente(cpf);
 	}
 	
 	public static Cliente getCliente(){
