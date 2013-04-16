@@ -167,6 +167,7 @@ public class LocacaoServlet extends HttpServlet {
 			try {
 				
 				ArrayList<String> aux = Facade.Extrato(request.getParameter("cod"), Integer.parseInt(request.getParameter("multa")));
+				
 				request.setAttribute("locacoes", aux);
 				request.getRequestDispatcher("finalizalocacoes.jsp").forward(request, response);
 				

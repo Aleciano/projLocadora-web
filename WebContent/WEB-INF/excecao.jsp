@@ -8,7 +8,7 @@
     </head>
     <body>
     <center>
-        <h2>Algo de errado aconteceu <br/></h1>
+        <h2>Algo de errado aconteceu <br/></h2>
         <p>Código do erro: ${pageContext.errorData.statusCode}
         
         

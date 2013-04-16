@@ -8,7 +8,7 @@
     </head>
     <body>
     <center>
-        <h2>Recurso não encontrado <br/></h1>
+        <h2>Recurso não encontrado <br/></h2>
         <p>Você tentou acessar um recurso inválido ou que não existe mais.</p>
         <p>Código do erro: ${pageContext.errorData.statusCode}
         <br><br><%out.print("<a href=\"mailto:"+this.getServletContext().getInitParameter("emailsadmin")+"\">Informe ao administrador</a>"); %>
