@@ -128,7 +128,8 @@ public class ClienteServlet extends HttpServlet {
 			if (cadastrarCliente(request, response))
 				request.setAttribute("cad", "cliente cadastrado com sucesso");
 			else
-				request.setAttribute("cad", "Erro ao tentar cadastrar cliente. CPF já está cadastrado no sistema.");
+				request.setAttribute("cad",
+						"Erro ao tentar cadastrar cliente. CPF já está cadastrado no sistema.");
 			request.getRequestDispatcher("cadCliente.jsp").forward(request,
 					response);
 		}

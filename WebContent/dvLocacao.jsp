@@ -22,9 +22,10 @@
 				 			<option value="2"> MULTA BRANDA </option>
 				 			<option value="3"> MULTA SEVERA </option>
 					 </select>
+				 <input type="hidden" name="flag" value="devolver">
 				 <input type="submit">
 				 <input type="reset" value="Limpar" />
-			     <input type="hidden" name="flag" value="devolver">
+			     
 		</form>
 		<br>
 		<br>

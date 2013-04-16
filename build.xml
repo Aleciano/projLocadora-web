@@ -7,47 +7,78 @@
                    
      tercio, leonardo e aleciano.                                                               
      ====================================================================== -->
-<project name="LocadoraVideo" default="war">
+<project name="LocadoraVideo" default="compilar">
 	<description>
-            Projeto da Locadora de Video da disciplina de Desenvolvimento Web do Curso Tecnologia em Telemática do IFPB Campus Campina Grande.
-    	</description>
+            description
+    </description>
 	<property name="src.dir" location="src" />
-	<property name="bin.dir" location="build/classes" />
+	<property name="bin.dir" location="bin" />
 	<property name="dist.dir" location="dist" />
-	<path id="compile.classpath">
-		<fileset dir="WebContent/WEB-INF/lib">
-			<include name="*.jar"/>
-		</fileset>
-	</path>
+	<property name="javadoc.dir" location="javadoc" />
+	<property name="war.dir" location="war" />
+	<property name="manager.url" value="http://localhost:8080/manager/text" />
+	<property name="application.root" value="/LocadoraVideo" />
+	<property name="tomcat.username" value="junior" />
+	<property name="tomcat.password" value="k" />
+	<property name="catalina.home" value="/home/junior/tomcat/apache-tomcat-7.0.33" />
+
+	<property name="tomcatHome" value="${catalina.home}" />
+	<property name="deployDir" value="${tomcatHome}/webapps" />
+	<property name="servletApi" value="${tomcatHome}/lib/servlet-api.jar" />
+
+	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask">
+		<classpath>
+			<fileset dir="${catalina.home}/lib" />
+		</classpath>
+	</taskdef>
+
+	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask">
+		<classpath>
+			<fileset dir="${catalina.home}/lib" />
+		</classpath>
+	</taskdef>
+
+	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask">
+		<classpath>
+			<fileset dir="${catalina.home}/lib" />
+		</classpath>
+	</taskdef>
+
 	<!-- Deletes the existing build and dist directory-->
 	<target name="clean">
 		<delete dir="${bin.dir}" />
 
 		<delete dir="${dist.dir}" />
-		
+
+		<delete dir="${javadoc.dir}" />
+
 	</target>
 	<!-- - - - - - - - - - - - - - - - - - 
           target: init                      
          - - - - - - - - - - - - - - - - - -->
 
-		<!-- Creates the  build and dist directory-->
-		<target name="init" depends="clean">
-			<mkdir dir="${bin.dir}"/>
-			<mkdir dir="${dist.dir}" />
-		</target>
+	<!-- Creates the  build and dist directory-->
+	<target name="init" depends="clean">
+		<mkdir dir="bin" />
+
+		<mkdir dir="dist" />
+	</target>
 
 	<!-- ================================= 
-	          target: compile              
+	          target: compilar              
 	         ================================= -->
 
-	<target name="compile" depends="init" >
-		<javac destdir="${bin.dir}" srcdir="${src.dir}" includeantruntime = "false">
-			<classpath refid="compile.classpath"/>
+	<target name="compilar" depends="init">
+
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" 
+				classpath="/home/junior/tomcat/apache-tomcat-7.0.33/lib/servlet-api.jar"
+				includeantruntime="false"  >
 		</javac>
+
 	</target>
-	
+
 	<!-- gera o arquivo .jar-->
-		<target name="gerarjar" depends="compile">
+	<!--	<target name="gerarjar" depends="compilar">
 			
 			<jar destfile="${dist.dir}/app.jar" basedir="${bin.dir}">
 				<manifest>
@@ -55,26 +86,45 @@
 
 				</manifest>
 			</jar>
-		</target>
-	
-	<!-- gera o javadoc-->
+		</target> -->
 
-	<target name="war" depends="compile">
-		<war destfile="dist/locadoravideo.war" webxml="WebContent/WEB-INF/web.xml">
-			<fileset dir="WebContent"/>
-			<lib dir="WebContent/WEB-INF/lib"/>
-			<classes dir="${bin.dir}"/>
+	<!-- gera o arquivo war-->
+
+	<target name="gerarWar" depends="compilar">
+		<war destfile="${dist.dir}/LocadoraVideo.war" webxml="WebContent/WEB-INF/web.xml" update="true">
+			<classes dir="bin" />
+			<fileset dir="WebContent">
+				<exclude name="WEB-INF/web.xml" />
+			</fileset>
 		</war>
 	</target>
+
+	<!-- extrair arquivos do war-->
+
+	<target name="extrair" depends="gerarWar">
+		<unwar src="/${dist.dir}/LocadoraVideo.war" dest="/home/junior/codes" />
+	</target>
+
+	<!--realiza o deploy no tomcat-->
+
+	<target name="deploy" depends="gerarWar">
+		<deploy url="${manager.url}" path="${application.root}" war="/${dist.dir}/LocadoraVideo.war" username="${tomcat.username}" password="${tomcat.password}" update="true" />
+	</target>
 	
+
+	<!--realiza o undeploy no tocat-->
+
+	<target name="undeploy">
+		<undeploy url="${manager.url}" path="${application.root}" username="${tomcat.username}" password="${tomcat.password}" />
+	</target>
+
+	<!-- gera o javadoc-->
+
 	<target name="javadoc">
-			<javadoc
-					sourcepath="${src.dir}"
-					destdir="javadoc"
-					author="true">
-				<link href="./javadoc"/>
-			</javadoc>
-			
-		</target>
+		<javadoc sourcepath="src" destdir="${javadoc.dir}" author="true">
+
+		</javadoc>
+
+	</target>
 
 </project>
