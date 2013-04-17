@@ -88,6 +88,7 @@ public class LocacaoServlet extends HttpServlet {
 				request.setAttribute("promocao", Facade.getPromocaoAberta().getNome());
 				request.setAttribute("valor", Facade.getPromocaoAberta().getValor());
 			}
+			
 			return Facade.locarProduto(cliente, funcionario, d,
 					(short) Integer.parseInt(produto));
 		} catch (Exception e) {
@@ -139,10 +140,11 @@ public class LocacaoServlet extends HttpServlet {
 		case "locar":	
 				if ( realizaLocacao(request, response) > 0 ) {
 					
-					request.setAttribute("locacao", "produto locado com sucesso");
+					request.setAttribute("locacao", "Produto locado com sucesso");
 					request.getRequestDispatcher("cadlocacao.jsp").forward(request, response);
 				}
 				else{
+					request.setAttribute("promocao", null);
 					request.setAttribute("locacao", "Erro ao tentar locar produto! Verifique se os dados estão corretos e se o produto está disponível.");
 					request.getRequestDispatcher("cadlocacao.jsp").forward(request, response);
 				}
@@ -167,9 +169,13 @@ public class LocacaoServlet extends HttpServlet {
 			try {
 				
 				ArrayList<String> aux = Facade.Extrato(request.getParameter("cod"), Integer.parseInt(request.getParameter("multa")));
-				
-				request.setAttribute("locacoes", aux);
+				if(aux==null) {
+					request.setAttribute("locacao", "Erro ao tentar encerrar locação! Verifique se o cliente em questão possui locações em aberto.");
+					request.getRequestDispatcher("dvLocacao.jsp").forward(request, response);
+				}
+				else{request.setAttribute("locacoes", aux);
 				request.getRequestDispatcher("finalizalocacoes.jsp").forward(request, response);
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -185,7 +191,7 @@ public class LocacaoServlet extends HttpServlet {
 			
 			String[] locacao = request.getParameterValues("encerrar");
 			for(int i = 0; i < locacao.length; i++){
-				String id = locacao[i].split(",")[0].split(" ")[1];
+				String id = locacao[i].split(",")[0].split(" ")[2];
 				double valor1 = Double.parseDouble(locacao[i].split("Valor: ")[1].split(",")[0]);
 				double valor2 = Double.parseDouble(locacao[i].split("valor: ")[1].split(",")[0]);
 				

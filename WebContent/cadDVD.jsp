@@ -11,10 +11,36 @@
 <title>Locadora de video: Cadastro de DVDs</title>
 </head>
 <body>
-	<center>
+	<center><img src="imagens/dvd.jpg" width="85" height="85">
 		<h1>Bem vindo ao Cadastro de DVD</h1>
 		<hr>
-
+		<script language="JavaScript">
+			function ValidaSemPreenchimento(form) {
+				if(form.titulo.value==""){
+					 alert ("Por favor preencha o Título do DVD");
+					 return false;
+				}
+				if(form.duracao.value==""){
+					 alert ("Por favor preencha a duração do DVD");
+					 return false;
+				}
+				if(form.qt.value==""){
+					 alert ("Por favor preencha a quantidade de mídias");
+					 return false;
+				}
+				
+					
+				return true;
+			}
+			function SomenteNumero(e){
+			    var tecla=(window.event)?event.keyCode:e.which;   
+			    if((tecla>47 && tecla<58)) return true;
+			    else{
+			    	if ((tecla == 8) || (tecla == 13) || (tecla == 9) || (tecla == 46)) return true;
+					else  return false;
+			    }
+			}
+		</script>
 		<%
 			String msg = (String) request.getAttribute("cadastro");
 				if (msg != null) {
@@ -26,24 +52,24 @@
 		<%
 			}
 		%>
-		<form action="DvdServlet" method="post">
-			<br>Título <input type="text" name="titulo"><br> <br>
+		<form action="DvdServlet" method="post" onSubmit="return ValidaSemPreenchimento(this)">
+			<br>Título <input type="text" name="titulo" > *<br> <br>
 			Classificacao <select name="genero">
 				<option value="filme">Filme</option>
 				<option value="show">Show</option>
 				<option value="infantil">Infantil</option>
 			</select> <br> <br> Qde Disc <select name="qt">
-				<option value="">---</option>
+				
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
 				<option value="4">4</option>
 				<option value="5">5</option>
 			</select><br> <br> Duração(Minutos) <input type="text"
-				name="duracao"><br> <br> <br> Sinopse
+				name="duracao" onkeypress='return SomenteNumero(event)' value="Minutos" onclick="this.value=''" onblur="if(this.value=='') this.value='Minutos'"> *<br> <br> <br> Sinopse
 			<textarea name="sinopse" onclick="this.value= '';">Resumo do dvd....</textarea>
 			<br> <br> <br> Qde de Cópias <select name="qtcopias">
-				<option value="">---</option>
+				
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>

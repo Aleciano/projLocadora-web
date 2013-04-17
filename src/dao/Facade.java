@@ -24,7 +24,7 @@ public class Facade {
 		locacao.setFuncionario(funcionario);
 		locacao.setDtLocacao(data);
 		TipoLocacao tipo = null;
-		
+
 		tipo = (Facade.getTipoLocacao(midia.getDescricao())).get(0);
 		if (tipo == null)
 			return 0;
@@ -36,7 +36,7 @@ public class Facade {
 		locacao.setDtDevolucaoAgendada(new Date(cal.getTimeInMillis()));
 		locacao.setMidia(midia);
 		if (getPromocaoAberta() != null)
-		locacao.setValor(Facade.getPromocaoAberta().getValor());
+			locacao.setValor(Facade.getPromocaoAberta().getValor());
 		// locacao.setTipoLocacao(tipo);
 		new LocacaoDAO().save(locacao);
 		((DVD) midia).setLocado(true);
@@ -44,33 +44,37 @@ public class Facade {
 		return Facade.getLocacaoMaxId(cliente.getCpf()).getId();
 
 	}
-	
-	public static int locarProduto(String cpf, String mat, Date data, short id) throws ClassNotFoundException, SQLException{
-		
-		
-		if( getClienteByCpf(cpf) != null){
-			if(getFuncionarioPorMatricula(mat) != null){
-				if (!getDVD(id).isLocado()) {
-					Cliente c = getClienteByCpf(cpf); 
-					Funcionario f = getFuncionarioPorMatricula(mat);
-					Midia m = getDVD(id);
-					if(getLocacoesAbertas(cpf).size() < 3 && m!=null)
-					  return fazerLocacao(c, f, data, m);
+
+	public static int locarProduto(String cpf, String mat, Date data, short id)
+			throws ClassNotFoundException, SQLException {
+
+		if (getClienteByCpf(cpf) != null) {
+			if (getFuncionarioPorMatricula(mat) != null) {
+				DVD auxDvd = getDVD(id);
+				if (auxDvd != null) {
+					if (!getDVD(id).isLocado()) {
+						Cliente c = getClienteByCpf(cpf);
+						Funcionario f = getFuncionarioPorMatricula(mat);
+						Midia m = getDVD(id);
+						if (getLocacoesAbertas(cpf).size() < 3 && m != null)
+							return fazerLocacao(c, f, data, m);
+					}
 				}
 			}
 		}
-		
+
 		return 0;
-		
+
 	}
 
 	public static void fazerLocacao(Locacao locacao) throws SQLException,
 			ClassNotFoundException {
 		new LocacaoDAO().save(locacao);
 	}
-	
-	public static void FinalizarLocacao(int id, double valor) throws ClassNotFoundException, SQLException{
-		
+
+	public static void FinalizarLocacao(int id, double valor)
+			throws ClassNotFoundException, SQLException {
+
 		Calendar c = Calendar.getInstance();
 		Locacao l = getLocacao(id);
 		l.setDtDevolucao(new Date(c.getTimeInMillis()));
@@ -79,7 +83,7 @@ public class Facade {
 		DVD d = (DVD) l.getMidia();
 		d.setLocado(false);
 		update(d);
-		
+
 	}
 
 	public static void FinalizarLocacao(Locacao locacao, /* double valor_pago, */
@@ -97,13 +101,15 @@ public class Facade {
 			String cep, String email, String fone, String celular,
 			String login, String senha) throws SQLException,
 			ClassNotFoundException {
-		
+
 		Funcionario funcionarioAux = null;
 		funcionarioAux = getFuncionarioPorLoginESenha(login, senha);
-		if(funcionarioAux!=null) return false;
-		
-		if(Facade.isFuncionario(cpf)) return false;
-		
+		if (funcionarioAux != null)
+			return false;
+
+		if (Facade.isFuncionario(cpf))
+			return false;
+
 		Funcionario funcionario = new Funcionario();
 		funcionario.setNome(nome);
 		funcionario.setLogin(login);
@@ -125,8 +131,9 @@ public class Facade {
 			String logradouro, int numero, String bairro, String cidade,
 			String cep, String email, String fone, String celular)
 			throws SQLException, ClassNotFoundException {
-		if(Facade.isCliente(cpf)) return false;
-		
+		if (Facade.isCliente(cpf))
+			return false;
+
 		Cliente cliente = LocadoraFactory.getCliente();
 		cliente.setCpf(cpf);
 		cliente.setNome(nome);
@@ -138,7 +145,7 @@ public class Facade {
 		cliente.setEmail(email);
 		cliente.setFone(fone);
 		cliente.setCelular(celular);
-				
+
 		new ClienteDAO().save(cliente);
 		return true;
 	}
@@ -188,14 +195,14 @@ public class Facade {
 			ClassNotFoundException {
 		new DVDDAO().save(dvd);
 	}
-	
+
 	public static void cadastrarDvd(String nome, String descricao, short qt,
 			int duracaoMinutos, String sinopse) throws SQLException,
 			ClassNotFoundException {
-		DVD dvd = LocadoraFactory.getDVD(nome, descricao, qt, duracaoMinutos, sinopse);
+		DVD dvd = LocadoraFactory.getDVD(nome, descricao, qt, duracaoMinutos,
+				sinopse);
 		new DVDDAO().save(dvd);
 	}
-
 
 	public static void cadastrar(Multa multa) throws SQLException,
 			ClassNotFoundException {
@@ -206,35 +213,38 @@ public class Facade {
 			ClassNotFoundException {
 		new PromocaoDAO().save(promocao);
 	}
-	
-	public static void cadastrarPromocao(String nome, double valor, int dia, int mes, int ano) throws SQLException,
-			ClassNotFoundException {
-		Promocao promocao = LocadoraFactory.getPromocao(nome, valor, dia, mes, ano);
+
+	public static void cadastrarPromocao(String nome, double valor, int dia,
+			int mes, int ano) throws SQLException, ClassNotFoundException {
+		Promocao promocao = LocadoraFactory.getPromocao(nome, valor, dia, mes,
+				ano);
 		new PromocaoDAO().save(promocao);
 	}
-
 
 	public static void cadastrar(Cliente cliente) throws SQLException,
 			ClassNotFoundException {
 
 		new ClienteDAO().save(cliente);
 	}
-	
-	public static boolean isCliente( String cpf ) throws ClassNotFoundException, SQLException{
+
+	public static boolean isCliente(String cpf) throws ClassNotFoundException,
+			SQLException {
 		ClienteDAO c = new ClienteDAO();
-		
-		if ( c.getCliente(cpf)!= null)
+
+		if (c.getCliente(cpf) != null)
 			return true;
 		return false;
 	}
 
-	public static boolean isFuncionario( String cpf ) throws ClassNotFoundException, SQLException{
+	public static boolean isFuncionario(String cpf)
+			throws ClassNotFoundException, SQLException {
 		FuncionarioDAO f = new FuncionarioDAO();
-		
-		if (cpf.equalsIgnoreCase("") || f.getFuncionario(cpf)!= null)
+
+		if (cpf.equalsIgnoreCase("") || f.getFuncionario(cpf) != null)
 			return true;
 		return false;
 	}
+
 	public static void update(Funcionario funcionario) throws SQLException,
 			ClassNotFoundException {
 		new FuncionarioDAO().update(funcionario);
@@ -286,26 +296,26 @@ public class Facade {
 	}
 
 	public static void removeDVD(int id) throws SQLException,
-		ClassNotFoundException {
-			DVD dvd = LocadoraFactory.getDVD();
-			dvd.setId(id);
-			new DVDDAO().remove(dvd);
+			ClassNotFoundException {
+		DVD dvd = LocadoraFactory.getDVD();
+		dvd.setId(id);
+		new DVDDAO().remove(dvd);
 	}
 
-	
 	public static ArrayList<String> getDVDs() throws SQLException,
 			ClassNotFoundException {
 		ArrayList<String> dvds = new ArrayList<String>();
 		ArrayList<DVD> aux = (ArrayList<DVD>) new DVDDAO().get();
 		for (DVD d : aux) {
-			
-			dvds.add(new String("Classificacaoo: " + d.getDescricao()
-					+ ",\nTitulo: " + d.getNome())  + ",\nCodigo: " + d.getId() + ",\nLocado: " + d.isLocado());
+
+			dvds.add(new String("Classificacao: " + d.getDescricao()
+					+ ",\nTitulo: " + d.getNome())
+					+ ",\nCodigo: " + d.getId() + ",\nLocado: " + d.isLocado());
 
 		}
 		return dvds;
 	}
-	
+
 	public static void remove(Multa multa) throws SQLException,
 			ClassNotFoundException {
 		new MultaDAO().remove(multa);
@@ -325,19 +335,18 @@ public class Facade {
 			ClassNotFoundException {
 		new LocacaoDAO().remove(locacao);
 	}
-	
+
 	public static boolean removeLocacao(int id) throws SQLException,
 			ClassNotFoundException {
-		if(getLocacao(id)!= null){
-			 DVD d = (DVD)Facade.getLocacao(id).getMidia();
-				d.setLocado(false);
-				Facade.update(d);
+		if (getLocacao(id) != null) {
+			DVD d = (DVD) Facade.getLocacao(id).getMidia();
+			d.setLocado(false);
+			Facade.update(d);
 			Locacao locacao = LocadoraFactory.getLocacao();
 			locacao.setId(id);
 			new LocacaoDAO().remove(locacao);
 			return true;
-		}
-		else 
+		} else
 			return false;
 	}
 
@@ -447,14 +456,16 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Funcionario>) new FuncionarioDAO().get();
 	}
-	
+
 	public static ArrayList<String> getFuncionarios()
 			throws ClassNotFoundException, SQLException {
 		ArrayList<String> aux = new ArrayList<>();
-		ArrayList<Funcionario> fun = (ArrayList<Funcionario>) new FuncionarioDAO().get();
-		for(Funcionario f : fun){
-			aux.add(new String("Nome: " + f.getNome() + "\nMatricula: "+ f.getMatricula()));
-			
+		ArrayList<Funcionario> fun = (ArrayList<Funcionario>) new FuncionarioDAO()
+				.get();
+		for (Funcionario f : fun) {
+			aux.add(new String("Nome: " + f.getNome() + "\nMatricula: "
+					+ f.getMatricula()));
+
 		}
 		return aux;
 	}
@@ -463,7 +474,7 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return new FuncionarioDAO().getFuncionario(cpf);
 	}
-	
+
 	public static Funcionario getFuncionarioPorMatricula(String matricula)
 			throws ClassNotFoundException, SQLException {
 		return new FuncionarioDAO().getFuncionarioPorMatricula(matricula);
@@ -478,21 +489,24 @@ public class Facade {
 			throws ClassNotFoundException, SQLException {
 		return (ArrayList<Locacao>) new LocacaoDAO().get();
 	}
-	
+
 	public static ArrayList<String> getLocacoes()
 			throws ClassNotFoundException, SQLException {
 		ArrayList<Locacao> locacoes = getLocacao();
 		ArrayList<String> laux = new ArrayList<String>();
 		String estado = "em aberto";
-		for(Locacao l : locacoes){
+		for (Locacao l : locacoes) {
 			if (l.getValorPago() > 0)
 				estado = "finalizada";
 			else {
-				estado ="em aberto";
+				estado = "em aberto";
 			}
-			laux.add(new String("ID: " + l.getId()) + "\nCliente: "+ l.getCliente().getNome() + "\nFuncionario: " + l.getFuncionario().getNome()
-					+ l.getCliente().getNome() + "\nID Produto: " + l.getMidia().getId() + "\nClassificacao: "
-					+ l.getMidia().getDescricao() + "\nTitulo: " + l.getMidia().getNome() + ", Situacao: " + estado);
+			laux.add(new String("Locação ID: " + l.getId()) + ",\n Cliente: "
+					+ l.getCliente().getNome() + ",\nFuncionario: "
+					+ l.getFuncionario().getNome() + ",\nID Produto: "
+					+ l.getMidia().getId() + ",\nClassificacao: "
+					+ l.getMidia().getDescricao() + ",\nTitulo: "
+					+ l.getMidia().getNome() + ", Situacao: " + estado);
 		}
 		return laux;
 	}
@@ -525,10 +539,10 @@ public class Facade {
 			}
 
 		} catch (ClassNotFoundException e) {
-			
+
 			e.printStackTrace();
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -545,41 +559,48 @@ public class Facade {
 		}
 		return clientes;
 	}
-	
-	public static ArrayList<String> Extrato(String cpf, int idMulta) throws ClassNotFoundException, SQLException{
-		
+
+	public static ArrayList<String> Extrato(String cpf, int idMulta)
+			throws ClassNotFoundException, SQLException {
+
 		ArrayList<String> aux = new ArrayList<String>();
-		String resultado = "Registro de Alugueis de " + new ClienteDAO().getCliente(cpf).getNome();
+
+		if (!isCliente(cpf))
+			return null;
+		String resultado = "Registro de Alugueis de "
+				+ new ClienteDAO().getCliente(cpf).getNome();
 		aux.add(resultado);
 		ArrayList<Locacao> loc = (ArrayList<Locacao>) getLocacoes(cpf);
 		Calendar c = Calendar.getInstance();
 		Calendar d = Calendar.getInstance();
 		int id_multa = idMulta;
 		double valor_total = 0;
-		for(Locacao l : loc){
-			if (l.getDtDevolucao()== null) {
-				resultado = "ID: " +l.getId() +", Classificacao: " + l.getMidia().getDescricao() + ", Titulo: " + l.getMidia().getNome()
-						+ ", Valor: " + l.getValor();
+		for (Locacao l : loc) {
+			if (l.getDtDevolucao() == null) {
+				resultado = "Locação ID: " + l.getId() + ", Classificacao: "
+						+ l.getMidia().getDescricao() + ", Titulo: "
+						+ l.getMidia().getNome() + ", Valor: " + l.getValor();
 				d.setTime(l.getDtDevolucaoAgendada());
-				if(id_multa == 0) {
-					int dias = (int)((c.getTimeInMillis() - d.getTimeInMillis())/(1000*60*60*24));
-					if (dias > 2 && dias < 10) 
+				if (id_multa == 0) {
+					int dias = (int) ((c.getTimeInMillis() - d
+							.getTimeInMillis()) / (1000 * 60 * 60 * 24));
+					if (dias > 2 && dias < 10)
 						id_multa = 2;
-					if( dias >=10 )
+					if (dias >= 10)
 						id_multa = 3;
-					if (dias <= 0 )
+					if (dias <= 0)
 						id_multa = 1;
 				}
-				
-					resultado += ", multa: " + getMulta(id_multa).getNome() + ", valor: " +  getMulta(id_multa).getValor();
-					valor_total += (l.getValor() + getMulta(id_multa).getValor());
-					aux.add(resultado);
-			
+
+				resultado += ", multa: " + getMulta(id_multa).getNome()
+						+ ", valor: " + getMulta(id_multa).getValor();
+				valor_total += (l.getValor() + getMulta(id_multa).getValor());
+				aux.add(resultado);
+
 			}
 		}
 		aux.add(new String("Divida Total: " + valor_total));
-		return aux ;
+		return aux;
 	}
-		
-	
+
 }

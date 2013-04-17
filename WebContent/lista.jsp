@@ -12,6 +12,7 @@
 <title>Locadora de video: Lista </title>
 </head>
 <body>
+<center><img src="imagens/fitas.jpg" width="75" height="75"></center>
 <h2>Lista de <%=tlista %></h2><br>
 <% for(String s : lista) {%>
 	<center>

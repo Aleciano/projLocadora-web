@@ -10,15 +10,35 @@
 <title>Locadora de video: Remover Cliente </title>
 </head>
 <body>
-	<center>
+<script language="JavaScript">
+			function ValidaSemPreenchimento(form) {
+				if(form.cpf.value==""){
+					 alert ("Por favor preencha o CPF");
+					 return false;
+				}
+				
+				
+					
+				return true;
+			}
+			function SomenteNumero(e){
+			    var tecla=(window.event)?event.keyCode:e.which;   
+			    if((tecla>47 && tecla<58)) return true;
+			    else{
+			    	if ((tecla == 8) || (tecla == 13) || (tecla == 9) || (tecla == 46)) return true;
+					else  return false;
+			    }
+			}
+		</script>
+	<center><img src="imagens/cliente.jpeg" width="85" height="85">
 		<h1>Bem vindo a Remoção de Cliente</h1>
 		<hr>
 
-		<form action="ClienteServlet" method="post">
+		<form action="ClienteServlet" method="post" onSubmit="return ValidaSemPreenchimento(this)">
 			<br>
 			<br>
 			<br> Digite o CPF do Cliente <input type="text" maxlength=11
-				name="cpf"> <input type="submit" name="botaoPesqcpf"
+				name="cpf" onkeypress='return SomenteNumero(event)' value="" onblur="if(this.value=='') this.value=''"> <input type="submit" name="botaoPesqcpf"
 				value="Remover..."> <input type="reset" value="Limpar" /><br>
 				<input type="hidden" name="flag" value="remover">
 

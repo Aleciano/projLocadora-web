@@ -10,22 +10,29 @@
 <title>Locadora de video: Devolver Locação</title>
 </head>
 <body>
-	<center>
+	<center><img src="imagens/fitas.jpg" width="75" height="75">
 		<h1>BEM VINDO A DEVOLUCAO DE LOCAÇÃO</h1>
 		<hr>
 		<script language="JavaScript">
 			function ValidaSemPreenchimento(form) {
 				if(form.cod.value==""){
 					var nome = form.descricao;
-					 alert ("Por favor digite tudo em CPF");
+					 alert ("Por favor preencha o campo CPF");
 					 return false;
 				}
 				return true;
 			}
+			function SomenteNumero(e){
+			    var tecla=(window.event)?event.keyCode:e.which;   
+			    if((tecla>47 && tecla<58)) return true;
+			    if ((tecla == 8) || (tecla == 13) || (tecla == 9) ) return true;
+				else  return false;
+			    
+			}
 		</script>
-		<form action="LocacaoServlet" method="post" onSubmit="return ValidaSemPreenchimento(this)"s>
+		<form action="LocacaoServlet" method="post" onSubmit="return ValidaSemPreenchimento(this)">
 			<br> <br> <br> DIGITE O CPF DO CLIENTE <input
-				type="text" name="cod" descricao="CPF"> <br>
+				type="text" name="cod" descricao="CPF" onkeypress='return SomenteNumero(event)' value="" onblur="if(this.value=='') this.value=''"> <br>
 			<br> <select name="multa">
 				<option value="0">AUTOMÁTICO</option>
 				<option value="1">SEM MULTA</option>

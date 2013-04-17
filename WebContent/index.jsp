@@ -7,14 +7,16 @@
 <title>Locadora de video: Login</title>
 </head>
 <body>
+
 	<center>
+		<img src="imagens/fitas.jpg" width="75" height="75">
 		<h1>Bem vindo ao acesso da Locadora de video</h1>
 		<hr>
 		<h2>
 			<font color="green"> Por favor Funcionario, entre com sua
 				Identificação </font>
 		</h2>
-		
+
 		<form action="LoginServlet" method="post">
 			<table border=1 bgcolor=#00FFFF>
 				<tr>

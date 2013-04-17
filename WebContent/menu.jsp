@@ -38,7 +38,6 @@
 </head>
 <body>
 
-<h3>Sua sessao expira em <%=session.getMaxInactiveInterval()/3600 %> minutos</h3>
 <center>
 		<h1>PROJETO LOCADORA DE VÍDEO</h1>
 		<hr>

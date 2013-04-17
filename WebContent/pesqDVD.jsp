@@ -11,11 +11,11 @@
 </head>
 <body>
 
-	<center>
+	<center><img src="imagens/dvd.jpg" width="85" height="85">
 		<h1>Bem vindo a Pesquisa de DVD</h1>
 		<hr>
 		<form action="DvdServlet" method="post">
-			<br> <br> <br> Digite o Título do DVD <input
+			<br> (Deixe em branco para ver todos os DVDs)<br><br> Digite o Título do DVD <input
 				type="text" name="nome"> <input type="submit"
 				name="botaoPesq" value="Pesquisar..."> <input type="reset"
 				value="Limpar" />

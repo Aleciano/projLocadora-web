@@ -13,8 +13,8 @@
 <body>
 
 	<center>
-	
-		<h2>ESCOLHA QUE LOCAÇÕES DESEJA FINALIZAR</h2><hr><br>
+		<img src="imagens/fitas.jpg" width="75" height="75">
+		<h2>ESCOLHA AS LOCAÇÕES DESEJA FINALIZAR</h2><hr><br>
 		<% ArrayList<String> locacoes = (ArrayList<String>)request.getAttribute("locacoes");%>
 		<h2> <font color="blue"> <%=locacoes.get(0) %></font> </h2>
 		<form action="LocacaoServlet" method="post">
@@ -22,10 +22,10 @@
 			
 			<%    for (int i = 1 ; i < locacoes.size()-1; i++ ){ %>
 		 <font color="gray"> <%=locacoes.get(i)%> </font> 
-		<input type="checkbox" name="encerrar" value="<%=locacoes.get(i) %>"> <br>
+		<input type="radio" name="encerrar" value="<%=locacoes.get(i) %>"> <br>
 		<% } %>
 		<input type="hidden" name="flag" value="encerrar">
-		<input type="submit">
+		<input type="submit" value="Encerrar">
 	<h2>	<font color="blue"><%= locacoes.get(locacoes.size() - 1) %> </font></h2>
 		</form>
 		<br><br>

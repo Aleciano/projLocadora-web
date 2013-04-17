@@ -75,11 +75,15 @@ public class ClienteServlet extends HttpServlet {
 		ArrayList<String> aux = new ArrayList<>();
 		String arg = request.getParameter("arg");
 		String ind = request.getParameter("indicador");
+		if(arg.equalsIgnoreCase("")) return getClientes();
+
 		try {
 			clientes = Facade.getCliente();
 			for (String cliente : clientes) {
-				if (cliente.toUpperCase().contains(
-						(ind + ": " + arg).toUpperCase())) {
+				if (cliente.toLowerCase().contains(
+						(arg).toLowerCase()))
+				/*if (cliente.toUpperCase().contains(
+						(ind + ": " + arg).toUpperCase()))*/ {
 					aux.add(cliente);
 				}
 			}
@@ -145,6 +149,7 @@ public class ClienteServlet extends HttpServlet {
 
 		if (flag.equalsIgnoreCase("pesquisar")) {
 			ArrayList<String> clientes = pesquisaCliente(request, response);
+			
 			request.setAttribute("lista", clientes);
 			request.setAttribute("tipo", "Clientes");
 			request.getRequestDispatcher("lista.jsp")

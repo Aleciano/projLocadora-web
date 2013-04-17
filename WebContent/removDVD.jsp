@@ -10,10 +10,20 @@
 <title>Locadora de video: Remover DVD </title>
 </head>
 <body>
-	<center>
+	<center><img src="imagens/dvd.jpg" width="85" height="85">
 		<h1>Bem vindo a Remoção de DVD</h1>
 		<hr>
-		<form action="DvdServlet" method="post">
+		<script language="JavaScript">
+			function ValidaSemPreenchimento(form) {
+				if(form.cod.value==""){
+					 alert ("Você quer que eu adivinhe qual DVD você quer remover??");
+					 return false;
+				}
+									
+				return true;
+			}
+		</script>		
+		<form action="DvdServlet" method="post" onsubmit="return ValidaSemPreenchimento(this)">
 			<br> <br> <br> Digite o código do DVD <input
 				type="text" name="cod"> <input type="submit"
 				name="botaoRemov" value="Remover..."> <input type="reset"
