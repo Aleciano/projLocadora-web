@@ -24,6 +24,10 @@
 					 alert ("Por favor preencha a duração do DVD");
 					 return false;
 				}
+				if(form.duracao.value=="Minutos"){
+					 alert ("Por favor preencha a duração do DVD");
+					 return false;
+				}
 				if(form.qt.value==""){
 					 alert ("Por favor preencha a quantidade de mídias");
 					 return false;

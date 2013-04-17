@@ -27,7 +27,7 @@
 	<script language="JavaScript">
 		function ValidaSemPreenchimento(form) {
 			if (form.cpf.value == "") {
-				alert("Por favor o CPF do cliente");
+				alert("Por favor forneça o CPF do cliente");
 				return false;
 			}
 			if (form.mat.value == "") {
@@ -77,7 +77,7 @@
 			<br>
 			<br>
 			<br> MATRICULA DO FUNCIONÁRIO <input type="text" name="mat"
-				onkeypress='return SomenteNumero(event)' value=""
+				onkeypress='return SomenteNumero(event)' value="<%=request.getAttribute("login")%>"
 				onblur="if(this.value=='') this.value=''"><br>
 			<br>
 			<br>
@@ -122,7 +122,6 @@
 			</h3>
 			<h3>
 				Tudo por: <font color="red"> <%=request.getAttribute("valor")%>
-				</font> Promocão: <font color="red"> <%=promocao%>
 				</font></h3>
 		</DIV>
 		

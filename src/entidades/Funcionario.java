@@ -1,23 +1,19 @@
 package entidades;
 
 /**
- * @author tercio
- *Esta classe e filha de Pessoa e modela um funcionario qualquer do mundo real
- *Funcionario possui 
- *uma matricula @param matricula
- *um login @param login
- *uma senha de login @param senha
- *e todos os atributos de uma Pessoa
- *
+ * Esta classe e filha de Pessoa e modela um funcionario qualquer do mundo real
+ * Funcionario possui uma matricula, um login, uma senha de login e todos os atributos de uma Pessoa.
  */
 /**
  * Esta classe  e filha de Pessoa e modela um funcionario de uma video locadora 
  * Funcionario possui todos os atributos de pessoa e mais:  
  * uma matricula, um login e uma senha 
- * 
- */
-public class Funcionario extends Pessoa {
+ * @author Tercio, Aleciano e Leonardo. 
 
+ */
+
+public class Funcionario extends Pessoa {
+	
 	private int matricula;
 	private String login;
 	private String senha;

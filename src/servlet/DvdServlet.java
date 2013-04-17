@@ -153,7 +153,7 @@ private void listar(HttpServletRequest request,	HttpServletResponse response) th
 				request.setAttribute("dvd", "DVD removido com sucesso");
 			}
 			else
-				request.setAttribute("dvd", "falha ao tentar remover DVD");
+				request.setAttribute("dvd", "Falha ao tentar remover DVD. .");
 			
 			request.getRequestDispatcher("removDVD.jsp").forward(request, response);
 			break;

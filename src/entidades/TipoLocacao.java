@@ -1,7 +1,10 @@
 package entidades;
 
 /**
- * @author tercio, leonardo e aleciano
+ *Esta classe modela um tipo de locacao que pode ser realizado em uma locadora do mundo real
+ */
+
+/**
  *Esta classe modela um tipo de locacao que pode ser realizado em uma locadora do mundo real
  *Ela possui:
  * um numero de identificacao, 
@@ -9,6 +12,7 @@ package entidades;
  * uma descricao,
  * um valor para locacao e
  * a quantidade de dias da locacao.
+ * @author tercio, leonardo e aleciano
  *
  */
 public class TipoLocacao {

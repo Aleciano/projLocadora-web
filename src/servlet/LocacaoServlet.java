@@ -145,7 +145,7 @@ public class LocacaoServlet extends HttpServlet {
 				}
 				else{
 					request.setAttribute("promocao", null);
-					request.setAttribute("locacao", "Erro ao tentar locar produto! Verifique se os dados estão corretos e se o produto está disponível.");
+					request.setAttribute("locacao", "Erro ao tentar locar produto! Dados incorretos ou DVD e Cliente indisponíveis para realizar locações.");
 					request.getRequestDispatcher("cadlocacao.jsp").forward(request, response);
 				}
 		

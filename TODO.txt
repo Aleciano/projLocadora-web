@@ -1,5 +1,5 @@
 Coisas que precisam ser feitas
 
--Javadoc
+-Todo (ou quase todos) final de interação deveria retornar para a página principal do Menu e exibir um pop-up ou alerta sobre o resultado do que se queria fazer.
 
--Obrigar a fazer a checagem se um certo campo esta vazio.
+- Sugerir que o servlet pegue automaticamente o funcionário na hora da locação através dos atributos de sessão.

@@ -1,6 +1,13 @@
 package entidades;
 
+/**
+ * Classe que representa um Produto da Locadora.
+ */
 
+/**
+ * Produto incluir campos como identificador, nome e descricao.
+ * @author aleciano, tercio e leonardo
+ */
 
 public abstract class Produto {
 	private int id;

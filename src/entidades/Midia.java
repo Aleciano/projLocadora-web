@@ -1,15 +1,16 @@
 package entidades;
 
 /**
- * @author tercio, aleciano, leonardo Esta classe é uma classe abstrata filha
- *         de Produto Ela modela uma midia locavel do mundo real; Ela possui um
- *         numero de idendificacao da midia,
- * 
- *         um nome da midia
- * 
- *         uma descricao da da midia
- * 
- *         e uma quantidade de volumes da midia
+ * 		Esta classe e uma classe abstrata filha
+ *         de Produto. Ela modela uma midia locavel do mundo real. 
+ */
+
+/**@author Tercio, Aleciano, Leonardo
+ * Esta classe e uma classe abstrata filha
+ * de Produto. Ela modela uma midia locavel do mundo real. Ela possui um
+ * numero de idendificacao da midia, um nome da midia, uma descricao da da midia
+ * e uma quantidade de volumes da midia.
+ * @author junior
  */
 public abstract class Midia extends Produto {
 	private short qt;

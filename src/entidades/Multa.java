@@ -1,12 +1,19 @@
 package entidades;
 
 /**
- * @author tercio, aleciano e leonardo Esta classe modela uma multa que pode ser
- *         aplicada a uma locacao de uma produto de uma locadora que teve a
- *         entrega atrazada. Ela possui os seguintes atributos: um numero de
- *         identificacao, um nome ,uma descricao e um valor. 
- * 
+ * Esta classe modela uma multa que pode ser aplicada a uma locacao de uma produto de uma locadora que teve a
+ * entrega atrasada.  
  */
+/**
+ * Esta classe modela uma multa que pode ser aplicada a uma locacao de uma produto de uma locadora que teve a
+ * entrega atrasada. Ela possui os seguintes atributos: um numero de identificacao, um nome, uma descricao e um valor.
+ * @author Tercio, Aleciano e Leonardo
+ * @param id identificacao da multa
+ * @param nome nome da multa
+ * @param valor da multa
+*/
+
+
 public class Multa {
 	private int id;
 	private String nome;
@@ -14,28 +21,28 @@ public class Multa {
 	private double valor;
 
 	/**
-	 * @return o numero de idendificacao da multa
+	 * @return o numero de idendificacao da Multa
 	 */
 	public int getId() {
 		return id;
 	}
 
 	/**
-	 * @param id numero de identificacao da multa
+	 * @param id numero de identificacao da Multa
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
 	/**
-	 * @return o nome da multa
+	 * @return o nome da Multa
 	 */
 	public String getNome() {
 		return nome;
 	}
 
 	/**
-	 * @param nome nome da multa
+	 * @param nome nome da Multa
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -43,24 +50,24 @@ public class Multa {
 
 	
 	/**
-	 * @return o valor da multa
+	 * @return o valor da Multa
 	 */
 	public double getValor() {
 		return valor;
 	}
 
 	/**
-	 * @param valor valor da multa
+	 * @param valor valor da Multa
 	 */
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
 
 	/**construtor com parametros
-	 * @param id numero de idenditificacao da multa
-	 * @param nome nome da multa
+	 * @param id numero de idenditificação da Multa.
+	 * @param nome nome da Multa
 
-	 * @param valor valor da multa
+	 * @param valor valor da Multa
 	 */
 	public Multa(int id, String nome,
 			double valor) {
@@ -71,11 +78,10 @@ public class Multa {
 		this.valor = valor;
 	}
 	
-	/**construtor com parametros
-	 * @param id numero de idenditificacao da multa
-	 * @param nome nome da multa
+	/** Construtor com parametros
+	 * @param nome nome da Multa
 
-	 * @param valor valor da multa
+	 * @param valor valor da Multa
 	 */
 	public Multa(String nome,
 			double valor) {

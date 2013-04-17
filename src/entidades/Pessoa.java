@@ -4,13 +4,16 @@
 package entidades;
 
 /**
- * @author aleciano, tercio e leonardo
+ * Classe que representa um pessoa e seus atributos.
+ */
+
+/**
  * Pessoa, classe abstrata que pode ser utilizada para modelar qualquer
  * objeto do mundo real que seja um ser humano
- * 
- *
- * 
+ * @author aleciano, tercio e leonardo
  */
+
+
 public abstract class Pessoa {
 
 	private String nome;

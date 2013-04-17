@@ -3,49 +3,39 @@ package entidades;
 import java.sql.Date;
 
 /**
- * @author tercio
- *Esta clase simula uma locacao de um produto de uma locadora
- *Ela possui
- *um numero de identificacao @param id
- *uma Midia @param midia
- *um valor @param valor
- *um tipo de multa @param multa
- *o valor pago @param valorPago 
- *um tipo de promocao @param promocao
- *a data de locacao @param dtLocacao
- *a data agendada para entrega da midia @param dtDevolucaoAgendada 
- * a data de devolucao @param dtDevolucao
- * o funcionario que realizou a locacao @param funcionario
- * o cliente que locou a midia @param cliente
- * o tipo de locacao @param tipoLocacao  
+ *Esta clase representa uma locacao de um produto de uma locadora.
+
  */
-
-
+/**
+	 *  Esta clase representa uma locacao de um produto de uma locadora.
+	 * Ela possui um numero de identificacao, uma midia, um tipo de multa, o valor da locacao e o valor acrescido de multa se houver
+	 * um tipo de promocao, a data de locacao, a data agendada para entrega da midia, a data de devolucao que aconteceu
+	 * o funcionario que realizou a locacao, o cliente que locou o produto, o tipo de locacao. 
+	 * @author Aleciano, Tercio e Leonardo.
+	 */
 public class Locacao {
-
+	
+	
 	private int id;
 	private Midia midia;
 	private double valor; // valor já existe dentro do tipo da locação.
-//	private Multa multa; // não precimos carregar o objeto, só o valor. Usaremos em um "setvalor"
 	private double valorPago; 
-//	private Promocao promocao; // não precimos carregar o objeto, só o valor. Usaremos em um "setvalor"
 	private Date dtLocacao;
 	private Date dtDevolucaoAgendada;
 	private Date dtDevolucao;
 	private Funcionario funcionario;
 	private Cliente cliente;
-//	private TipoLocacao tipoLocacao;
 
 	/**
-	 * construtor vazio
+	 * Construtor vazio
 	 */
 	public Locacao() {
 		super();
 //		this.tipoLocacao = new TipoLocacao();
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	/**construtor com parametros
+	/**Construtor com parametros
 	 * @param id numero de identificacao da locacao
 	 * @param midia mida
 	 * @param valor valor da locacao
@@ -53,14 +43,13 @@ public class Locacao {
 
 	 * @param promocao promocao em vigor
 	 * @param dtLocacao data que foi realizada locacao
-	 * @param dtDevolucaoAgendada data em que deve ser encerrada a locacao
-	 * @param dtDevolucao data que foi encerrada a locacao
-	 * @param funcionario funcionario que realizou a locacao
-	 * @param cliente cliente que fez a locacao
+	 * @param dtDevolucaoAgendada data de devolução agendada
+	 * @param dtDevolucao data que foi encerrada a locacao de fato
+	 * @param funcionario funcionario que realizou a operacao
+	 * @param cliente cliente que locou o produto.
+	 * @param tipoLocacao tipo de Locação através da classificação da mídia
 
-	 */
-//	 * @param valorPago valor que o cliente  pagou
-//	 * @param tipoLocacao o tipo de locacao
+ */
 	 
 	public Locacao(int id, Midia midia, double valor, Multa multa,
 			double valorPago, Promocao promocao, Date dtLocacao,
@@ -82,6 +71,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Retorna o numero de identificacao da locacao
 	 * @return o numero de identificacao da locacao
 	 */
 	public int getId() {
@@ -89,6 +79,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Set o id da locacao.
 	 * @param id numero de identificacao da locacao
 	 */
 	public void setId(int id) {
@@ -96,6 +87,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Retorna a midia qeu foi locada.
 	 * @return a midia que foi locada
 	 */
 	public Midia getMidia() {
@@ -103,6 +95,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Seta a midia a ser locada.
 	 * @param midia
 	 */
 	public void setMidia(Midia midia) {
@@ -110,14 +103,16 @@ public class Locacao {
 	}
 
 	/**
-	 * @return valor da locacao
+	 * Retorna o valor da locacao.
+	 * @return o valor da locacao
 	 */
 	public double getValor() {
-	//TODO retorno com multa ou promoção
+	
 		return this.valor;
 	}
 
 	/**
+	 * Seta o valor da locacao.
 	 * @param valor valor da locacao
 	 */
 	public void setValor(double valor) {
@@ -125,64 +120,24 @@ public class Locacao {
 		
 	}
 	/**
-	 * @param valor valor da locacao
+	 * Seta valor com base em uma multa.
+	 * @param multa o tipo de Multa.
 	 */
 	public void setValor(Multa multa) {
 		this.valor = (multa != null) ? this.valor + multa.getValor() : valor;
 		
 	}
 	/**
-	 * @param valor valor da locacao
+	 * Seta valor com base em uma promocao.
+	 * @param promocao O tipo de promoção.
 	 */
 	public void setValor(Promocao promocao) {
 		this.valor = (promocao != null) ? this.valor - promocao.getValor() : valor;
 		
 	}
-/*
-	*//**
-	 * @return multa
-	 *//*
-	public Multa getMulta() {
-		return multa;
-	}
 
-	*//**
-	 * @param multa multa da locacao
-	 *//*
-	public void setMulta(Multa multa) {
-		this.multa = multa;
-	}
-	*/
-/*
-	*//**
-	 * @return valor pago pelo cliente
-	 *//*
-	public double getValorPago() {
-		return valorPago;
-	}
-
-	*//**
-	 * @param valorPago valor que cliente vai pagar
-	 *//*
-	public void setValorPago(double valorPago) {
-		this.valorPago = valorPago;
-	}*/
-/*
-	*//**
-	 * @return a promocao
-	 *//*
-	public Promocao getPromocao() {
-		return promocao;
-	}
-
-	*//**
-	 * @param promocao uma promocao
-	 *//*
-	public void setPromocao(Promocao promocao) {
-		this.promocao = promocao;
-	}
-*/
 	/**
+	 * Retorna a data de locacao.
 	 * @return a data de locacao
 	 */
 	public Date getDtLocacao() {
@@ -190,6 +145,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Seta a data de locacao.
 	 * @param dtLocacao a data da locacao
 	 */
 	public void setDtLocacao(Date dtLocacao) {
@@ -197,6 +153,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Retorna a data agendada para devolucao.
 	 * @return a data agendada para devolucao
 	 */
 	public Date getDtDevolucaoAgendada() {
@@ -204,6 +161,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Seta a data agendada para devolucao.
 	 * @param dtDevolucaoAgendada data agendada para devolucao
 	 */
 	public void setDtDevolucaoAgendada(Date dtDevolucaoAgendada) {
@@ -211,6 +169,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Retorna a data da que foi encerrada a locacao.
 	 * @return a data da que foi encerrada a locacao
 	 */
 	public Date getDtDevolucao() {
@@ -218,6 +177,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Seta a data que foi encerrada a locacao.
 	 * @param dtDevolucao data que foi encerrada a locacao
 	 */
 	public void setDtDevolucao(Date dtDevolucao) {
@@ -225,6 +185,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Retorna o funcionario que realizou a locacao.
 	 * @return o funcionario que realizou a locacao
 	 */
 	public Funcionario getFuncionario() {
@@ -232,6 +193,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Seta o funcionario que realizou a locacao.
 	 * @param funcionario funcionario que realizou a locacao
 	 */
 	public void setFuncionario(Funcionario funcionario) {
@@ -239,6 +201,7 @@ public class Locacao {
 	}
 
 	/**
+	 * Retorna o cliente que fez a locacao.
 	 * @return o cliente que fez a locacao
 	 */
 	public Cliente getCliente() {
@@ -246,26 +209,16 @@ public class Locacao {
 	}
 
 	/**
-	 * @param cliente cliente que locou produto
+	 * Sera o cliente que locou o produto.
+	 * @param cliente cliente que locou o produto
 	 */
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-/*
-	*//**
-	 * @return tipo de locacao
-	 *//*
-	public TipoLocacao getTipoLocacao() {
-		return tipoLocacao;
-	}
-
-	*//**
-	 * @param tipoLocacao um tipo de locacao
-	 *//*
-	public void setTipoLocacao(TipoLocacao tipoLocacao) {
-		this.tipoLocacao = tipoLocacao;
-	}*/
-
+	/**
+	 * Retorna String com dados da locacao.
+	 * @return a String com dados da locacao
+	 */
 	@Override
 	public String toString() {
 		return "Locacao [id=" + id + ", midia=" + midia + ", valor=" + getValor()
@@ -276,11 +229,17 @@ public class Locacao {
 				+ hashCode() + ", toString()=" + super.toString() + "]";*/
 				;
 	}
-
+	/**
+	 * Retorna o valor pago da locacao.
+	 * @return valor pago da locacao.
+	 */
 	public double getValorPago() {
 		return valorPago;
 	}
-
+	/**
+	 * Seta o valor pago da locacao.
+	 * @param valorPago
+	 */
 	public void setValorPago(double valorPago) {
 		this.valorPago = valorPago;
 	}

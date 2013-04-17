@@ -1,5 +1,13 @@
 package entidades;
 
+/**
+ * Classe que representa uma Promocao da Locadora.
+ */
+
+/**
+ * Promocao tem campos como identificador, nome, valor dela, data de inicio e data final de validade.
+ * @author aleciano, tercio e leonardo
+ */
 
 import java.sql.*;
 
