@@ -14,14 +14,26 @@
 	<center><img src="imagens/cliente.jpeg" width="85" height="85">
 		<h1>Bem vindo à Pesquisa de Cliente</h1>
 		<hr>
-		<form action="ClienteServlet" method="post">
+		<script language="JavaScript">
+			function ValidaSemPreenchimento(form) {
+				if(form.arg.value=="Pesquisar..."){
+					form.arg.value==''; 
+					return true;
+				}
+									
+				return true;
+			}
+			
+			
+		</script>
+		<form action="ClienteServlet" method="post" onSubmit="if(this.value=='Pesquisar...') this.value=' '">
 			<br>
 			<br> Digite o CPF do Cliente 
 				<select name="indicador">
 						<option  value="CPF" > CPF</option>
 						<option  value="Nome" > NOME</option>
 				</select>
-				<input type="text" maxlength=11 name="arg" value="Pesquisar..." onclick="this.value= ''">
+				<input type="text" maxlength=11 name="arg" value="Pesquisar..." onclick="this.value= ''" onblur="if(this.value=='') this.value='Pesquisar...'">
 				<input type="submit" value="Enviar" name="Enviar">
 				<input type="reset" value="Limpar"  />
 				
